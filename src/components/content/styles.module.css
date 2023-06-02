@@ -1,0 +1,9 @@
+.content {
+    display: flex;
+}
+
+.dataSection,
+.chartSection {
+    width: 50%;
+}
+
