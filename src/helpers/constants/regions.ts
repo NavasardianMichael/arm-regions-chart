@@ -1,6 +1,7 @@
-import { LANGS_LIST } from "./localization"
+import { T_RegionsState } from "../../store/regions/types";
+import { LANGS_IDS } from "./localization"
 
-const REGIONS_LIST = {
+export const REGIONS_IDS = {
     aragatsotn: 'aragatsotn',
     ararat: 'ararat',
     armavir: 'armavir',
@@ -14,73 +15,93 @@ const REGIONS_LIST = {
     vayotsDzor: 'vayotsDzor',
 } as const
 
-export const REGIONS = {
-    localizedOptions: {
-        [LANGS_LIST.en]: {
-            [REGIONS_LIST.aragatsotn]: 'Aragatsotn',
-            [REGIONS_LIST.ararat]: 'Artashat',
-            [REGIONS_LIST.armavir]: 'Armavir',
-            [REGIONS_LIST.yerevan]: 'Yerevan',
-            [REGIONS_LIST.gegharquniq]: 'Gegharquniq',
-            [REGIONS_LIST.kotayk]: 'Kotayk',
-            [REGIONS_LIST.lori]: 'Lori',
-            [REGIONS_LIST.shirak]: 'Shirak',
-            [REGIONS_LIST.syunik]: 'Syunik',
-            [REGIONS_LIST.vayotsDzor]: 'Vayots dzor',
-        },
-        [LANGS_LIST.am]: {
-            [REGIONS_LIST.aragatsotn]: 'Արագածոտն',
-            [REGIONS_LIST.ararat]: 'Արարատ',
-            [REGIONS_LIST.armavir]: 'Արմավիր',
-            [REGIONS_LIST.yerevan]: 'Երևան',
-            [REGIONS_LIST.gegharquniq]: 'Գեղարքունիք',
-            [REGIONS_LIST.kotayk]: 'Կոտայք',
-            [REGIONS_LIST.lori]: 'Լոռի',
-            [REGIONS_LIST.shirak]: 'Շիրակ',
-            [REGIONS_LIST.syunik]: 'Սյունիք',
-            [REGIONS_LIST.vayotsDzor]: 'Վայոց ձոր',
-        },
+export const REGIONS_IDS_LIST = Object.values(REGIONS_IDS)
+
+export const REGIONS_LOCALIZE_OPTIONS = {
+    [LANGS_IDS.en]: {
+        [REGIONS_IDS.aragatsotn]: 'Aragatsotn',
+        [REGIONS_IDS.ararat]: 'Artashat',
+        [REGIONS_IDS.armavir]: 'Armavir',
+        [REGIONS_IDS.yerevan]: 'Yerevan',
+        [REGIONS_IDS.gegharquniq]: 'Gegharquniq',
+        [REGIONS_IDS.kotayk]: 'Kotayk',
+        [REGIONS_IDS.lori]: 'Lori',
+        [REGIONS_IDS.shirak]: 'Shirak',
+        [REGIONS_IDS.syunik]: 'Syunik',
+        [REGIONS_IDS.tavush]: 'Tavush',
+        [REGIONS_IDS.vayotsDzor]: 'Vayots dzor',
     },
-    commonOptions: {
-        [REGIONS_LIST.aragatsotn]: {
-            id: REGIONS_LIST.aragatsotn,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.ararat]: {
-            id: REGIONS_LIST.ararat,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.armavir]: {
-            id: REGIONS_LIST.armavir,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.yerevan]: {
-            id: REGIONS_LIST.yerevan,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.gegharquniq]: {
-            id: REGIONS_LIST.gegharquniq,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.kotayk]: {
-            id: REGIONS_LIST.kotayk,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.lori]: {
-            id: REGIONS_LIST.lori,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.shirak]: {
-            id: REGIONS_LIST.shirak,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.syunik]: {
-            id: REGIONS_LIST.syunik,
-            fill: 'none' 
-        },
-        [REGIONS_LIST.vayotsDzor]: {
-            id: REGIONS_LIST.vayotsDzor,
-            fill: 'none' 
-        },
-    }
+    [LANGS_IDS.am]: {
+        [REGIONS_IDS.aragatsotn]: 'Արագածոտն',
+        [REGIONS_IDS.ararat]: 'Արարատ',
+        [REGIONS_IDS.armavir]: 'Արմավիր',
+        [REGIONS_IDS.yerevan]: 'Երևան',
+        [REGIONS_IDS.gegharquniq]: 'Գեղարքունիք',
+        [REGIONS_IDS.kotayk]: 'Կոտայք',
+        [REGIONS_IDS.lori]: 'Լոռի',
+        [REGIONS_IDS.shirak]: 'Շիրակ',
+        [REGIONS_IDS.syunik]: 'Սյունիք',
+        [REGIONS_IDS.tavush]: 'Տավուշ',
+        [REGIONS_IDS.vayotsDzor]: 'Վայոց ձոր',
+    },
 }
+
+export const REGIONS_INITIAL_FILL = 'none';
+
+export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
+    [REGIONS_IDS.aragatsotn]: {
+        id: REGIONS_IDS.aragatsotn,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.aragatsotn]
+    },
+    [REGIONS_IDS.ararat]: {
+        id: REGIONS_IDS.ararat,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.ararat]
+    },
+    [REGIONS_IDS.armavir]: {
+        id: REGIONS_IDS.armavir,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.armavir]
+    },
+    [REGIONS_IDS.yerevan]: {
+        id: REGIONS_IDS.yerevan,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.yerevan]
+    },
+    [REGIONS_IDS.gegharquniq]: {
+        id: REGIONS_IDS.gegharquniq,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.gegharquniq]
+    },
+    [REGIONS_IDS.kotayk]: {
+        id: REGIONS_IDS.kotayk,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.kotayk]
+    },
+    [REGIONS_IDS.lori]: {
+        id: REGIONS_IDS.lori,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.lori]
+    },
+    [REGIONS_IDS.shirak]: {
+        id: REGIONS_IDS.shirak,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.shirak]
+    },
+    [REGIONS_IDS.syunik]: {
+        id: REGIONS_IDS.syunik,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.syunik]
+    },
+    [REGIONS_IDS.tavush]: {
+        id: REGIONS_IDS.tavush,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.tavush]
+    },
+    [REGIONS_IDS.vayotsDzor]: {
+        id: REGIONS_IDS.vayotsDzor,
+        fill: REGIONS_INITIAL_FILL,
+        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.vayotsDzor]
+    },
+} as const
