@@ -4,6 +4,7 @@ export type T_RegionsState = {
     byId: {
         [key in keyof typeof REGIONS_IDS]: {
             id: keyof typeof REGIONS_IDS,
+            value: number
             fill: string
             text: string
         }
@@ -14,7 +15,8 @@ export type T_RegionsState = {
 export type T_RegionOptions = {
     id: typeof REGIONS_IDS[keyof typeof REGIONS_IDS],
     fill: string,
-    text: string
+    text: string,
+    value: number
 }
 
 export type T_ActionPayloads = {

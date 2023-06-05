@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { T_ActionPayloads, T_RegionsState } from './types'
 import { REGIONS_IDS_LIST, REGIONS_INITIAL_OPTIONS } from '../../helpers/constants/regions'
@@ -9,10 +10,10 @@ const initialState: T_RegionsState = {
 }
 
 export const regionsSlice = createSlice({
-  name: 'regions',
+  name: 'chart',
   initialState,
   reducers: {
-    incrementByAmount: (state, action: PayloadAction<T_ActionPayloads['changeRegionOptions']>) => {
+    setRegionOptions: (state, action: PayloadAction<T_ActionPayloads['changeRegionOptions']>) => {
       const { id } = action.payload
       state.byId[id] = {
         ...state.byId[id],
@@ -22,6 +23,6 @@ export const regionsSlice = createSlice({
   },
 })
 
-export const { incrementByAmount } = regionsSlice.caseReducers
+export const { setRegionOptions } = regionsSlice.caseReducers
 
 export default regionsSlice.reducer

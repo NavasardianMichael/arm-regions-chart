@@ -1,13 +1,18 @@
+import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+
 import App from './App';
+import { chartSlice } from './store/chart/slice';
+import { regionsSlice } from './store/regions/slice';
+
 import './index.css';
-import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
   reducer: {
-    regions: regionsReducer,
-    chart: chartReducer,
+    regions: regionsSlice.reducer,
+    chart: chartSlice.reducer,
   },
 })
 
@@ -18,7 +23,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
 );
