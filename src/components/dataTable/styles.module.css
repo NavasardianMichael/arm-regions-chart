@@ -2,6 +2,8 @@
     display: flex;
 }
 
-.section {
+.dataSection,
+.chartSection {
     width: 50%;
 }
+
