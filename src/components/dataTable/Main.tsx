@@ -14,7 +14,7 @@ import styles from './styles.module.css'
 export const DataTable: FC = () => {
 
     const data = useTypedSelector(selectRegionsData)
-console.log({data})
+
     return (
         <div className={styles.dataTable}>
             <TableContainer component={Paper}>
@@ -29,18 +29,18 @@ console.log({data})
                     <TableBody>
                         {
                             data.allIds.map((id) => {
-                                const { fill, text, value } = data.byId[id]
+                                const { fill, text, value } = data.byId[id];                               
                                 return (
-                                    <TableRow
-                                        key={id}
-                                    >
+                                    <TableRow key={id}>
                                         <TableCell>
-                                            {text}
+                                        <input value={text} />
                                         </TableCell>
                                         <TableCell>
-                                            {value}
+                                            <input type='number' value={value} />
                                         </TableCell>
-                                        <TableCell align="right">{fill}</TableCell>
+                                        <TableCell>
+                                            <input type="color" value={fill} onChange={e => console.log(e.target.value)} />
+                                        </TableCell>
                                     </TableRow>
                                 )
                             })

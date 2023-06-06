@@ -3,10 +3,11 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 2rem;
+    gap: 2rem;
     box-sizing: border-box;
     height: calc(100vh - var(--header-height));
 }
 
 .section {
-    width: 50%;
+    width: calc(50% - 1rem);
 }

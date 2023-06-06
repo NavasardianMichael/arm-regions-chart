@@ -46,7 +46,7 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     },
 }
 
-export const REGIONS_INITIAL_FILL = 'none';
+export const REGIONS_INITIAL_FILL = '#f00000';
 
 export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
     [REGIONS_IDS.aragatsotn]: {
