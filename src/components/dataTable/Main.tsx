@@ -5,15 +5,28 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { FC } from 'react'
+import { FC } from 'react';
 
+import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { selectRegionsData } from '../../store/regions/selectors';
-import styles from './styles.module.css'
+import { setRegionOptions } from '../../store/regions/slice';
+import { T_RegionOptions } from '../../store/regions/types';
+import styles from './styles.module.css';
 
 export const DataTable: FC = () => {
 
     const data = useTypedSelector(selectRegionsData)
+    const dispatch = useDispatch()
+
+    const handleTextBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+        const { name, value } = e.target
+        const attrName = e.currentTarget.getAttribute('data-regionoptionname') as keyof T_RegionOptions
+        dispatch(setRegionOptions({
+            id: name as T_RegionOptions['id'],
+            [attrName]: value,
+        }))
+    }
 
     return (
         <div className={styles.dataTable}>
@@ -28,20 +41,39 @@ export const DataTable: FC = () => {
                     </TableHead>
                     <TableBody>
                         {
-                            data.allIds.map((id) => {
-                                const { fill, text, value } = data.byId[id];                               
+                            data.allIds.map((id) => {  
+                                const { fill, text, value } = data.byId[id];
                                 return (
                                     <TableRow key={id}>
                                         <TableCell>
-                                        <input value={text} />
+                                            <input 
+                                                name={id}
+                                                data-regionoptionname='text'
+                                                className={styles.text}
+                                                defaultValue={text} 
+                                                onBlur={handleTextBlur} 
+                                                />
                                         </TableCell>
                                         <TableCell>
-                                            <input type='number' value={value} />
+                                            <input 
+                                                type='number' 
+                                                data-regionoptionname='value'
+                                                name={id}
+                                                className={styles.value} 
+                                                defaultValue={value}
+                                                onBlur={handleTextBlur} 
+                                                />
                                         </TableCell>
                                         <TableCell>
-                                            <input type="color" value={fill} onChange={e => console.log(e.target.value)} />
+                                            <input 
+                                                type="color"
+                                                data-regionoptionname='fill' 
+                                                name={id}
+                                                defaultValue={fill} 
+                                                onChange={handleTextBlur} 
+                                            />
                                         </TableCell>
-                                    </TableRow>
+                                </TableRow>
                                 )
                             })
                         }

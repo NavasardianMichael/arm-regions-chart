@@ -23,6 +23,6 @@ export const regionsSlice = createSlice({
   },
 })
 
-export const { setRegionOptions } = regionsSlice.caseReducers
+export const { setRegionOptions } = regionsSlice.actions
 
 export default regionsSlice.reducer

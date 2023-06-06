@@ -4,14 +4,12 @@
 
 .dataTable td {
     padding: 0;
-    border: 1px solid lightgray;
-    width: 40px;
 }
 
-.dataTable input {
-    /* border: none; */
-    /* outline: none; */
-    padding: .5rem 1rem;
-    width: 100%;
+.dataTable .text, 
+.dataTable .value {
+    border: none;
+    outline: none;
+    padding: .75rem 1rem;
     box-sizing: border-box;
 }
