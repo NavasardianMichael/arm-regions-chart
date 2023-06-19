@@ -1,17 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit'
-
-import { T_ChartState } from './types'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { T_ActionPayloads, T_ChartState } from './types'
+import { LEGEND_INITIAL_ROWS, LEGEND_INITIAL_ROW_IDS } from '../../helpers/constants/chart'
 
 const initialState: T_ChartState = {
-  borderColor: 'gray'
+  styles: {
+    borderColor: 'gray'
+  },
+  legend: {
+    byId: LEGEND_INITIAL_ROWS,
+    allIds: LEGEND_INITIAL_ROW_IDS
+  }
 }
 
 export const chartSlice = createSlice({
-  name: 'chart',
+  name: 'legend',
   initialState,
-  reducers: {},
+  reducers: {
+    setChartLegendOptions: (state, action: PayloadAction<T_ActionPayloads['changeChartLegendOptions']>) => {
+      const { id } = action.payload
+      state.legend.byId[id] = {
+        ...state.legend.byId[id],
+        ...action.payload
+      }
+    },
+  },
 })
 
-// export const { setRegionOptions } = chartSlice.caseReducers
+export const { setChartLegendOptions } = chartSlice.actions
 
 export default chartSlice.reducer

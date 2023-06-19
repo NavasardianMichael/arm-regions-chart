@@ -7,17 +7,17 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { FC } from 'react';
 
-import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { selectRegionsData } from '../../store/regions/selectors';
 import { setRegionOptions } from '../../store/regions/slice';
 import { T_RegionOptions } from '../../store/regions/types';
+import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import styles from './styles.module.css';
 
 export const DataTable: FC = () => {
 
     const data = useTypedSelector(selectRegionsData)
-    const dispatch = useDispatch()
+    const dispatch = useTypedDispatch()
 
     const handleTextBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
         const { name, value } = e.target
@@ -31,18 +31,17 @@ export const DataTable: FC = () => {
     return (
         <div className={styles.dataTable}>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="chart data table">
+                <Table aria-label="chart data table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell>Value</TableCell>
-                            <TableCell>Color</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {
                             data.allIds.map((id) => {  
-                                const { fill, text, value } = data.byId[id];
+                                const { text, value } = data.byId[id];
                                 return (
                                     <TableRow key={id}>
                                         <TableCell>
@@ -63,15 +62,6 @@ export const DataTable: FC = () => {
                                                 defaultValue={value}
                                                 onBlur={handleTextBlur} 
                                                 />
-                                        </TableCell>
-                                        <TableCell>
-                                            <input 
-                                                type="color"
-                                                data-regionoptionname='fill' 
-                                                name={id}
-                                                defaultValue={fill} 
-                                                onChange={handleTextBlur} 
-                                            />
                                         </TableCell>
                                 </TableRow>
                                 )
