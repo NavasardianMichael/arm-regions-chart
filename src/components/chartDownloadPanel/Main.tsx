@@ -1,12 +1,14 @@
-import { FC, useState } from 'react'
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Chart } from '../chart/Main'
-import { T_RegionsState } from '../../store/regions/types';
-import { T_ChartState } from '../../store/chart/types';
+import { jsPDF } from "jspdf"
+import { FC, useState } from 'react'
 import { renderToString } from 'react-dom/server';
+
+import { T_ChartState } from '../../store/chart/types';
+import { T_RegionsState } from '../../store/regions/types';
+import { Chart } from '../chart/Main'
 import styles from './styles.module.css'
 
 type T_Props = {
@@ -16,17 +18,33 @@ type T_Props = {
 
 export const ChartDownloadPanel: FC<T_Props> = ({ data, legendOptions }) => {
     
-    const [age, setAge] = useState('');
+    const [assetType, setAssetType] = useState('');
 
     const handleChange = (event: SelectChangeEvent) => {
-      setAge(event.target.value as string);
+        setAssetType(event.target.value);
     };
 
-    const handleClick = () => {
+    const generatePDF = () => {
         const svgMarkup = <Chart data={data} legendOptions={legendOptions} />;
-        const svg = renderToString(svgMarkup);
-        const blob = new Blob([svg], { type: 'image/svg+xml' });
+        const svgStr = renderToString(svgMarkup);
+        const report = new jsPDF('portrait','pt','a4');
+        report.html(document.getElementById('chart') as HTMLElement).then(() => {
+            console.log({report});
+            report.save('report.pdf');
+            
+        });
+    }
+
+    const handleClick = () => {
+        console.log({assetType});
+        
+        if(assetType === 'pdf') return generatePDF();
+
+        const svgMarkup = <Chart data={data} legendOptions={legendOptions} />;
+        const svgStr = renderToString(svgMarkup);
+        const blob = new Blob([svgStr], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
+
         const downloadLink = document.createElement('a');
         downloadLink.href = url;
         downloadLink.download = 'armenia-regions-chart.svg';
@@ -38,18 +56,18 @@ export const ChartDownloadPanel: FC<T_Props> = ({ data, legendOptions }) => {
     return (
         <div className={styles.chartDownloadPanel}>
             <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <InputLabel id="demo-simple-select-label">Export Type</InputLabel>
             <Select
                 size='small'
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={age}
-                label="Age"
+                label="Export Type"
+                value={assetType}
                 onChange={handleChange}
             >
                 <MenuItem value='svg'>SVG</MenuItem>
                 <MenuItem value='png'>PNG</MenuItem>
-                <MenuItem value='png'>PDF</MenuItem>
+                <MenuItem value='pdf'>PDF</MenuItem>
             </Select>
             </FormControl>            
             <button onClick={handleClick}>

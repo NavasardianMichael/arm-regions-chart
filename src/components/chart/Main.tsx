@@ -1,7 +1,8 @@
 import { FC } from 'react'
+
 import { REGIONS_IDS } from '../../helpers/constants/regions'
-import { T_RegionOptions, T_RegionsState } from '../../store/regions/types'
 import { T_ChartState } from '../../store/chart/types'
+import { T_RegionOptions, T_RegionsState } from '../../store/regions/types'
 import styles from './styles.module.css'
 
 type T_Props = {
@@ -37,7 +38,7 @@ export const Chart: FC<T_Props> = ({ data, legendOptions }) => {
     return (
         <div
             className={styles.chart}
-            draggable="true"
+            id="chart"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

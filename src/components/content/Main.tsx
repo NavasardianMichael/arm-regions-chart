@@ -1,13 +1,14 @@
 import { FC } from 'react'
-import styles from './styles.module.css'
+
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { selectChartLegendOptions } from '../../store/chart/selectors'
+import { selectRegionsData } from '../../store/regions/selectors'
 import { Chart } from '../chart/Main'
+import { ChartDownloadPanel } from '../chartDownloadPanel/Main'
+import { ChartOptions } from '../chartOptions/Main'
 import { DataTable } from '../dataTable/Main'
 import { LegendsTable } from '../legendsTable/Main'
-import { ChartOptions } from '../chartOptions/Main'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { selectRegionsData } from '../../store/regions/selectors'
-import { selectChartLegendOptions } from '../../store/chart/selectors'
-import { ChartDownloadPanel } from '../chartDownloadPanel/Main'
+import styles from './styles.module.css'
 
 export const Content: FC = () => {
     
@@ -21,8 +22,8 @@ export const Content: FC = () => {
                 <LegendsTable />
             </div>
             <div className={styles.section}>
-                <Chart data={data} legendOptions={legendOptions} />
                 <ChartOptions />
+                <Chart data={data} legendOptions={legendOptions} />
                 <ChartDownloadPanel data={data} legendOptions={legendOptions} />
             </div>
         </div>
