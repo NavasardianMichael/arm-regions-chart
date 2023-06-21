@@ -10,11 +10,14 @@ export type T_ChartState = {
 
 export type T_Legend = {
     id: string
+    name: string
     rangeStart: number
     rangeEnd: number
     color: string
 }
 
 export type T_ActionPayloads = {
-    changeChartLegendOptions: Pick<T_Legend, 'id'> & Partial<Exclude<T_Legend, 'id'>>
+    setChartLegendOptions: Pick<T_Legend, 'id'> & Partial<Exclude<T_Legend, 'id'>>
+    addChartLegend: Pick<T_Legend, 'id'>
+    removeChartLegend: Pick<T_Legend, 'id'>
 }

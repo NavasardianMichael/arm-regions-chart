@@ -2,12 +2,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 2rem;
-    gap: 2rem;
+    padding: 1rem;
+    gap: 1rem;
     box-sizing: border-box;
     height: calc(100vh - var(--header-height));
 }
 
 .section {
-    width: calc(50% - 1rem);
+    width: calc(50% - .5rem);
 }

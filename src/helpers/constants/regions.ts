@@ -52,56 +52,56 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
     [REGIONS_IDS.aragatsotn]: {
         id: REGIONS_IDS.aragatsotn,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.aragatsotn],
-        value: 0
+        value: 50
     },
     [REGIONS_IDS.ararat]: {
         id: REGIONS_IDS.ararat,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.ararat],
-        value: 0
+        value: 100
     },
     [REGIONS_IDS.armavir]: {
         id: REGIONS_IDS.armavir,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.armavir],
-        value: 0
+        value: 150
     },
     [REGIONS_IDS.yerevan]: {
         id: REGIONS_IDS.yerevan,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.yerevan],
-        value: 0
+        value: 200
     },
     [REGIONS_IDS.gegharquniq]: {
         id: REGIONS_IDS.gegharquniq,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.gegharquniq],
-        value: 0
+        value: 110
     },
     [REGIONS_IDS.kotayk]: {
         id: REGIONS_IDS.kotayk,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.kotayk],
-        value: 0
+        value: 150
     },
     [REGIONS_IDS.lori]: {
         id: REGIONS_IDS.lori,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.lori],
-        value: 0
+        value: 260
     },
     [REGIONS_IDS.shirak]: {
         id: REGIONS_IDS.shirak,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.shirak],
-        value: 0
+        value: 900
     },
     [REGIONS_IDS.syunik]: {
         id: REGIONS_IDS.syunik,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.syunik],
-        value: 0
+        value: 10
     },
     [REGIONS_IDS.tavush]: {
         id: REGIONS_IDS.tavush,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.tavush],
-        value: 0
+        value: 15
     },
     [REGIONS_IDS.vayotsDzor]: {
         id: REGIONS_IDS.vayotsDzor,
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.vayotsDzor],
-        value: 0
+        value: 180
     },
 } as const

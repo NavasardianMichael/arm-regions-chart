@@ -16,16 +16,35 @@ export const chartSlice = createSlice({
   name: 'legend',
   initialState,
   reducers: {
-    setChartLegendOptions: (state, action: PayloadAction<T_ActionPayloads['changeChartLegendOptions']>) => {
+    setChartLegendOptions: (state, action: PayloadAction<T_ActionPayloads['setChartLegendOptions']>) => {
       const { id } = action.payload
       state.legend.byId[id] = {
         ...state.legend.byId[id],
         ...action.payload
       }
     },
+    addChartLegend: (state, action: PayloadAction<T_ActionPayloads['addChartLegend']>) => {
+      const { id } = action.payload
+      const lastRange = state.legend.byId[state.legend.allIds[state.legend.allIds.length - 1]];
+      
+      state.legend.allIds.push(id)
+      state.legend.byId[id] = {
+        id,
+        name: 'new criteria',
+        color: '#ffffff',
+        rangeStart: lastRange.rangeEnd,
+        rangeEnd: lastRange.rangeEnd + (lastRange.rangeEnd - lastRange.rangeStart),
+      }
+    },
+    removeChartLegend: (state, action: PayloadAction<T_ActionPayloads['removeChartLegend']>) => {
+      const { id } = action.payload
+      
+      state.legend.allIds = state.legend.allIds.filter(currentId => currentId !== id)
+      delete state.legend.byId[id]
+    },
   },
 })
 
-export const { setChartLegendOptions } = chartSlice.actions
+export const { setChartLegendOptions, addChartLegend, removeChartLegend } = chartSlice.actions
 
 export default chartSlice.reducer
