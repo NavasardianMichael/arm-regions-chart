@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
 import { REGIONS_IDS } from '../../helpers/constants/regions'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { selectChartStyles } from '../../store/chart/selectors'
 import { T_ChartState } from '../../store/chart/types'
 import { T_RegionOptions, T_RegionsState } from '../../store/regions/types'
 import styles from './styles.module.css'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { selectChartStyles } from '../../store/chart/selectors'
 
 type T_Props = {
     data: T_RegionsState,

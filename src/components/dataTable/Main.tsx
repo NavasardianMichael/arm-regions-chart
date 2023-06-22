@@ -1,3 +1,5 @@
+import { TextareaAutosize } from '@mui/base';
+import { Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -5,20 +7,21 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
+import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { selectRegionsData } from '../../store/regions/selectors';
-import { setRegionOptions } from '../../store/regions/slice';
+import { setRegionOptions, setRegionsData } from '../../store/regions/slice';
 import { T_RegionOptions } from '../../store/regions/types';
-import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import styles from './styles.module.css';
-import { TextareaAutosize } from '@mui/base';
 
 export const DataTable: FC = () => {
 
-    const data = useTypedSelector(selectRegionsData)
     const dispatch = useTypedDispatch()
+    const data = useTypedSelector(selectRegionsData)
+    const [ isProcessedTable, setIsProcessedTable ] = useState(false)
+    const [ unProcessedText, setUnprocessedText ] = useState('');
 
     const handleTextBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
         const { name, value } = e.target
@@ -30,15 +33,35 @@ export const DataTable: FC = () => {
     }
 
     const handleChange:  React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-        const { value } = e.target
-        const processed = value.trim().split(/[\t | \n]/)
-        console.log({processed});
-        
+        setUnprocessedText(e.target.value)
     }
+
+    const handleProcessTextData: React.MouseEventHandler<HTMLButtonElement> = () => {
+        const processedValues = unProcessedText.trim().split(/[\t | \n]/);
+
+        // const regionsState = processedValues.reduce((acc, value) => {
+
+        // }, [])
+
+        // dispatch(setRegionsData({
+        //     byId:
+        // }))
+        setIsProcessedTable(true);
+    }
+    
+    if(!isProcessedTable) return (
+        <>
+            <TextareaAutosize 
+                onChange={handleChange} 
+                aria-label="empty textarea" 
+                placeholder="Empty" 
+            />
+            <Button style={{display: 'block'}} onClick={handleProcessTextData}>Process</Button>
+        </>
+    )
 
     return (
         <div className={styles.dataTable}>
-            <TextareaAutosize onChange={handleChange} aria-label="empty textarea" placeholder="Empty" />
             <TableContainer component={Paper}>
                 <Table aria-label="chart data table">
                     <TableHead>

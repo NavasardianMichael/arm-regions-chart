@@ -20,9 +20,12 @@ export const regionsSlice = createSlice({
         ...action.payload
       }
     },
+    setRegionsData: (state, action: PayloadAction<T_ActionPayloads['setRegionsData']>) => {
+      state = action.payload
+    }
   },
 })
 
-export const { setRegionOptions } = regionsSlice.actions
+export const { setRegionOptions, setRegionsData } = regionsSlice.actions
 
 export default regionsSlice.reducer
