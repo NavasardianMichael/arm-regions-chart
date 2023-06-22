@@ -103,7 +103,7 @@ console.log({action});
                                                 <RemoveCircleOutlineIcon color='error' />
                                             </IconButton>
                                         </TableCell>
-                                </TableRow>
+                                    </TableRow>
                                 )
                             })
                         }

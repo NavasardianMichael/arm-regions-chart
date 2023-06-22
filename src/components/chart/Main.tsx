@@ -4,6 +4,8 @@ import { REGIONS_IDS } from '../../helpers/constants/regions'
 import { T_ChartState } from '../../store/chart/types'
 import { T_RegionOptions, T_RegionsState } from '../../store/regions/types'
 import styles from './styles.module.css'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { selectChartStyles } from '../../store/chart/selectors'
 
 type T_Props = {
     data: T_RegionsState,
@@ -11,6 +13,8 @@ type T_Props = {
 }
 
 export const Chart: FC<T_Props> = ({ data, legendOptions }) => {
+
+    const { showLegend } = useTypedSelector(selectChartStyles);
 
     const getColorByLegendOption = (value: T_RegionOptions['value']) => {
         let color = ''; 
@@ -106,9 +110,10 @@ export const Chart: FC<T_Props> = ({ data, legendOptions }) => {
                         <title>vayotsDzor</title>
                 </path>
                 {
+                    showLegend &&
                     legendOptions.allIds.map((legendOptionId, index, arr) => {
                         const { id, color, name } = legendOptions.byId[legendOptionId];
-                        const positionY = 802.4 - (arr.length - index) * 30
+                        const positionY = 802.4 - (arr.length - index) * 35
                         return (
                             <g key={id} className={styles.legendOption}>
                                 <rect 
@@ -117,7 +122,7 @@ export const Chart: FC<T_Props> = ({ data, legendOptions }) => {
                                     rx={2}
                                     ry={2}
                                     x={0}
-                                    y={positionY - 15}
+                                    y={positionY - 16}
                                     alignmentBaseline="middle" 
                                     fill={color}
                                 >

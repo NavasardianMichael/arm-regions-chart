@@ -13,6 +13,7 @@ import { setRegionOptions } from '../../store/regions/slice';
 import { T_RegionOptions } from '../../store/regions/types';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import styles from './styles.module.css';
+import { TextareaAutosize } from '@mui/base';
 
 export const DataTable: FC = () => {
 
@@ -28,8 +29,16 @@ export const DataTable: FC = () => {
         }))
     }
 
+    const handleChange:  React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+        const { value } = e.target
+        const processed = value.trim().split(/[\t | \n]/)
+        console.log({processed});
+        
+    }
+
     return (
         <div className={styles.dataTable}>
+            <TextareaAutosize onChange={handleChange} aria-label="empty textarea" placeholder="Empty" />
             <TableContainer component={Paper}>
                 <Table aria-label="chart data table">
                     <TableHead>

@@ -1,12 +1,11 @@
-import { SelectChangeEvent } from '@mui/material/Select';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { renderToString } from 'react-dom/server';
 
+import DownloadIcon from '@mui/icons-material/Download';
 import { IconButton } from '@mui/material';
 import { T_ChartState } from '../../store/chart/types';
 import { T_RegionsState } from '../../store/regions/types';
 import { Chart } from '../chart/Main';
-import DownloadIcon from '@mui/icons-material/Download';
 import styles from './styles.module.css';
 
 type T_Props = {
@@ -32,7 +31,7 @@ export const ChartDownloadPanel: FC<T_Props> = ({ data, legendOptions }) => {
 
     return (
         <div className={styles.chartDownloadPanel}>           
-            <IconButton onClick={handleClick}>
+            <IconButton onClick={handleClick} sx={{borderRadius: 1}}>
                 <DownloadIcon sx={{marginTop: '6px', paddingRight: '6px'}} />
                 <div>Download SVG</div>
             </IconButton>

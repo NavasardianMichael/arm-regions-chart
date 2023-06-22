@@ -22,8 +22,8 @@ export const Content: FC = () => {
                 <LegendsTable />
             </div>
             <div className={styles.section}>
-                <ChartOptions />
                 <Chart data={data} legendOptions={legendOptions} />
+                <ChartOptions />
                 <ChartDownloadPanel data={data} legendOptions={legendOptions} />
             </div>
         </div>
