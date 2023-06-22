@@ -3,7 +3,7 @@ export type T_ChartState = {
         borderColor: string
     },
     legend: {
-        byId: { [key: T_Legend['id']]: T_Legend }
+        byId: Record<T_Legend['id'], T_Legend>
         allIds: T_Legend['id'][]
     }
 }

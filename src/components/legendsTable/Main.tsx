@@ -15,15 +15,21 @@ export const LegendsTable: FC = () => {
     const dispatch = useTypedDispatch()
     const legendOptions = useTypedSelector(selectChartLegendOptions) 
 
-    const handleChange: React.FocusEventHandler<HTMLInputElement> = (e) => {
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         const { name, value } = e.currentTarget
         const attrName = e.currentTarget.getAttribute('data-chartoptionname') as keyof T_Legend
-        console.log({attrName});
         
-        dispatch(setChartLegendOptions({
+        const action = {
             id: name,
             [attrName]: value
-        }))
+        }
+        if(attrName === 'rangeStart' || attrName === 'rangeEnd') {
+            const { rangeStart, rangeEnd } = legendOptions.byId[name]
+            action.name = rangeStart + ' - ' + rangeEnd
+        }
+console.log({action});
+
+        dispatch(setChartLegendOptions(action))
     }
 
     const handlePlusClick: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -59,27 +65,27 @@ export const LegendsTable: FC = () => {
                                                 name={id}
                                                 data-chartoptionname='name'
                                                 className={styles.name}
-                                                defaultValue={name} 
-                                                onBlur={handleChange} 
+                                                value={name} 
+                                                onChange={handleChange} 
                                             />
                                         </TableCell>
                                         <TableCell>
                                             <input 
                                                 name={id}
-                                                data-chartoptionname='text'
+                                                data-chartoptionname='rangeStart'
                                                 className={styles.rangeStart}
-                                                defaultValue={rangeStart} 
-                                                onBlur={handleChange} 
+                                                value={rangeStart}
+                                                onChange={handleChange}
                                             />
                                         </TableCell>
                                         <TableCell>
                                             <input 
                                                 type='number' 
-                                                data-chartoptionname='value'
+                                                data-chartoptionname='rangeEnd'
                                                 name={id}
                                                 className={styles.rangeEnd}
-                                                defaultValue={rangeEnd}
-                                                onBlur={handleChange}
+                                                value={rangeEnd}
+                                                onChange={handleChange}
                                             />
                                         </TableCell>
                                         <TableCell>
@@ -88,8 +94,8 @@ export const LegendsTable: FC = () => {
                                                 data-chartoptionname='color'
                                                 className={styles.color} 
                                                 name={id}
-                                                defaultValue={color} 
-                                                onBlur={handleChange} 
+                                                value={color} 
+                                                onChange={handleChange} 
                                             />
                                         </TableCell>
                                         <TableCell className={styles.removeLegendCell}>
