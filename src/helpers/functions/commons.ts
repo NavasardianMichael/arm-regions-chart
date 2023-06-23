@@ -9,3 +9,5 @@ export function makeid(length: number = 5) {
     }
     return result;
 }
+
+export const isOdd = (num: number) => num % 2;

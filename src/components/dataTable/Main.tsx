@@ -13,8 +13,9 @@ import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { selectRegionsData } from '../../store/regions/selectors';
 import { setRegionOptions, setRegionsData } from '../../store/regions/slice';
-import { T_RegionOptions } from '../../store/regions/types';
+import { T_RegionOptions, T_RegionsState } from '../../store/regions/types';
 import styles from './styles.module.css';
+import { isOdd } from '../../helpers/functions/commons';
 
 export const DataTable: FC = () => {
 
@@ -37,11 +38,25 @@ export const DataTable: FC = () => {
     }
 
     const handleProcessTextData: React.MouseEventHandler<HTMLButtonElement> = () => {
-        const processedValues = unProcessedText.trim().split(/[\t | \n]/);
+        const processedValues = unProcessedText.trim().split(/[\t | \n]/).filter(value => value.toLowerCase() !== 'ձոր').map(value => value.toLowerCase() === 'Վայոց' ? 'Վայոց ձոր' : value);
+        const state = {
+            byId: {},
+            allIds: []
+        }
+        console.log({processedValues});
+        
+        // const regionsState = processedValues.reduce((acc, value, index, arr) => {
+        //     if(!isOdd(index)) {
+        //         acc.byId[value] = {
+        //             id: ,
+        //             text: ,
+        //             value: +arr[index + 1]
+        //         }
+        //     }
 
-        // const regionsState = processedValues.reduce((acc, value) => {
-
-        // }, [])
+        //     acc[value]
+        //     return acc
+        // }, state)
 
         // dispatch(setRegionsData({
         //     byId:
