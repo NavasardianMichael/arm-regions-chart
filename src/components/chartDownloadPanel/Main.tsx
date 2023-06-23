@@ -1,22 +1,21 @@
 import { FC } from 'react';
 import { renderToString } from 'react-dom/server';
-
 import DownloadIcon from '@mui/icons-material/Download';
 import { IconButton } from '@mui/material';
-import { T_ChartState } from '../../store/chart/types';
-import { T_RegionsState } from '../../store/regions/types';
-import { Chart } from '../chart/Main';
+import { T_RegionsState } from 'store/regions/types';
+import { T_ChartState } from 'store/chart/types';
 import styles from './styles.module.css';
+import { Chart } from 'components/chart/Main';
 
 type T_Props = {
     data: T_RegionsState,
-    legendOptions: T_ChartState['legend']
+    chart: T_ChartState
 }
 
-export const ChartDownloadPanel: FC<T_Props> = ({ data, legendOptions }) => {
+export const ChartDownloadPanel: FC<T_Props> = ({ data, chart }) => {
 
     const handleClick = () => {
-        const svgMarkup = <Chart data={data} legendOptions={legendOptions} />;
+        const svgMarkup = <Chart data={data} chart={chart} />;
         const svgStr = renderToString(svgMarkup);
         const blob = new Blob([svgStr], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
@@ -25,8 +24,6 @@ export const ChartDownloadPanel: FC<T_Props> = ({ data, legendOptions }) => {
         downloadLink.href = url;
         downloadLink.download = 'armenia-regions-chart.svg';
         downloadLink.click();
-
-        // URL.revokeObjectURL(url);
     }
 
     return (

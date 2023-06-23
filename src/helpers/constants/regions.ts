@@ -1,4 +1,4 @@
-import { T_RegionsState } from "../../store/regions/types";
+import { T_RegionsState } from "store/regions/types";
 import { LANGS_IDS } from "./localization"
 
 export const REGIONS_IDS = {

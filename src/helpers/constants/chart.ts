@@ -1,4 +1,4 @@
-import { T_ChartState } from "../../store/chart/types"
+import { T_ChartState } from "store/chart/types"
 
 export const LEGEND_INITIAL_ROW_IDS = ['initial-legend-row-id-1', 'initial-legend-row-id-2', 'initial-legend-row-id-3']
 

@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import styles from './styles.module.css';
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { selectChartLegendOptions } from '../../store/chart/selectors';
-import { useTypedDispatch } from '../../hooks/useTypedDispatch';
-import { addChartLegend, removeChartLegend, setChartLegendOptions } from '../../store/chart/slice';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { T_Legend } from '../../store/chart/types';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import { makeid } from '../../helpers/functions/commons';
+import { useTypedDispatch } from 'hooks/useTypedDispatch';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { selectChartLegendOptions } from 'store/chart/selectors';
+import { T_Legend } from 'store/chart/types';
+import { addChartLegend, removeChartLegend, setChartLegendOptions } from 'store/chart/slice';
+import { makeid } from 'helpers/functions/commons';
 
 export const LegendsTable: FC = () => {
 
@@ -27,7 +27,6 @@ export const LegendsTable: FC = () => {
             const { rangeStart, rangeEnd } = legendOptions.byId[name]
             action.name = rangeStart + ' - ' + rangeEnd
         }
-console.log({action});
 
         dispatch(setChartLegendOptions(action))
     }

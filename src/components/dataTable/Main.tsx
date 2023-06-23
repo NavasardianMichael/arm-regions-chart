@@ -9,13 +9,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { FC, useState } from 'react';
 
-import { useTypedDispatch } from '../../hooks/useTypedDispatch';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { selectRegionsData } from '../../store/regions/selectors';
-import { setRegionOptions, setRegionsData } from '../../store/regions/slice';
-import { T_RegionOptions, T_RegionsState } from '../../store/regions/types';
 import styles from './styles.module.css';
-import { isOdd } from '../../helpers/functions/commons';
+import { useTypedDispatch } from 'hooks/useTypedDispatch';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { selectRegionsData } from 'store/regions/selectors';
+import { T_RegionOptions, T_RegionsState } from 'store/regions/types';
+import { setRegionOptions, setRegionsData } from 'store/regions/slice';
+import { isOdd } from 'helpers/functions/commons';
+import { REGIONS_LOCALIZE_OPTIONS } from 'helpers/constants/regions';
+import { TextFormat } from './TextFormat';
 
 export const DataTable: FC = () => {
 
@@ -24,7 +26,7 @@ export const DataTable: FC = () => {
     const [ isProcessedTable, setIsProcessedTable ] = useState(false)
     const [ unProcessedText, setUnprocessedText ] = useState('');
 
-    const handleTextBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+    const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         const { name, value } = e.target
         const attrName = e.currentTarget.getAttribute('data-regionoptionname') as keyof T_RegionOptions
         dispatch(setRegionOptions({
@@ -38,39 +40,40 @@ export const DataTable: FC = () => {
     }
 
     const handleProcessTextData: React.MouseEventHandler<HTMLButtonElement> = () => {
-        const processedValues = unProcessedText.trim().split(/[\t | \n]/).filter(value => value.toLowerCase() !== 'ձոր').map(value => value.toLowerCase() === 'Վայոց' ? 'Վայոց ձոր' : value);
-        const state = {
+        const processedValues = unProcessedText.trim().split(/[\t | \n]/).filter(value => value.toLowerCase() !== 'ձոր').map(value => value.toLowerCase() === 'վայոց' ? 'Վայոց ձոր' : value);
+        const state: any = {
             byId: {},
             allIds: []
         }
-        console.log({processedValues});
         
-        // const regionsState = processedValues.reduce((acc, value, index, arr) => {
-        //     if(!isOdd(index)) {
-        //         acc.byId[value] = {
-        //             id: ,
-        //             text: ,
-        //             value: +arr[index + 1]
-        //         }
-        //     }
+        const regionsState = processedValues.reduce((acc, value, index, arr) => {
+            if(!isOdd(index)) {
+                let id: T_RegionOptions['id'] = 'aragatsotn'
+                for(let key in REGIONS_LOCALIZE_OPTIONS.am) {
+                    
+                    if(REGIONS_LOCALIZE_OPTIONS.am[key as T_RegionOptions['id']] === value) {
+                        id = key as T_RegionOptions['id']
+                    }
+                }
+                
+                if(!acc.byId[id]) acc.byId[id] = {}
+                acc.byId[id] = {
+                    id,
+                    text: value,
+                    value: +arr[index + 1]
+                }
+                acc.allIds.push(id)
+            }
+            return acc
+        }, state)
 
-        //     acc[value]
-        //     return acc
-        // }, state)
-
-        // dispatch(setRegionsData({
-        //     byId:
-        // }))
-        setIsProcessedTable(true);
+        dispatch(setRegionsData(regionsState as T_RegionsState))
+        setIsProcessedTable(true)
     }
     
     if(!isProcessedTable) return (
         <>
-            <TextareaAutosize 
-                onChange={handleChange} 
-                aria-label="empty textarea" 
-                placeholder="Empty" 
-            />
+            <TextFormat value={unProcessedText} onChange={handleChange} />
             <Button style={{display: 'block'}} onClick={handleProcessTextData}>Process</Button>
         </>
     )
@@ -96,8 +99,8 @@ export const DataTable: FC = () => {
                                                 name={id}
                                                 data-regionoptionname='text'
                                                 className={styles.text}
-                                                defaultValue={text} 
-                                                onBlur={handleTextBlur} 
+                                                value={text} 
+                                                onChange={handleTextChange} 
                                                 />
                                         </TableCell>
                                         <TableCell>
@@ -106,8 +109,8 @@ export const DataTable: FC = () => {
                                                 data-regionoptionname='value'
                                                 name={id}
                                                 className={styles.value} 
-                                                defaultValue={value}
-                                                onBlur={handleTextBlur} 
+                                                value={value}
+                                                onChange={handleTextChange} 
                                                 />
                                         </TableCell>
                                 </TableRow>

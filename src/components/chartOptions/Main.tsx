@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import styles from './styles.module.css'
 import { Checkbox, FormControlLabel } from '@mui/material'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { selectChartStyles } from '../../store/chart/selectors'
-import { useTypedDispatch } from '../../hooks/useTypedDispatch'
-import { setChartLegendStyles } from '../../store/chart/slice'
 import { SwitchBaseProps } from '@mui/material/internal/SwitchBase'
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import { selectChartStyles } from 'store/chart/selectors'
+import { setChartLegendStyles } from 'store/chart/slice'
 
 
 type T_Props = {}

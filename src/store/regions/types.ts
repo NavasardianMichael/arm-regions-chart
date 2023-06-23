@@ -1,4 +1,4 @@
-import { REGIONS_IDS, REGIONS_IDS_LIST } from "../../helpers/constants/regions";
+import { REGIONS_IDS, REGIONS_IDS_LIST } from "helpers/constants/regions"
 
 export type T_RegionsState = {
     byId: {

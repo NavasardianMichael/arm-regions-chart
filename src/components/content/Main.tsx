@@ -1,19 +1,18 @@
 import { FC } from 'react'
-
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { selectChartLegendOptions } from '../../store/chart/selectors'
-import { selectRegionsData } from '../../store/regions/selectors'
-import { Chart } from '../chart/Main'
-import { ChartDownloadPanel } from '../chartDownloadPanel/Main'
-import { ChartOptions } from '../chartOptions/Main'
-import { DataTable } from '../dataTable/Main'
-import { LegendsTable } from '../legendsTable/Main'
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import { selectRegionsData } from 'store/regions/selectors'
+import { selectChart } from 'store/chart/selectors'
+import { DataTable } from 'components/dataTable/Main'
+import { LegendsTable } from 'components/legendsTable/Main'
+import { Chart } from 'components/chart/Main'
+import { ChartOptions } from 'components/chartOptions/Main'
+import { ChartDownloadPanel } from 'components/chartDownloadPanel/Main'
 import styles from './styles.module.css'
 
 export const Content: FC = () => {
     
     const data = useTypedSelector(selectRegionsData)
-    const legendOptions = useTypedSelector(selectChartLegendOptions)
+    const chart = useTypedSelector(selectChart)
 
     return (
         <div className={styles.content}>
@@ -22,9 +21,9 @@ export const Content: FC = () => {
                 <LegendsTable />
             </div>
             <div className={styles.section}>
-                <Chart data={data} legendOptions={legendOptions} />
+                <Chart data={data} chart={chart} />
                 <ChartOptions />
-                <ChartDownloadPanel data={data} legendOptions={legendOptions} />
+                <ChartDownloadPanel data={data} chart={chart} />
             </div>
         </div>
     )

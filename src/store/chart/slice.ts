@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { T_ActionPayloads, T_ChartState } from './types'
-import { LEGEND_INITIAL_ROWS, LEGEND_INITIAL_ROW_IDS } from '../../helpers/constants/chart'
+import { LEGEND_INITIAL_ROWS, LEGEND_INITIAL_ROW_IDS } from 'helpers/constants/chart'
 
 const initialState: T_ChartState = {
   styles: {
