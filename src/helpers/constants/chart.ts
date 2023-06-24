@@ -8,20 +8,20 @@ export const LEGEND_INITIAL_ROWS: T_ChartState['legend']['byId'] = {
     name: '0 - 100',
     rangeStart: 0,
     rangeEnd: 100,
-    color: '#add8e6',
+    color: '#e7eff6',
 },
 [LEGEND_INITIAL_ROW_IDS[1]]: {
     id: LEGEND_INITIAL_ROW_IDS[1],
     name: '100 - 200',
     rangeStart: 100,
     rangeEnd: 200,
-    color: '#5757ff',
+    color: '#adcbe3',
 },
 [LEGEND_INITIAL_ROW_IDS[2]]: {
     id: LEGEND_INITIAL_ROW_IDS[2],
     name: '200 - 300',
     rangeStart: 200,
     rangeEnd: 300,
-    color: '#00008b',
+    color: '#63ace5',
   },
 }

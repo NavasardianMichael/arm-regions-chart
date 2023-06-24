@@ -17,6 +17,9 @@ export const chartSlice = createSlice({
   name: 'legend',
   initialState,
   reducers: {
+    setChartLegends: (state, action: PayloadAction<T_ActionPayloads['setChartLegends']>) => {
+      state.legend = action.payload
+    },
     setChartLegendOptions: (state, action: PayloadAction<T_ActionPayloads['setChartLegendOptions']>) => {
       const { id } = action.payload
       state.legend.byId[id] = {
@@ -52,6 +55,6 @@ export const chartSlice = createSlice({
   },
 })
 
-export const { setChartLegendOptions, addChartLegend, removeChartLegend, setChartLegendStyles } = chartSlice.actions
+export const { setChartLegends, setChartLegendOptions, addChartLegend, removeChartLegend, setChartLegendStyles } = chartSlice.actions
 
 export default chartSlice.reducer

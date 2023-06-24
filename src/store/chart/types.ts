@@ -18,6 +18,7 @@ export type T_Legend = {
 }
 
 export type T_ActionPayloads = {
+    setChartLegends: T_ChartState['legend']
     setChartLegendOptions: Pick<T_Legend, 'id'> & Partial<Exclude<T_Legend, 'id'>>
     addChartLegend: Pick<T_Legend, 'id'>
     removeChartLegend: Pick<T_Legend, 'id'>

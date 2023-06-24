@@ -17,7 +17,7 @@ export const ChartDownloadPanel: FC<T_Props> = ({ data, chart }) => {
     const handleClick = () => {
         const svgMarkup = <Chart data={data} chart={chart} />;
         const svgStr = renderToString(svgMarkup);
-        const blob = new Blob([svgStr], { type: 'application/pdf' });
+        const blob = new Blob([svgStr]);
         const url = URL.createObjectURL(blob);
 
         const downloadLink = document.createElement('a');

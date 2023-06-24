@@ -1,5 +1,5 @@
 import { TextareaAutosize } from '@mui/base';
-import { Button } from '@mui/material';
+import { Alert, Button, Snackbar } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -18,6 +18,9 @@ import { setRegionOptions, setRegionsData } from 'store/regions/slice';
 import { isOdd } from 'helpers/functions/commons';
 import { REGIONS_LOCALIZE_OPTIONS } from 'helpers/constants/regions';
 import { TextFormat } from './TextFormat';
+import { setChartLegends } from 'store/chart/slice';
+import { T_ChartState } from 'store/chart/types';
+import { LEGEND_INITIAL_ROWS, LEGEND_INITIAL_ROW_IDS } from 'helpers/constants/chart';
 
 export const DataTable: FC = () => {
 
@@ -65,16 +68,55 @@ export const DataTable: FC = () => {
                 acc.allIds.push(id)
             }
             return acc
-        }, state)
+        }, state)  as T_RegionsState
 
-        dispatch(setRegionsData(regionsState as T_RegionsState))
+        dispatch(setRegionsData(regionsState))
         setIsProcessedTable(true)
+
+        const [ min, max ] = regionsState.allIds.reduce((acc, id) => {
+            const { value } = regionsState.byId[id]
+            if(value < acc[0]) {
+                acc[0] = value
+            } else if(value > acc[1]) {
+                acc[1] = value
+            }
+            return acc
+        }, [Infinity, -Infinity])
+
+        let chartLegends: T_ChartState['legend'] = {
+            byId: {...LEGEND_INITIAL_ROWS},
+            allIds: [...LEGEND_INITIAL_ROW_IDS]
+        }
+
+        const range = (max - min) / chartLegends.allIds.length
+        chartLegends.allIds.forEach((id, index) => {
+            const rangeStart = min + range * index
+            const rangeEnd = rangeStart + range
+            chartLegends.byId[id] = {
+                ...chartLegends.byId[id],
+                rangeStart,
+                rangeEnd,
+                name: rangeStart + ' - ' + rangeEnd
+            }
+        })
+
+        dispatch(setChartLegends(chartLegends))
     }
     
     if(!isProcessedTable) return (
         <>
+            {/* <Snackbar
+                open={true}
+                autoHideDuration={6000}
+                // onClose={handleClose}
+                // action={action}
+            >
+                <Alert  severity="error" sx={{ position: 'fixed', top: 10, right: 10 }}>
+                    The data format does not correspond to the existing one.
+                </Alert>
+            </Snackbar> */}
             <TextFormat value={unProcessedText} onChange={handleChange} />
-            <Button style={{display: 'block'}} onClick={handleProcessTextData}>Process</Button>
+            <Button style={{display: 'block', marginTop: '.5rem'}} disabled={!unProcessedText} onClick={handleProcessTextData}>Process</Button>
         </>
     )
 

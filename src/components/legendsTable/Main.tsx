@@ -42,7 +42,7 @@ export const LegendsTable: FC = () => {
     return (
         <div className={styles.legendTable}>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="chart legend table">
+                <Table aria-label="chart legend table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
