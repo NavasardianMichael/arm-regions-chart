@@ -8,15 +8,6 @@ type T_Props = {
 }
 
 export const TextFormat: FC<T_Props> = ({ value, onChange }) => {
-  const blue = {
-    100: '#DAECFF',
-    200: '#b6daff',
-    400: '#3399FF',
-    500: '#007FFF',
-    600: '#0072E5',
-    900: '#003A75',
-};
-
   const grey = {
     50: '#f6f8fa',
     100: '#eaeef2',

@@ -39,6 +39,7 @@ export const Chart: FC<T_Props> = ({ data, chart: { legend: legendOptions, style
             className={styles.chart}
             id="chart"
         >
+            <canvas id="canvas" width="792.57129" height="802.40002" hidden></canvas>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 version="1.1"
