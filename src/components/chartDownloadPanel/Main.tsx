@@ -1,13 +1,16 @@
-import { FC } from 'react';
-import { renderToString } from 'react-dom/server';
 import DownloadIcon from '@mui/icons-material/Download';
 import { IconButton } from '@mui/material';
-import { T_RegionsState } from 'store/regions/types';
-import { T_ChartState } from 'store/chart/types';
-import styles from './styles.module.css';
 import html2canvas from 'html2canvas';
-import { Chart } from 'components/chart/Main';
+import html2pdf from 'html2pdf.js/dist/html2pdf.min';
 import { jsPDF } from 'jspdf';
+import { FC } from 'react';
+import { renderToString } from 'react-dom/server';
+
+import { Chart } from 'components/chart/Main';
+import { T_ChartState } from 'store/chart/types';
+import { T_RegionsState } from 'store/regions/types';
+
+import styles from './styles.module.css';
 
 type T_Props = {
     data: T_RegionsState,
@@ -42,19 +45,15 @@ export const ChartDownloadPanel: FC<T_Props> = ({ data, chart }) => {
 
       }
 
-      const handleDownloadPdf = async () => {
-        const element = document.getElementById('chart') as HTMLElement;
-        const canvas = await html2canvas(element, {backgroundColor: '#fffff'});
-        const data = canvas.toDataURL('image/png');
-    
-        const pdf = new jsPDF();
-        const imgProperties = pdf.getImageProperties(data);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight =
-          (imgProperties.height * pdfWidth) / imgProperties.width;
-    
-        pdf.addImage(data, 'SVG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('print.pdf');
+      const handleDownloadPdf = async (svgMarkup: any) => {
+        var opt = {
+            margin:       0,
+            filename:     'myfile.pdf',
+            image:        { type: 'svg', quality: 1 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(svgMarkup).save();
       };
 
     const handleClick = () => {
@@ -63,7 +62,7 @@ export const ChartDownloadPanel: FC<T_Props> = ({ data, chart }) => {
         const blob = new Blob([svgStr]);
         const url = URL.createObjectURL(blob);
         
-        return handleDownloadPdf()
+        // return handleDownloadPdf(svgStr)
 
         return main()
 
