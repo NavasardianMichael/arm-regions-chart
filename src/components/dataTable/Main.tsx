@@ -105,18 +105,9 @@ export const DataTable: FC = () => {
     
     if(!isProcessedTable) return (
         <>
-            {/* <Snackbar
-                open={true}
-                autoHideDuration={6000}
-                // onClose={handleClose}
-                // action={action}
-            >
-                <Alert  severity="error" sx={{ position: 'fixed', top: 10, right: 10 }}>
-                    The data format does not correspond to the existing one.
-                </Alert>
-            </Snackbar> */}
             <TextFormat value={unProcessedText} onChange={handleChange} />
-            <Button style={{display: 'block', marginTop: '.5rem'}} disabled={!unProcessedText} onClick={handleProcessTextData}>Process</Button>
+            <Button disabled={!unProcessedText} onClick={handleProcessTextData}>Process Text</Button>
+            <Button onClick={() => setIsProcessedTable(true)}>Skip to Table</Button>
         </>
     )
 
@@ -143,7 +134,7 @@ export const DataTable: FC = () => {
                                                 className={styles.text}
                                                 value={text} 
                                                 onChange={handleTextChange} 
-                                                />
+                                            />
                                         </TableCell>
                                         <TableCell>
                                             <input 
@@ -153,7 +144,7 @@ export const DataTable: FC = () => {
                                                 className={styles.value} 
                                                 value={value}
                                                 onChange={handleTextChange} 
-                                                />
+                                            />
                                         </TableCell>
                                 </TableRow>
                                 )
