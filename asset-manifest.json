@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/arm-regions-chart/static/css/main.396bc37e.css",
+    "main.js": "/arm-regions-chart/static/js/main.a1d84247.js",
+    "static/js/703.5e3cf4eb.chunk.js": "/arm-regions-chart/static/js/703.5e3cf4eb.chunk.js",
+    "static/js/261.549ea4a8.chunk.js": "/arm-regions-chart/static/js/261.549ea4a8.chunk.js",
+    "index.html": "/arm-regions-chart/index.html",
+    "main.396bc37e.css.map": "/arm-regions-chart/static/css/main.396bc37e.css.map",
+    "main.a1d84247.js.map": "/arm-regions-chart/static/js/main.a1d84247.js.map",
+    "703.5e3cf4eb.chunk.js.map": "/arm-regions-chart/static/js/703.5e3cf4eb.chunk.js.map",
+    "261.549ea4a8.chunk.js.map": "/arm-regions-chart/static/js/261.549ea4a8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.396bc37e.css",
+    "static/js/main.a1d84247.js"
+  ]
+}
