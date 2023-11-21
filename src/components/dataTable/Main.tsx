@@ -68,7 +68,7 @@ export const DataTable: FC = () => {
                 acc.allIds.push(id)
             }
             return acc
-        }, state)  as T_RegionsState
+        }, state) as T_RegionsState
 
         dispatch(setRegionsData(regionsState))
         setIsProcessedTable(true)

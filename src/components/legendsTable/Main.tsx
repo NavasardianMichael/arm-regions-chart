@@ -66,6 +66,7 @@ export const LegendsTable: FC = () => {
                                                 className={styles.name}
                                                 value={name} 
                                                 onChange={handleChange} 
+                                                autoFocus
                                             />
                                         </TableCell>
                                         <TableCell>
