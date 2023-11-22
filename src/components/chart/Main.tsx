@@ -15,6 +15,8 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
     const { legend: legendOptions } = chart
 
     const getColorByLegendOption = (value: T_RegionOptions['value']) => {
+        console.log({legendOptions});
+        
         let color = ''; 
         for(let i = 0; i < legendOptions.allIds.length; i++) {
             const legend = legendOptions.byId[legendOptions.allIds[i]]
@@ -36,7 +38,7 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
         }
         return color
     } 
-    
+    console.log({data})
     return (
         <div
             className={styles.chart}
@@ -51,10 +53,8 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
                 height="802.40002"
                 viewBox="0 0 792.57129 802.40002"
             >
-                
                 {
                     REGIONS_IDS_LIST.map(id => {
-                        console.log(data.byId, {id});
                         
                         return (
                             <path 

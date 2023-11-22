@@ -111,7 +111,7 @@ export const REGIONS_IDS_LIST = Object.values(REGIONS_IDS)
 export const REGIONS_LOCALIZE_OPTIONS = {
     [LANGS_IDS.en]: {
         [REGIONS_IDS.aragatsotn]: 'Aragatsotn',
-        [REGIONS_IDS.ararat]: 'Artashat',
+        [REGIONS_IDS.ararat]: 'Ararat',
         [REGIONS_IDS.armavir]: 'Armavir',
         [REGIONS_IDS.yerevan]: 'Yerevan',
         [REGIONS_IDS.gegharquniq]: 'Gegharquniq',
