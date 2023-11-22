@@ -1,19 +1,39 @@
 .dataTable {
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     border: none;
     outline: none;
 }
 
 .dataTable td {
     padding: 0;
+
+    & .text,
+    & .value {
+        border: none;
+        outline: none;
+        padding: var(--size-xs) var(--size-sm);
+        box-sizing: border-box;
+        font-size: var(--size-sm);
+        width: 100%;
+    }
 }
 
-.dataTable .text, 
-.dataTable .value {
-    border: none;
-    outline: none;
-    padding: .5rem .75rem;
-    box-sizing: border-box;
-    font-size: .8rem;
+.textInput {
     width: 100%;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    resize: none;
+    line-height: 1.5;
+    border: 1px solid var(--gray);
+    padding: var(--size-sm);
+    font-size: var(--size-sm);
+    
+    &:focus-visible {
+      outline: 0;
+    }
+}
+
+.inputProcessButtons {
+    display: flex;
+    gap: var(--size-sm);
+    margin-top: var(--size-xs);
 }

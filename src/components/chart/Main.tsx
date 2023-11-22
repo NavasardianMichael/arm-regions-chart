@@ -54,6 +54,8 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
                 
                 {
                     REGIONS_IDS_LIST.map(id => {
+                        console.log(data.byId, {id});
+                        
                         return (
                             <path 
                                 key={id} 
@@ -73,7 +75,7 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
                                 x={REGIONS_TEMPLATE[id].titleX}
                                 y={REGIONS_TEMPLATE[id].titleY}
                                 fill="black" 
-                                font-size="10"
+                                fontSize="10"
                             >
                                 {data.byId[id].text}
                             </text>

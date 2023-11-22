@@ -11,3 +11,8 @@ export function makeid(length: number = 5) {
 }
 
 export const isOdd = (num: number) => num % 2;
+
+export const combineClassNames = (...classNames: (string | undefined)[]): string => {
+  if(!classNames?.length) return ''
+  return classNames.filter(className => !!className).join(' ')
+}

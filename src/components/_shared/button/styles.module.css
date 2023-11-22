@@ -1,0 +1,13 @@
+.button {
+    padding: var(--size-xs) var(--size-md);
+    color: #FFF;
+    background-color: var(--secondary-color);
+    border: none;
+    cursor: pointer;
+    font-size: var(--size-sm);
+    transition: .3s;
+
+    &:hover {
+        background-color: var(--tertiary-color);
+    }
+}

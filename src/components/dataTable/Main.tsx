@@ -1,5 +1,3 @@
-import { TextareaAutosize } from '@mui/base';
-import { Alert, Button, Snackbar } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,7 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import styles from './styles.module.css';
 import { useTypedDispatch } from 'hooks/useTypedDispatch';
@@ -21,6 +19,7 @@ import { TextFormat } from './TextFormat';
 import { setChartLegends } from 'store/chart/slice';
 import { T_ChartState } from 'store/chart/types';
 import { LEGEND_INITIAL_ROWS, LEGEND_INITIAL_ROW_IDS } from 'helpers/constants/chart';
+import { Button } from 'components/_shared/button/Main';
 
 export const DataTable: FC = () => {
 
@@ -29,85 +28,103 @@ export const DataTable: FC = () => {
     const [ isProcessedTable, setIsProcessedTable ] = useState(false)
     const [ unProcessedText, setUnprocessedText ] = useState('');
 
-    const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         const { name, value } = e.target
-        const attrName = e.currentTarget.getAttribute('data-regionoptionname') as keyof T_RegionOptions
+        const attrName = e.currentTarget.getAttribute('data-region-option-name') as keyof T_RegionOptions
         dispatch(setRegionOptions({
             id: name as T_RegionOptions['id'],
             [attrName]: value,
         }))
-    }
+    }, [])
 
     const handleChange:  React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
         setUnprocessedText(e.target.value)
     }
 
     const handleProcessTextData: React.MouseEventHandler<HTMLButtonElement> = () => {
-        const processedValues = unProcessedText.trim().split(/[\t | \n]/).filter(value => value.toLowerCase() !== 'ձոր').map(value => value.toLowerCase() === 'վայոց' ? 'Վայոց ձոր' : value);
+        const rows = unProcessedText.trim().split('\n')
+
         const state: any = {
             byId: {},
             allIds: []
         }
-        
-        const regionsState = processedValues.reduce((acc, value, index, arr) => {
-            if(!isOdd(index)) {
-                let id: T_RegionOptions['id'] = 'aragatsotn'
-                for(let key in REGIONS_LOCALIZE_OPTIONS.am) {
-                    
-                    if(REGIONS_LOCALIZE_OPTIONS.am[key as T_RegionOptions['id']] === value) {
-                        id = key as T_RegionOptions['id']
-                    }
-                }
-                
-                if(!acc.byId[id]) acc.byId[id] = {}
-                acc.byId[id] = {
-                    id,
-                    text: value,
-                    value: +arr[index + 1]
-                }
-                acc.allIds.push(id)
+        const regionsState = rows.reduce((acc, row) => {
+            const [id, value] = row.split('\t')
+            acc.byId[id] = {
+                id: id.split(' ').join('').toLowerCase(),
+                text: id,
+                value
             }
+            acc.allIds.push(id)
             return acc
         }, state) as T_RegionsState
+           
+        // const regionsState = processedValues.reduce((acc, value, index, arr) => {
+        //     if(!isOdd(index)) {
+        //         let id: T_RegionOptions['id'] = 'aragatsotn'
+        //         for(let key in REGIONS_LOCALIZE_OPTIONS.en) {
+        //             console.log(REGIONS_LOCALIZE_OPTIONS.en[key as T_RegionOptions['id']], value);
+                    
+        //             if(REGIONS_LOCALIZE_OPTIONS.en[key as T_RegionOptions['id']] === value) {
+        //                 id = key as T_RegionOptions['id']
+        //             }
+        //         }
+                
+        //         if(!acc.byId[id]) acc.byId[id] = {}
+        //         acc.byId[id] = {
+        //             id,
+        //             text: value,
+        //             value: +arr[index + 1]
+        //         }
+        //         acc.allIds.push(id)
+        //     }
+        //     return acc
+        // }, state) as T_RegionsState
+console.log({regionsState});
 
         dispatch(setRegionsData(regionsState))
         setIsProcessedTable(true)
 
-        const [ min, max ] = regionsState.allIds.reduce((acc, id) => {
-            const { value } = regionsState.byId[id]
-            if(value < acc[0]) {
-                acc[0] = value
-            } else if(value > acc[1]) {
-                acc[1] = value
-            }
-            return acc
-        }, [Infinity, -Infinity])
+        // const { min, max } = regionsState.allIds.reduce((acc, id) => {
+        //     const { value } = regionsState.byId[id]
+        //     if(value < acc.min) {
+        //         acc.min = value
+        //     } else if(value > acc.max) {
+        //         acc.max = value
+        //     }
+        //     return acc
+        // }, {
+        //     min: -Infinity,
+        //     max: Infinity
+        // })
 
-        let chartLegends: T_ChartState['legend'] = {
-            byId: {...LEGEND_INITIAL_ROWS},
-            allIds: [...LEGEND_INITIAL_ROW_IDS]
-        }
+        // let chartLegends: T_ChartState['legend'] = {
+        //     byId: {...LEGEND_INITIAL_ROWS},
+        //     allIds: [...LEGEND_INITIAL_ROW_IDS]
+        // }
 
-        const range = (max - min) / chartLegends.allIds.length
-        chartLegends.allIds.forEach((id, index) => {
-            const rangeStart = min + range * index
-            const rangeEnd = rangeStart + range
-            chartLegends.byId[id] = {
-                ...chartLegends.byId[id],
-                rangeStart,
-                rangeEnd,
-                name: rangeStart + ' - ' + rangeEnd
-            }
-        })
+        // const range = (max - min) / chartLegends.allIds.length
+        // chartLegends.allIds.forEach((id, index) => {
+        //     const rangeStart = min + range * index
+        //     const rangeEnd = rangeStart + range
+        //     chartLegends.byId[id] = {
+        //         ...chartLegends.byId[id],
+        //         rangeStart,
+        //         rangeEnd,
+        //         name: rangeStart + ' - ' + rangeEnd
+        //     }
+        // })
 
-        dispatch(setChartLegends(chartLegends))
+        // dispatch(setChartLegends(chartLegends))
     }
     
     if(!isProcessedTable) return (
         <>
             <TextFormat value={unProcessedText} onChange={handleChange} />
-            <Button disabled={!unProcessedText} onClick={handleProcessTextData}>Process Text</Button>
-            <Button onClick={() => setIsProcessedTable(true)}>Skip to Table</Button>
+            <div className={styles.inputProcessButtons}>
+                <Button className={unProcessedText ? undefined : 'disabled'} onClick={handleProcessTextData}>Process Text</Button>
+                <Button onClick={() => setIsProcessedTable(true)}>Skip to Table</Button>
+            </div>
         </>
     )
 
@@ -130,7 +147,7 @@ export const DataTable: FC = () => {
                                         <TableCell>
                                             <input 
                                                 name={id}
-                                                data-regionoptionname='text'
+                                                data-region-option-name='text'
                                                 className={styles.text}
                                                 value={text} 
                                                 onChange={handleTextChange} 
@@ -139,7 +156,7 @@ export const DataTable: FC = () => {
                                         <TableCell>
                                             <input 
                                                 type='number' 
-                                                data-regionoptionname='value'
+                                                data-region-option-name='value'
                                                 name={id}
                                                 className={styles.value} 
                                                 value={value}
