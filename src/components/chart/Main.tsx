@@ -16,8 +16,6 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
     const { legend: legendOptions } = chart
 
     const getColorByLegendOption = (value: T_RegionOptions['value']) => {
-        console.log({legendOptions});
-        
         let color = ''; 
         for(let i = 0; i < legendOptions.allIds.length; i++) {
             const legend = legendOptions.byId[legendOptions.allIds[i]]
@@ -39,7 +37,7 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
         }
         return color
     } 
-    console.log({data})
+
     return (
         <ErrorBoundary fallback={<h1>123321132</h1>}>
             <div
@@ -76,8 +74,7 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
                                     key={id}
                                     x={REGIONS_TEMPLATE[id].titleX}
                                     y={REGIONS_TEMPLATE[id].titleY}
-                                    fill="black" 
-                                    fontSize="10"
+                                    fontSize="14"
                                 >
                                     {data.byId[id].text}
                                 </text>

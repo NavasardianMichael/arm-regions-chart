@@ -1,12 +1,20 @@
-.dataTable {
+/* .dataTable {
     border: none;
     outline: none;
-}
+} */
 
-.dataTable td {
-    padding: 0;
+.dataTable {
 
-    & .text,
+    & td {
+        padding: 0 !important;
+    }
+
+    & input {
+        border: none;
+        border-radius: 0;
+    }
+
+    /* & .text,
     & .value {
         border: none;
         outline: none;
@@ -14,26 +22,18 @@
         box-sizing: border-box;
         font-size: var(--size-sm);
         width: 100%;
-    }
+    } */
 }
 
 .textInput {
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 0.8rem;
-    resize: none;
-    line-height: 1.5;
-    border: 1px solid var(--gray);
+    /* box-sizing: border-box;
     padding: var(--size-sm);
     font-size: var(--size-sm);
-    
-    &:focus-visible {
-      outline: 0;
-    }
+    resize: none !important; */
 }
 
-.inputProcessButtons {
+/* .inputProcessButtons {
     display: flex;
     gap: var(--size-sm);
     margin-top: var(--size-xs);
-}
+} */

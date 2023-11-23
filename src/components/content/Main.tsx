@@ -8,6 +8,7 @@ import { Chart } from 'components/chart/Main'
 import { ChartOptions } from 'components/chartOptions/Main'
 import { ChartDownloadPanel } from 'components/chartDownloadPanel/Main'
 import styles from './styles.module.css'
+import { Flex } from 'antd'
 
 export const Content: FC = () => {
     
@@ -15,16 +16,16 @@ export const Content: FC = () => {
     const chart = useTypedSelector(selectChart)
 
     return (
-        <div className={styles.content}>
-            <div className={styles.section}>
+        <Flex wrap='wrap' gap='middle' style={{padding: 'var(--size-sm)'}}>
+            <Flex className={styles.section} gap='large' vertical>
                 <DataTable />
                 <LegendsTable />
-            </div>
-            <div className={styles.section}>
+            </Flex>
+            <Flex className={styles.section} vertical gap='middle' style={{flex: 1}}>
                 <Chart data={data} chart={chart} />
                 <ChartOptions />
                 <ChartDownloadPanel data={data} chart={chart} />
-            </div>
-        </div>
+            </Flex>
+        </Flex>
     )
 }

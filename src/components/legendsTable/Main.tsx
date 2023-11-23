@@ -6,8 +6,8 @@ import { selectChartLegendOptions } from 'store/chart/selectors';
 import { T_Legend } from 'store/chart/types';
 import { addChartLegend, removeChartLegend, setChartLegendOptions } from 'store/chart/slice';
 import { makeid } from 'helpers/functions/commons';
-import { Button, ColorPicker, Input, Table } from 'antd';
-import { MinusOutlined } from '@ant-design/icons';
+import { Button, ColorPicker, Flex, Input, Table } from 'antd';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/es/table';
 import { LEGEND_OPTION_NAMES } from 'helpers/constants/chart';
 import { Color } from 'antd/es/color-picker';
@@ -54,15 +54,15 @@ export const LegendsTable: FC = () => {
     [
         {
             key: LEGEND_OPTION_NAMES.name,
-            title: LEGEND_OPTION_NAMES.name,
+            title: 'Name',
             dataIndex: LEGEND_OPTION_NAMES.name,
-            render: (options: T_Legend) => {
+            render: (value) => {
                 return (
                     <Input 
                         name={LEGEND_OPTION_NAMES.name}
                         data-chart-option-name={LEGEND_OPTION_NAMES.name}
                         className={styles.name}
-                        value={options.name}
+                        value={value}
                         onChange={handleChange}
                     />
                 )
@@ -70,16 +70,16 @@ export const LegendsTable: FC = () => {
         },
         {
             key: LEGEND_OPTION_NAMES.rangeStart,
-            title: LEGEND_OPTION_NAMES.rangeStart,
+            title: 'Range Start',
             dataIndex: LEGEND_OPTION_NAMES.rangeStart,
-            render: (options: T_Legend) => {
+            render: (value) => {
                 return (
                     <Input 
                         type='number'
                         name={LEGEND_OPTION_NAMES.rangeStart}
                         data-chart-option-name={LEGEND_OPTION_NAMES.rangeStart}
                         className={styles.rangeStart}
-                        value={options.rangeStart}
+                        value={value}
                         onChange={handleChange}
                     />
                 )
@@ -87,16 +87,16 @@ export const LegendsTable: FC = () => {
         },
         {
             key: LEGEND_OPTION_NAMES.rangeEnd,
-            title: LEGEND_OPTION_NAMES.rangeEnd,
+            title: 'Range End',
             dataIndex: LEGEND_OPTION_NAMES.rangeEnd,
-            render: (options: T_Legend) => {
+            render: (value) => {
                 return (
                     <Input 
                         type='number'
                         name={LEGEND_OPTION_NAMES.rangeEnd}
                         data-chart-option-name={LEGEND_OPTION_NAMES.rangeEnd}
                         className={styles.rangeEnd}
-                        value={options.rangeEnd}
+                        value={value}
                         onChange={handleChange}
                     />
                 )
@@ -104,68 +104,50 @@ export const LegendsTable: FC = () => {
         },
         {
             key: LEGEND_OPTION_NAMES.color,
-            title: LEGEND_OPTION_NAMES.color,
+            title: 'Color',
             dataIndex: LEGEND_OPTION_NAMES.color,
-            render: (options: T_Legend) => {
+            render: (value, record) => {
                 return (
                     <ColorPicker 
                         className={styles.rangeEnd}
-                        value={options.color}
-                        onChange={(value: Color, hex: string) => handleColorChange(value, hex, options.id)}
+                        data-chart-option-name={LEGEND_OPTION_NAMES.color}
+                        value={value}
+                        onChange={(value: Color, hex: string) => handleColorChange(value, hex, record.id)}
                     />
                 )
             },
         },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Button 
+                    type="text"
+                    id={record.id}
+                    icon={<MinusOutlined />} 
+                    danger
+                    onClick={handleRemoveClick}
+                />
+            ),
+        },        
     ]
-
-                // <TableCell>
-            //     <input 
-            //         name={id}
-            //         data-chart-option-name='rangeStart'
-            //         className={styles.rangeStart}
-            //         value={rangeStart}
-            //         onChange={handleChange}
-            //     />
-            // </TableCell>
-            // <TableCell>
-            //     <input 
-            //         type='number' 
-            //         data-chart-option-name='rangeEnd'
-            //         name={id}
-            //         className={styles.rangeEnd}
-            //         value={rangeEnd}
-            //         onChange={handleChange}
-            //     />
-            // </TableCell>
-            // <TableCell>
-            //     <input 
-            //         type="color"
-            //         data-chart-option-name='color'
-            //         className={styles.color} 
-            //         name={id}
-            //         value={color} 
-            //         onChange={handleChange} 
-            //     />
-            // </TableCell>
-            // <TableCell className={styles.removeLegendCell}>
-            // <Button 
-            //     type="primary" 
-            //     shape="circle" 
-            //     id={id}
-            //     color='red'
-            //     icon={<MinusOutlined />} 
-            //     onClick={handleRemoveClick}
-            // />
-            // </TableCell>
 
     const dataSource: T_Legend[] = legendOptions.allIds.map((legendOptionId) => legendOptions.byId[legendOptionId])
 
     return (
-        <div className={styles.legendTable}>
+        <Flex gap='middle' vertical>
             <Table
                 columns={columns}
-                dataSource={dataSource} 
+                pagination={false}
+                dataSource={dataSource}
+                bordered
             />
-        </div>
+            <Button 
+                icon={<PlusOutlined />} 
+                type='text'
+                onClick={handlePlusClick}
+            />            
+            
+        </Flex>
     )
 }

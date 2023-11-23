@@ -7,7 +7,7 @@ import { setRegionOptions, setRegionsData } from 'store/regions/slice';
 import { TextFormat } from './TextFormat';
 import styles from './styles.module.css';
 import Table, { ColumnsType } from 'antd/es/table';
-import { Button } from 'antd';
+import { Button, Flex, Input, notification } from 'antd';
 
 export const DataTable: FC = () => {
 
@@ -16,6 +16,15 @@ export const DataTable: FC = () => {
     const [ isProcessedTable, setIsProcessedTable ] = useState(false)
     const [ hasError, setHasError ] = useState(false)
     const [ unProcessedText, setUnprocessedText ] = useState('');
+    const [api, contextHolder] = notification.useNotification();
+
+    const openNotification = () => {
+      api.info({
+        message: `Notification`,
+        description:
+          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+      });
+    };
 
     const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(e => {
         const { name, value } = e.target
@@ -45,8 +54,6 @@ export const DataTable: FC = () => {
             }
             const regionsState = rows.reduce((acc, row) => {
                 const [text, value] = row.split('\t')
-                if(!text && !value || isNaN(+value)) {console.log({text, value, row});
-                return acc}
                 const id = text.split(' ').join('').toLowerCase()
                 acc.byId[id] = {
                     id,
@@ -67,29 +74,57 @@ export const DataTable: FC = () => {
     if(!isProcessedTable) return (
         <>
             <TextFormat value={unProcessedText} onChange={handleChange} />
-            <div className={styles.inputProcessButtons}>
-                <Button disabled={!!unProcessedText} onClick={handleProcessTextData}>Process Tab Delimited Text</Button>
-                <Button onClick={() => setIsProcessedTable(true)}>Skip to Table</Button>
-            </div>
+            <Flex className={styles.inputProcessButtons} style={{fontSize: 'var(--size-sm)'}}>
+                <Button type='primary' disabled={!unProcessedText} onClick={handleProcessTextData}>Process Tab Delimited Text</Button>
+                <Button type='primary' onClick={() => setIsProcessedTable(true)}>Skip to Table</Button>
+            </Flex>
         </>
     )
 
-    const columns: ColumnsType<any> = [
+    const columns: ColumnsType<T_RegionOptions> = [
         {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
+            key: 'name',
+          title: 'Region Name',
+          dataIndex: 'text',
+          render: (value, record) => {
+            return (
+                    <Input 
+                        name={record.id}
+                        value={value}
+                        data-region-option-name='text'
+                        onChange={handleTextChange}
+                    />
+                )
+            },
         },
         {
             title: 'Value',
             dataIndex: 'value',
             key: 'value',
+            render: (value, record) => {
+                return (
+                    <Input 
+                        type='number'
+                        name={record.id}
+                        value={value}
+                        data-region-option-name='value'
+                        onChange={handleTextChange}
+                    />
+                )
+            },            
         },
-      ];
+    ];
+
+    const dataSource: T_RegionOptions[] = data.allIds.map((regionId) => data.byId[regionId])
 
     return (
         <div className={styles.dataTable}>
-            <Table columns={columns} />
+            <Table 
+                columns={columns}
+                dataSource={dataSource}
+                pagination={false}
+                bordered 
+            />
         </div>
     )
 }
