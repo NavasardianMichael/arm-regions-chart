@@ -1,14 +1,18 @@
 import { FC } from 'react';
 import styles from './styles.module.css';
-import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useTypedDispatch } from 'hooks/useTypedDispatch';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { selectChartLegendOptions } from 'store/chart/selectors';
 import { T_Legend } from 'store/chart/types';
 import { addChartLegend, removeChartLegend, setChartLegendOptions } from 'store/chart/slice';
 import { makeid } from 'helpers/functions/commons';
+import { Button, ColorPicker, Input, Table } from 'antd';
+import { MinusOutlined } from '@ant-design/icons';
+import { ColumnsType } from 'antd/es/table';
+import { LEGEND_OPTION_NAMES } from 'helpers/constants/chart';
+import { Color } from 'antd/es/color-picker';
+
+type DataType = T_Legend
 
 export const LegendsTable: FC = () => {
 
@@ -17,7 +21,7 @@ export const LegendsTable: FC = () => {
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         const { name, value } = e.currentTarget
-        const attrName = e.currentTarget.getAttribute('data-chartoptionname') as keyof T_Legend
+        const attrName = e.currentTarget.getAttribute('data-chart-option-name') as keyof T_Legend
         
         const action = {
             id: name,
@@ -39,80 +43,129 @@ export const LegendsTable: FC = () => {
         dispatch(removeChartLegend({ id: e.currentTarget.id }))
     }
 
+    const handleColorChange: ((value: Color, hex: string, id: T_Legend['id']) => void) = (value, hex, id) => {
+        dispatch(setChartLegendOptions({
+            id,
+            color: hex
+        }))
+    }
+
+    const columns: ColumnsType<DataType> = 
+    [
+        {
+            key: LEGEND_OPTION_NAMES.name,
+            title: LEGEND_OPTION_NAMES.name,
+            dataIndex: LEGEND_OPTION_NAMES.name,
+            render: (options: T_Legend) => {
+                return (
+                    <Input 
+                        name={LEGEND_OPTION_NAMES.name}
+                        data-chart-option-name={LEGEND_OPTION_NAMES.name}
+                        className={styles.name}
+                        value={options.name}
+                        onChange={handleChange}
+                    />
+                )
+            }
+        },
+        {
+            key: LEGEND_OPTION_NAMES.rangeStart,
+            title: LEGEND_OPTION_NAMES.rangeStart,
+            dataIndex: LEGEND_OPTION_NAMES.rangeStart,
+            render: (options: T_Legend) => {
+                return (
+                    <Input 
+                        type='number'
+                        name={LEGEND_OPTION_NAMES.rangeStart}
+                        data-chart-option-name={LEGEND_OPTION_NAMES.rangeStart}
+                        className={styles.rangeStart}
+                        value={options.rangeStart}
+                        onChange={handleChange}
+                    />
+                )
+            },
+        },
+        {
+            key: LEGEND_OPTION_NAMES.rangeEnd,
+            title: LEGEND_OPTION_NAMES.rangeEnd,
+            dataIndex: LEGEND_OPTION_NAMES.rangeEnd,
+            render: (options: T_Legend) => {
+                return (
+                    <Input 
+                        type='number'
+                        name={LEGEND_OPTION_NAMES.rangeEnd}
+                        data-chart-option-name={LEGEND_OPTION_NAMES.rangeEnd}
+                        className={styles.rangeEnd}
+                        value={options.rangeEnd}
+                        onChange={handleChange}
+                    />
+                )
+            },
+        },
+        {
+            key: LEGEND_OPTION_NAMES.color,
+            title: LEGEND_OPTION_NAMES.color,
+            dataIndex: LEGEND_OPTION_NAMES.color,
+            render: (options: T_Legend) => {
+                return (
+                    <ColorPicker 
+                        className={styles.rangeEnd}
+                        value={options.color}
+                        onChange={(value: Color, hex: string) => handleColorChange(value, hex, options.id)}
+                    />
+                )
+            },
+        },
+    ]
+
+                // <TableCell>
+            //     <input 
+            //         name={id}
+            //         data-chart-option-name='rangeStart'
+            //         className={styles.rangeStart}
+            //         value={rangeStart}
+            //         onChange={handleChange}
+            //     />
+            // </TableCell>
+            // <TableCell>
+            //     <input 
+            //         type='number' 
+            //         data-chart-option-name='rangeEnd'
+            //         name={id}
+            //         className={styles.rangeEnd}
+            //         value={rangeEnd}
+            //         onChange={handleChange}
+            //     />
+            // </TableCell>
+            // <TableCell>
+            //     <input 
+            //         type="color"
+            //         data-chart-option-name='color'
+            //         className={styles.color} 
+            //         name={id}
+            //         value={color} 
+            //         onChange={handleChange} 
+            //     />
+            // </TableCell>
+            // <TableCell className={styles.removeLegendCell}>
+            // <Button 
+            //     type="primary" 
+            //     shape="circle" 
+            //     id={id}
+            //     color='red'
+            //     icon={<MinusOutlined />} 
+            //     onClick={handleRemoveClick}
+            // />
+            // </TableCell>
+
+    const dataSource: T_Legend[] = legendOptions.allIds.map((legendOptionId) => legendOptions.byId[legendOptionId])
+
     return (
         <div className={styles.legendTable}>
-            <TableContainer component={Paper}>
-                <Table aria-label="chart legend table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Range Start</TableCell>
-                            <TableCell>Range End</TableCell>
-                            <TableCell>Color</TableCell>
-                            <TableCell sx={{marginLeft: 'auto'}}></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            legendOptions.allIds.map((legendOptionId) => {  
-                                const { id, name, rangeStart, rangeEnd, color } = legendOptions.byId[legendOptionId];
-                                
-                                return (
-                                    <TableRow key={id}>
-                                        <TableCell>
-                                            <input 
-                                                name={id}
-                                                data-chartoptionname='name'
-                                                className={styles.name}
-                                                value={name} 
-                                                onChange={handleChange} 
-                                                autoFocus
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <input 
-                                                name={id}
-                                                data-chartoptionname='rangeStart'
-                                                className={styles.rangeStart}
-                                                value={rangeStart}
-                                                onChange={handleChange}
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <input 
-                                                type='number' 
-                                                data-chartoptionname='rangeEnd'
-                                                name={id}
-                                                className={styles.rangeEnd}
-                                                value={rangeEnd}
-                                                onChange={handleChange}
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <input 
-                                                type="color"
-                                                data-chartoptionname='color'
-                                                className={styles.color} 
-                                                name={id}
-                                                value={color} 
-                                                onChange={handleChange} 
-                                            />
-                                        </TableCell>
-                                        <TableCell className={styles.removeLegendCell}>
-                                            <IconButton onClick={handleRemoveClick} title='Remove Current Legend' id={id}>
-                                                <RemoveCircleOutlineIcon color='error' />
-                                            </IconButton>
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                            })
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <IconButton onClick={handlePlusClick} title='Add a New Legend'>
-                <AddCircleOutlineRoundedIcon color='action' fontSize='large' />
-            </IconButton>
+            <Table
+                columns={columns}
+                dataSource={dataSource} 
+            />
         </div>
     )
 }

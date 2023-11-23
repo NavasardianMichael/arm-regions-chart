@@ -1,10 +1,4 @@
 import { useState } from 'react';
-import DownloadIcon from '@mui/icons-material/Download';
-import { IconButton } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { FC } from 'react';
 import { renderToString } from 'react-dom/server';
 
@@ -14,6 +8,8 @@ import { T_RegionsState } from 'store/regions/types';
 
 import styles from './styles.module.css';
 import { ASSET_TYPES, HANDLERS_BY_ASSET_TYPE } from 'helpers/constants/chart';
+import { DownloadOutlined } from '@ant-design/icons';
+import { Button, Select, MenuProps } from 'antd';
 
 type T_Props = {
     data: T_RegionsState,
@@ -24,7 +20,7 @@ type T_Props = {
 export const ChartDownloadPanel: FC<T_Props> = ({ data, chart }) => {
     const [ assetType, setAssetType ] = useState<typeof ASSET_TYPES[keyof typeof ASSET_TYPES]>(ASSET_TYPES.png)
 
-    const handleChangeAssetType = (event: SelectChangeEvent) => {
+    const handleChangeAssetType = (event: any) => {
         setAssetType(event.target.value as typeof assetType);
     }
 
@@ -35,24 +31,47 @@ export const ChartDownloadPanel: FC<T_Props> = ({ data, chart }) => {
         HANDLERS_BY_ASSET_TYPE[assetType](svgStr);
     }
 
+    const items = [
+        {
+          key: '1',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+              1st menu item
+            </a>
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+              2nd menu item
+            </a>
+          ),
+        },
+        {
+          key: '3',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+              3rd menu item
+            </a>
+          ),
+        },
+    ];    
+
     return (
         <div className={styles.chartDownloadPanel}>
-            <FormControl sx={{width: '200px'}}>
-                <InputLabel id="demo-simple-select-label">Asset Type</InputLabel>
-                <Select
-                    value={assetType}
-                    label="Asset Type"
-                    onChange={handleChangeAssetType}
-                >
-                <MenuItem value={ASSET_TYPES.png}>{ASSET_TYPES.png}</MenuItem>
-                <MenuItem value={ASSET_TYPES.svg}>{ASSET_TYPES.svg}</MenuItem>
-                <MenuItem value={ASSET_TYPES.pdf}>{ASSET_TYPES.pdf}</MenuItem>
-                </Select>
-            </FormControl>
-            <IconButton onClick={handleClick} sx={{borderRadius: 1, marginLeft: '1rem'}}>
-                <DownloadIcon sx={{marginTop: '6px', paddingRight: '6px'}} />
-                <div>Download {assetType}</div>
-            </IconButton>
+            <Select
+                value={assetType}
+                onChange={handleChangeAssetType}
+                options={items}
+            />
+            <Button 
+                type="primary" 
+                icon={<DownloadOutlined />} 
+                onClick={handleClick}
+            >
+                Download {assetType}
+            </Button>
         </div>
     )
 }

@@ -5,10 +5,10 @@
     justify-content: center;
     padding: var(--size-md);
     border-bottom: 1px solid var(--gray);
-    color: var(--primary-color);
 }
 
-.header h1 {
+.header .title {
     margin: 0;
+    color: var(--primary-color);
     font-size: var(--size-md);
 }

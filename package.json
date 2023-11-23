@@ -4,8 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@mui/base": "^5.0.0-beta.24",
-    "@mui/icons-material": "^5.11.16",
+    "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -14,6 +13,7 @@
     "@types/node": "^16.18.34",
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.4",
+    "antd": "^5.11.3",
     "html2pdf.js": "^0.10.1",
     "jspdf": "^2.5.1",
     "react": "^18.2.0",

@@ -40,3 +40,10 @@ export const HANDLERS_BY_ASSET_TYPE = {
 } as const
 
 export const EXPORTED_FILE_NAME = 'Armenia Regions Chart'
+
+export const LEGEND_OPTION_NAMES = {
+  name: 'name',
+  rangeStart: 'rangeStart',
+  rangeEnd: 'rangeEnd',
+  color: 'color',
+} as const

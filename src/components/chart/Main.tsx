@@ -4,6 +4,7 @@ import { T_ChartState } from 'store/chart/types'
 import { REGIONS_IDS_LIST, REGIONS_TEMPLATE } from 'helpers/constants/regions'
 import { Legend } from 'components/legend/Main'
 import styles from './styles.module.css'
+import { ErrorBoundary } from 'components/_shared/errorBoundary/Main'
 
 type T_Props = {
     data: T_RegionsState,
@@ -40,50 +41,52 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
     } 
     console.log({data})
     return (
-        <div
-            className={styles.chart}
-            id="chart"
-        >
-            <canvas id="canvas" width="792.57129" height="802.40002" hidden></canvas>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                id="map"
-                width="792.57129"
-                height="802.40002"
-                viewBox="0 0 792.57129 802.40002"
+        <ErrorBoundary fallback={<h1>123321132</h1>}>
+            <div
+                className={styles.chart}
+                id="chart"
             >
-                {
-                    REGIONS_IDS_LIST.map(id => {
-                        
-                        return (
-                            <path 
-                                key={id} 
-                                id={id}
-                                fill={getColorByLegendOption(data.byId[id].value)}
-                                d={REGIONS_TEMPLATE[id].pathDirection}
-                            >
-                            </path>
-                        )
-                    })
-                }
-                {
-                    REGIONS_IDS_LIST.map(id => {
-                        return (
-                            <text 
-                                key={id}
-                                x={REGIONS_TEMPLATE[id].titleX}
-                                y={REGIONS_TEMPLATE[id].titleY}
-                                fill="black" 
-                                fontSize="10"
-                            >
-                                {data.byId[id].text}
-                            </text>
-                        )
-                    })
-                }
-                <Legend chart={chart}  />
-            </svg>
-        </div>
+                <canvas id="canvas" width="792.57129" height="802.40002" hidden></canvas>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    id="map"
+                    width="792.57129"
+                    height="802.40002"
+                    viewBox="0 0 792.57129 802.40002"
+                >
+                    {
+                        REGIONS_IDS_LIST.map(id => {
+                            
+                            return (
+                                <path 
+                                    key={id} 
+                                    id={id}
+                                    fill={getColorByLegendOption(data.byId[id].value)}
+                                    d={REGIONS_TEMPLATE[id].pathDirection}
+                                >
+                                </path>
+                            )
+                        })
+                    }
+                    {
+                        REGIONS_IDS_LIST.map(id => {
+                            return (
+                                <text 
+                                    key={id}
+                                    x={REGIONS_TEMPLATE[id].titleX}
+                                    y={REGIONS_TEMPLATE[id].titleY}
+                                    fill="black" 
+                                    fontSize="10"
+                                >
+                                    {data.byId[id].text}
+                                </text>
+                            )
+                        })
+                    }
+                    <Legend chart={chart}  />
+                </svg>
+            </div>
+        </ErrorBoundary>
     )
 }
