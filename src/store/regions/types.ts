@@ -5,11 +5,12 @@ export type T_RegionsState = {
         [key in keyof typeof REGIONS_IDS]: T_RegionOptions
     }
     allIds: typeof REGIONS_IDS_LIST
+    draggedId: T_RegionOptions['id'] | null
 }
 
 export type T_RegionOptions = {
-    id: typeof REGIONS_IDS[keyof typeof REGIONS_IDS],
-    text: string,
+    id: typeof REGIONS_IDS[keyof typeof REGIONS_IDS]
+    text: string
     value: number
     label: {
         xPos: number
@@ -20,4 +21,5 @@ export type T_RegionOptions = {
 export type T_ActionPayloads = {
     changeRegionOptions: Pick<T_RegionOptions, 'id'> & Partial<Exclude<T_RegionOptions, 'id'>>
     setRegionsData: T_RegionsState
+    setDraggedId: T_RegionsState['draggedId']
 }

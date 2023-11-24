@@ -122,8 +122,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.aragatsotn],
         value: 50,
         label: {
-            xPos: 130,
-            yPos: 305, 
+            xPos: 110 + 14,
+            yPos: 305 - 14, 
         },
         
     },
@@ -132,8 +132,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.ararat],
         value: 100,
         label: {
-            xPos: 320,
-            yPos: 450, 
+            xPos: 320 + 14,
+            yPos: 450 - 14, 
         },
         
     },
@@ -142,8 +142,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.armavir],
         value: 150,
         label: {
-            xPos: 120,
-            yPos: 390, 
+            xPos: 120 + 14,
+            yPos: 390 - 14, 
         },
         
     },
@@ -152,8 +152,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.yerevan],
         value: 200,
         label: {
-            xPos: 250,
-            yPos: 370, 
+            xPos: 250 + 14,
+            yPos: 370 - 14, 
         },
         
     },
@@ -162,8 +162,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.gegharquniq],
         value: 110,
         label: {
-            xPos: 430,
-            yPos: 330, 
+            xPos: 430 + 14,
+            yPos: 330 - 14, 
         },
         
     },
@@ -172,8 +172,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.kotayk],
         value: 150,
         label: {
-            xPos: 300,
-            yPos: 300, 
+            xPos: 290 + 14,
+            yPos: 300 - 14, 
         },
         
     },
@@ -182,8 +182,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.lori],
         value: 260,
         label: {
-            xPos: 250,
-            yPos: 110, 
+            xPos: 250 + 14,
+            yPos: 110 - 14, 
         },
         
     },
@@ -192,8 +192,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.shirak],
         value: 900,
         label: {
-            xPos: 95,
-            yPos: 160, 
+            xPos: 90 + 14,
+            yPos: 160 - 14, 
         },
         
     },
@@ -202,8 +202,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.syunik],
         value: 10,
         label: {
-            xPos: 670,
-            yPos: 640, 
+            xPos: 670 + 14,
+            yPos: 640 - 14, 
         },
         
     },
@@ -212,8 +212,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.tavush],
         value: 15,
         label: {
-            xPos: 400,
-            yPos: 140, 
+            xPos: 400 + 14,
+            yPos: 140 - 14, 
         },
         
     },
@@ -222,9 +222,8 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
         text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.vayotsdzor],
         value: 180,
         label: {
-            xPos: 470,
-            yPos: 510, 
+            xPos: 450 + 14,
+            yPos: 510 - 14, 
         },
-        
     },
 } as const

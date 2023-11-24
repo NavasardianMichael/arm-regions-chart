@@ -7,7 +7,7 @@ const initialState: T_ChartState = {
     borderColor: 'gray',
     showLegend: true,
     showLabels: true,
-    fontSize: 14
+    fontSize: 24
   },
   legend: {
     byId: LEGEND_INITIAL_ROWS,

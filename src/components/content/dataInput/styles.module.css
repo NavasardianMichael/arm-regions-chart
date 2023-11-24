@@ -5,10 +5,6 @@
 
 .dataTable {
 
-    & td {
-        padding: 0 !important;
-    }
-
     & input {
         border: none;
         border-radius: 0;

@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 import Table, { ColumnsType } from 'antd/es/table';
 import { Button, Flex, Input, notification } from 'antd';
 
-export const DataTable: FC = () => {
+export const DataInput: FC = () => {
 
     const dispatch = useTypedDispatch()
     const data = useTypedSelector(selectRegionsData)

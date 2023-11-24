@@ -14,7 +14,7 @@ import { Color } from 'antd/es/color-picker';
 
 type DataType = T_Legend
 
-export const LegendsTable: FC = () => {
+export const LegendSettings: FC = () => {
 
     const dispatch = useTypedDispatch()
     const legendOptions = useTypedSelector(selectChartLegendOptions) 
@@ -143,14 +143,13 @@ export const LegendsTable: FC = () => {
                 columns={columns}
                 pagination={false}
                 dataSource={dataSource}
-                // bordered
+                bordered
             />
             <Button 
                 icon={<PlusOutlined />} 
                 type='text'
                 onClick={handlePlusClick}
-            />            
-            
+            />
         </Flex>
     )
 }

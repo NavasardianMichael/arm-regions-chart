@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { FC } from 'react';
 import { renderToString } from 'react-dom/server';
 
-import { Chart } from 'components/chart/Main';
 import { T_ChartState } from 'store/chart/types';
 import { T_RegionsState } from 'store/regions/types';
 
@@ -11,6 +10,7 @@ import { ASSET_TYPES, HANDLERS_BY_ASSET_TYPE } from 'helpers/constants/chart';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Select, MenuProps, Flex, Form } from 'antd';
 import { Option } from 'antd/es/mentions';
+import { Chart } from 'components/content/ui/chart/Main';
 
 type T_Props = {
     data: T_RegionsState,
