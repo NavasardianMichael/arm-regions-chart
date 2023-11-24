@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './styles.module.css';
 import { useTypedDispatch } from 'hooks/useTypedDispatch';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -50,8 +50,11 @@ export const LegendsTable: FC = () => {
         }))
     }
 
-    const columns: ColumnsType<DataType> = 
-    [
+    useEffect(() => {
+        
+    }, [legendOptions.allIds.length])
+
+    const columns: ColumnsType<DataType> = [
         {
             key: LEGEND_OPTION_NAMES.name,
             title: 'Name',
@@ -118,7 +121,7 @@ export const LegendsTable: FC = () => {
             },
         },
         {
-            title: 'Action',
+            title: '',
             key: 'action',
             render: (_, record) => (
                 <Button 
@@ -132,15 +135,15 @@ export const LegendsTable: FC = () => {
         },        
     ]
 
-    const dataSource: T_Legend[] = legendOptions.allIds.map((legendOptionId) => legendOptions.byId[legendOptionId])
+    const dataSource: T_Legend[] = legendOptions.allIds.map((legendOptionId) => ({key: legendOptionId,...legendOptions.byId[legendOptionId]}))
 
     return (
-        <Flex gap='middle' vertical>
+        <Flex gap='small' vertical className='normalized-table-wrapper'>
             <Table
                 columns={columns}
                 pagination={false}
                 dataSource={dataSource}
-                bordered
+                // bordered
             />
             <Button 
                 icon={<PlusOutlined />} 

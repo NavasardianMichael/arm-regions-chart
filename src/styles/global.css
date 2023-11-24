@@ -1,5 +1,11 @@
-.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-    user-select: none;
+.normalized-table-wrapper {
+    & td {
+        padding: 0 !important;
+    }
+
+    & input {
+        border: none;
+        border-radius: 0;
+        padding: 6px 10px;
+    }
 }

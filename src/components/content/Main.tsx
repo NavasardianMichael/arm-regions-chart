@@ -16,12 +16,12 @@ export const Content: FC = () => {
     const chart = useTypedSelector(selectChart)
 
     return (
-        <Flex wrap='wrap' gap='middle' style={{padding: 'var(--size-sm)'}}>
-            <Flex className={styles.section} gap='large' vertical>
+        <Flex wrap='wrap' gap='middle' style={{padding: 'var(--size-sm)', flex: 1}}>
+            <Flex className={styles.section} gap='middle' vertical>
                 <DataTable />
                 <LegendsTable />
             </Flex>
-            <Flex className={styles.section} vertical gap='middle' style={{flex: 1}}>
+            <Flex className={styles.section} vertical gap='middle'>
                 <Chart data={data} chart={chart} />
                 <ChartOptions />
                 <ChartDownloadPanel data={data} chart={chart} />

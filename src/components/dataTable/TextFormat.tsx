@@ -17,6 +17,7 @@ export const TextFormat: FC<T_Props> = ({ value, onChange }) => {
       placeholder='Insert tab delimited text here'
       value={value}
       onChange={onChange}
+      style={{resize: 'none', padding: 'var(--size-xs) var(--size-sm)'}}
     />
   );
 }

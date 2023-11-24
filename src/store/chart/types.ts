@@ -2,6 +2,8 @@ export type T_ChartState = {
     styles: {
         borderColor: string
         showLegend: boolean
+        showLabels: boolean
+        fontSize: number
     },
     legend: {
         byId: Record<T_Legend['id'], T_Legend>

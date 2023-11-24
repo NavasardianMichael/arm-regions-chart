@@ -4,13 +4,14 @@ import { Header } from "./components/header/Main";
 import './App.css';
 import 'styles/global.css'
 import 'styles/_variables.css'
+import { Flex } from 'antd';
 
 function App() {
   return (
-    <div className="App">
+    <Flex vertical>
       <Header />
       <Content />
-    </div>
+    </Flex>
   );
 }
 

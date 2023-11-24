@@ -72,22 +72,22 @@ export const DataTable: FC = () => {
     }
     
     if(!isProcessedTable) return (
-        <>
+        <Flex vertical gap='small'>
             <TextFormat value={unProcessedText} onChange={handleChange} />
-            <Flex className={styles.inputProcessButtons} style={{fontSize: 'var(--size-sm)'}}>
+            <Flex className={styles.inputProcessButtons} gap='small' style={{fontSize: 'var(--size-sm)'}}>
                 <Button type='primary' disabled={!unProcessedText} onClick={handleProcessTextData}>Process Tab Delimited Text</Button>
                 <Button type='primary' onClick={() => setIsProcessedTable(true)}>Skip to Table</Button>
             </Flex>
-        </>
+        </Flex>
     )
 
     const columns: ColumnsType<T_RegionOptions> = [
         {
             key: 'name',
-          title: 'Region Name',
-          dataIndex: 'text',
-          render: (value, record) => {
-            return (
+            title: 'Region Name',
+            dataIndex: 'text',
+            render: (value, record) => {
+                return (
                     <Input 
                         name={record.id}
                         value={value}
@@ -115,10 +115,10 @@ export const DataTable: FC = () => {
         },
     ];
 
-    const dataSource: T_RegionOptions[] = data.allIds.map((regionId) => data.byId[regionId])
+    const dataSource: T_RegionOptions[] = data.allIds.map((regionId) =>  ({key: regionId, ...data.byId[regionId]}))
 
     return (
-        <div className={styles.dataTable}>
+        <div className='normalized-table-wrapper'>
             <Table 
                 columns={columns}
                 dataSource={dataSource}
