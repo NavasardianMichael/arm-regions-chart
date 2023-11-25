@@ -1,9 +1,17 @@
 export type T_ChartState = {
     styles: {
-        borderColor: string
-        showLegend: boolean
-        showLabels: boolean
-        fontSize: number
+        chart: {
+            color: string
+            borderColor: string
+            showLabels: boolean
+            fontSize: number
+        },
+        legend: {
+            color: string
+            borderColor: string
+            show: boolean
+            fontSize: number
+        }
     },
     legend: {
         byId: Record<T_Legend['id'], T_Legend>
@@ -24,5 +32,6 @@ export type T_ActionPayloads = {
     setChartLegendOptions: Pick<T_Legend, 'id'> & Partial<Exclude<T_Legend, 'id'>>
     addChartLegend: Pick<T_Legend, 'id'>
     removeChartLegend: Pick<T_Legend, 'id'>
-    setChartLegendStyles: Partial<T_ChartState['styles']>
+    setChartStyles: Partial<T_ChartState['styles']['chart']>
+    setLegendStyles: Partial<T_ChartState['styles']['legend']>
 }

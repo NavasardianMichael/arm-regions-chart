@@ -2,11 +2,11 @@ import { FC } from 'react'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { selectRegionsData } from 'store/regions/selectors'
 import { selectChart } from 'store/chart/selectors'
-import { DataInput } from 'components/content/dataInput/Main'
+import { DataInput } from 'components/content/dataInput/chart/Main'
 import { ChartDownloadPanel } from 'components/chartDownloadPanel/Main'
 import styles from './styles.module.css'
 import { Flex } from 'antd'
-import { LegendSettings } from './settings/legend/Main'
+import { LegendDataInput } from './dataInput/legend/Main'
 import { Chart } from './ui/chart/Main'
 import { ChartSettings } from './settings/chart/Main'
 import { Settings } from './settings/Main'
@@ -20,7 +20,7 @@ export const Content: FC = () => {
         <Flex wrap='wrap' gap='middle' style={{padding: 'var(--size-sm)', flex: 1}}>
             <Flex className={styles.section} gap='middle' vertical>
                 <DataInput />
-                <LegendSettings />
+                <LegendDataInput />
                 <Settings />
             </Flex>
             <Flex className={styles.section} vertical gap='middle'>

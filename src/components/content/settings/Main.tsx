@@ -1,10 +1,7 @@
 import { FC, useState } from 'react';
 import { Collapse, CollapseProps } from 'antd';
-import { T_Legend } from 'store/chart/types';
 import { ChartSettings } from './chart/Main';
 import { LegendSettings } from './legend/Main';
-
-type DataType = T_Legend
 
 const TABS = {
     chart: 'chart',
@@ -18,12 +15,12 @@ export const Settings: FC = () => {
     const items: CollapseProps['items'] = [
         {
           key: TABS.chart,
-          label: 'This is panel header 1',
+          label: 'Chart settings',
           children: <ChartSettings />,
         },
         {
           key: TABS.legend,
-          label: 'This is panel header 2',
+          label: 'Legend settings',
           children: <LegendSettings />,
         },
     ];

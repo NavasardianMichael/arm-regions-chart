@@ -48,15 +48,21 @@ export const chartSlice = createSlice({
       state.legend.allIds = state.legend.allIds.filter(currentId => currentId !== id)
       delete state.legend.byId[id]
     },
-    setChartLegendStyles: (state, action: PayloadAction<T_ActionPayloads['setChartLegendStyles']>) => {
-      state.styles = {
-        ...state.styles,
+    setChartStyles: (state, action: PayloadAction<T_ActionPayloads['setChartStyles']>) => {
+      state.styles.chart = {
+        ...state.styles.chart,
         ...action.payload
       }
-    }
+    },
+    setLegendStyles: (state, action: PayloadAction<T_ActionPayloads['setLegendStyles']>) => {
+      state.styles.legend = {
+        ...state.styles.legend,
+        ...action.payload
+      }
+    },
   },
 })
 
-export const { setChartLegends, setChartLegendOptions, addChartLegend, removeChartLegend, setChartLegendStyles } = chartSlice.actions
+export const { setChartLegends, setChartLegendOptions, addChartLegend, removeChartLegend, setChartStyles, setLegendStyles } = chartSlice.actions
 
 export default chartSlice.reducer
