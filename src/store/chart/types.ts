@@ -1,18 +1,21 @@
+import { LANGS } from "helpers/constants/localization"
+
 export type T_ChartState = {
+    selectedLanguage: typeof LANGS[keyof typeof LANGS]
     styles: {
         chart: {
             color: string
             borderColor: string
             showLabels: boolean
             fontSize: number
-        },
+        }
         legend: {
             color: string
             borderColor: string
             show: boolean
             fontSize: number
         }
-    },
+    }
     legend: {
         byId: Record<T_Legend['id'], T_Legend>
         allIds: T_Legend['id'][]
@@ -34,4 +37,5 @@ export type T_ActionPayloads = {
     removeChartLegend: Pick<T_Legend, 'id'>
     setChartStyles: Partial<T_ChartState['styles']['chart']>
     setLegendStyles: Partial<T_ChartState['styles']['legend']>
+    setLanguage: T_ChartState['selectedLanguage']
 }

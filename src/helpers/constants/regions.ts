@@ -1,5 +1,5 @@
 import { T_RegionsState } from "store/regions/types";
-import { LANGS_IDS } from "./localization"
+import { REGIONS_LOCALIZE_OPTIONS } from "./localization"
 
 export const REGIONS_IDS = {
     aragatsotn: 'aragatsotn',
@@ -85,145 +85,115 @@ export const REGIONS_TEMPLATE = {
 
 export const REGIONS_IDS_LIST = Object.values(REGIONS_IDS)
 
-export const REGIONS_LOCALIZE_OPTIONS = {
-    [LANGS_IDS.en]: {
-        [REGIONS_IDS.aragatsotn]: 'Aragatsotn',
-        [REGIONS_IDS.ararat]: 'Ararat',
-        [REGIONS_IDS.armavir]: 'Armavir',
-        [REGIONS_IDS.yerevan]: 'Yerevan',
-        [REGIONS_IDS.gegharquniq]: 'Gegharquniq',
-        [REGIONS_IDS.kotayk]: 'Kotayk',
-        [REGIONS_IDS.lori]: 'Lori',
-        [REGIONS_IDS.shirak]: 'Shirak',
-        [REGIONS_IDS.syunik]: 'Syunik',
-        [REGIONS_IDS.tavush]: 'Tavush',
-        [REGIONS_IDS.vayotsdzor]: 'Vayots dzor',
-    },
-    [LANGS_IDS.am]: {
-        [REGIONS_IDS.aragatsotn]: 'Արագածոտն',
-        [REGIONS_IDS.ararat]: 'Արարատ',
-        [REGIONS_IDS.armavir]: 'Արմավիր',
-        [REGIONS_IDS.yerevan]: 'Երևան',
-        [REGIONS_IDS.gegharquniq]: 'Գեղարքունիք',
-        [REGIONS_IDS.kotayk]: 'Կոտայք',
-        [REGIONS_IDS.lori]: 'Լոռի',
-        [REGIONS_IDS.shirak]: 'Շիրակ',
-        [REGIONS_IDS.syunik]: 'Սյունիք',
-        [REGIONS_IDS.tavush]: 'Տավուշ',
-        [REGIONS_IDS.vayotsdzor]: 'Վայոց ձոր',
-    },
-}
-
 export const REGIONS_INITIAL_FILL = 'black';
 
 export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
     [REGIONS_IDS.aragatsotn]: {
         id: REGIONS_IDS.aragatsotn,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.aragatsotn],
         value: 50,
+        text: '',
         label: {
-            xPos: 110 + 14,
-            yPos: 305 - 14, 
+            xPos: 110 + 11,
+            yPos: 305 - 11, 
         },
         
     },
     [REGIONS_IDS.ararat]: {
         id: REGIONS_IDS.ararat,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.ararat],
         value: 100,
+        text: '',
         label: {
-            xPos: 320 + 14,
-            yPos: 450 - 14, 
+            xPos: 320 + 11,
+            yPos: 450 - 11, 
         },
         
     },
     [REGIONS_IDS.armavir]: {
         id: REGIONS_IDS.armavir,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.armavir],
         value: 150,
+        text: '',
         label: {
-            xPos: 120 + 14,
-            yPos: 390 - 14, 
+            xPos: 120 + 11,
+            yPos: 390 - 11, 
         },
         
     },
     [REGIONS_IDS.yerevan]: {
         id: REGIONS_IDS.yerevan,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.yerevan],
         value: 200,
+        text: '',
         label: {
-            xPos: 250 + 14,
-            yPos: 370 - 14, 
+            xPos: 250 + 11,
+            yPos: 370 - 11, 
         },
         
     },
     [REGIONS_IDS.gegharquniq]: {
         id: REGIONS_IDS.gegharquniq,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.gegharquniq],
         value: 110,
+        text: '',
         label: {
-            xPos: 430 + 14,
-            yPos: 330 - 14, 
+            xPos: 430 + 11,
+            yPos: 330 - 11, 
         },
         
     },
     [REGIONS_IDS.kotayk]: {
         id: REGIONS_IDS.kotayk,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.kotayk],
         value: 150,
+        text: '',
         label: {
-            xPos: 290 + 14,
-            yPos: 300 - 14, 
+            xPos: 290 + 11,
+            yPos: 300 - 11, 
         },
-        
     },
     [REGIONS_IDS.lori]: {
         id: REGIONS_IDS.lori,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.lori],
         value: 260,
+        text: '',
         label: {
-            xPos: 250 + 14,
-            yPos: 110 - 14, 
+            xPos: 250 + 11,
+            yPos: 110 - 11, 
         },
         
     },
     [REGIONS_IDS.shirak]: {
         id: REGIONS_IDS.shirak,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.shirak],
         value: 900,
+        text: '',
         label: {
-            xPos: 90 + 14,
-            yPos: 160 - 14, 
+            xPos: 90 + 11,
+            yPos: 160 - 11, 
         },
         
     },
     [REGIONS_IDS.syunik]: {
         id: REGIONS_IDS.syunik,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.syunik],
         value: 10,
+        text: '',
         label: {
-            xPos: 670 + 14,
-            yPos: 640 - 14, 
+            xPos: 670 + 11,
+            yPos: 640 - 11, 
         },
         
     },
     [REGIONS_IDS.tavush]: {
         id: REGIONS_IDS.tavush,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.tavush],
         value: 15,
+        text: '',
         label: {
-            xPos: 400 + 14,
-            yPos: 140 - 14, 
+            xPos: 400 + 11,
+            yPos: 140 - 11, 
         },
         
     },
     [REGIONS_IDS.vayotsdzor]: {
         id: REGIONS_IDS.vayotsdzor,
-        text: REGIONS_LOCALIZE_OPTIONS[LANGS_IDS.en][REGIONS_IDS.vayotsdzor],
         value: 180,
+        text: '',
         label: {
-            xPos: 450 + 14,
-            yPos: 510 - 14, 
+            xPos: 460 + 11,
+            yPos: 510 - 11, 
         },
     },
 } as const

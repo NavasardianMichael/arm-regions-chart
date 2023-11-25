@@ -21,6 +21,11 @@ export const regionsSlice = createSlice({
         ...action.payload
       }
     },
+    setTexts: (state, action: PayloadAction<T_ActionPayloads['setTexts']>) => {
+      state.allIds.forEach(id => {
+        state.byId[id].text = action.payload[id]
+      })
+    },
     setRegionsData: (state, action: PayloadAction<T_ActionPayloads['setRegionsData']>) => {      
       state.allIds = action.payload.allIds
       state.byId = action.payload.byId
@@ -31,6 +36,6 @@ export const regionsSlice = createSlice({
   },
 })
 
-export const { setRegionOptions, setRegionsData, setDraggedId } = regionsSlice.actions
+export const { setRegionOptions, setRegionsData, setDraggedId, setTexts } = regionsSlice.actions
 
 export default regionsSlice.reducer

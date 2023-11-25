@@ -1,15 +1,17 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { T_ChartState } from 'store/chart/types'
 
 type T_Props = {
     chart: T_ChartState
 }
 
-export const Legend: FC<T_Props> = ({ chart: { legend: legendOptions, styles: chartStyles }}) => {
+export const Legend: FC<T_Props> = memo(({ chart: { legend: legendOptions, styles: chartStyles }}) => {
+    console.log(chartStyles.legend.show);
+    
     return (
-        <>
+        <g stroke={chartStyles.legend.borderColor}>
             {
-                chartStyles.showLegend &&
+                chartStyles.legend.show &&
                 legendOptions.allIds.map((legendOptionId, index, arr) => {
                     const { id, color, name } = legendOptions.byId[legendOptionId];
                     const positionY = 802.4 - (arr.length - index) * 35
@@ -24,6 +26,7 @@ export const Legend: FC<T_Props> = ({ chart: { legend: legendOptions, styles: ch
                                 y={positionY - 16}
                                 alignmentBaseline="middle" 
                                 fill={color}
+                                strokeWidth={0}
                             >
                                 {name}
                             </rect>
@@ -31,7 +34,8 @@ export const Legend: FC<T_Props> = ({ chart: { legend: legendOptions, styles: ch
                                 y={positionY}
                                 x={80} 
                                 alignmentBaseline="middle"
-                                fontSize={20}
+                                fontSize={chartStyles.legend.fontSize}
+                                strokeWidth={0}
                             >
                                 {name}
                             </text>
@@ -39,6 +43,6 @@ export const Legend: FC<T_Props> = ({ chart: { legend: legendOptions, styles: ch
                     )
                 })
             }        
-        </>
+        </g>
     )
-}
+})

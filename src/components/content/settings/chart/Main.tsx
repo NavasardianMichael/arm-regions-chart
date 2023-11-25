@@ -15,17 +15,6 @@ export const ChartSettings: FC<T_Props> = () => {
     const dispatch = useTypedDispatch();
     const { fontSize, showLabels, color, borderColor } = useTypedSelector(selectChartStyles);
 
-    const handleFontSizeChange = (value: number | null) => {
-        dispatch(setChartStyles({  fontSize: value ?? 0 }))
-    }
-
-    const handleColorChange: ((value: Color, hex: string, id: T_Legend['id']) => void) = (value, hex, id) => {
-        dispatch(setChartLegendOptions({
-            id,
-            color: hex
-        }))
-    }
-
     return (
         <div className={styles.chartOptions}>
             <Form.Item label="Show Labels">
@@ -34,32 +23,43 @@ export const ChartSettings: FC<T_Props> = () => {
                     checked={showLabels} 
                 />
             </Form.Item>            
-            <Form.Item label="Show Labels">
-                <ColorPicker 
-                    value={color}
-                    onChange={(value: Color, hex: string) => handleColorChange(value, hex)}
-                />                
-            </Form.Item>            
-            <Form.Item label="Font Size">
-                <Flex gap='middle' style={{width: 400}}>
-                    <Col span={12}>
-                        <Slider
-                            min={10}
-                            max={30}
-                            onChange={handleFontSizeChange}
-                            value={typeof fontSize === 'number' ? fontSize : 0}
+            {
+                showLabels &&
+                <>
+                    <Form.Item label="Color">
+                        <ColorPicker 
+                            value={color}
+                            onChange={(_, hex) => dispatch(setChartStyles({  color: hex }))}
+                        />                
+                    </Form.Item>
+                    <Form.Item label="Border Color">
+                        <ColorPicker 
+                            value={borderColor}
+                            onChange={(_, hex) => dispatch(setChartStyles({  borderColor: hex }))}
                         />
-                    </Col>
-                    <Col span={4}>
-                        <InputNumber
-                            min={10}
-                            max={30}
-                            value={fontSize}
-                            onChange={handleFontSizeChange}
-                        />
-                    </Col>
-                </Flex>
-            </Form.Item>            
+                    </Form.Item>
+                    <Form.Item label="Font Size">
+                        <Flex gap='middle' style={{width: 400}}>
+                            <Col span={12}>
+                                <Slider
+                                    min={10}
+                                    max={30}
+                                    onChange={(value) => dispatch(setChartStyles({  fontSize: value ?? 0 }))}
+                                    value={typeof fontSize === 'number' ? fontSize : 0}
+                                />
+                            </Col>
+                            <Col span={4}>
+                                <InputNumber
+                                    min={10}
+                                    max={30}
+                                    value={fontSize}
+                                    onChange={(value) => dispatch(setChartStyles({  fontSize: value ?? 0 }))}
+                                />
+                            </Col>
+                        </Flex>
+                    </Form.Item>  
+                </>
+            }          
         </div>
     )
 }

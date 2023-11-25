@@ -1,4 +1,4 @@
-import { DragEventHandler, FC, MouseEventHandler, useRef } from 'react'
+import { Dispatch, DragEventHandler, FC, MouseEventHandler, useRef } from 'react'
 import { T_RegionOptions, T_RegionsState } from 'store/regions/types'
 import { T_ChartState } from 'store/chart/types'
 import { REGIONS_IDS_LIST, REGIONS_TEMPLATE } from 'helpers/constants/regions'
@@ -7,16 +7,16 @@ import { ErrorBoundary } from 'components/_shared/errorBoundary/Main'
 import { setRegionOptions } from 'store/regions/slice'
 import { useDispatch } from 'react-redux'
 import { Legend } from '../legend/Main'
+import { AnyAction } from '@reduxjs/toolkit'
 
 type T_Props = {
-    data: T_RegionsState,
+    data: T_RegionsState
     chart: T_ChartState
 }
 
 export const Chart: FC<T_Props> = ({ data, chart }) => {
 
-    const dispatch = useDispatch()
-    const { legend: legendOptions, styles: chartStyles } = chart
+    const { legend: legendOptions, styles: customStyles } = chart
 
     const getColorByLegendOption = (value: T_RegionOptions['value']) => {
         let color = ''; 
@@ -41,31 +41,8 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
         return color
     }
 
-    const handleLabelClick: MouseEventHandler<SVGTextElement> = (e) => {
-
-        // You may want to update the state to indicate which element is being dragged
-    };
-
-    const handleLabelDrag: DragEventHandler<SVGTextElement> = (e) => {
-        // const newDraggedId = data.draggedId === e.currentTarget.id ? null : e.currentTarget.id as T_RegionsState['draggedId']
-        // dispatch(setDraggedId(newDraggedId))
-        console.log({
-            xPos: e.clientX,
-            yPos: e.clientY,
-        });
-        
-        dispatch(setRegionOptions({
-            id: e.currentTarget.id as T_RegionOptions['id'],
-            label: {
-                xPos: e.clientX,
-                yPos: e.clientY,
-            }
-        }))
-    }
-
-
     return (
-        <ErrorBoundary fallback={<h1>123321132</h1>}>
+        <ErrorBoundary fallback={<h1>an error occured</h1>}>
             <div
                 className={styles.chart}
                 id="chart"
@@ -87,22 +64,23 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
                                     id={id}
                                     fill={getColorByLegendOption(data.byId[id].value)}
                                     d={REGIONS_TEMPLATE[id].pathDirection}
+                                    stroke={customStyles.chart.borderColor}
                                 >
                                 </path>
                             )
                         })
                     }
                     {
-                        chartStyles.showLabels &&
+                        customStyles.chart.showLabels &&
                         REGIONS_IDS_LIST.map(id => {
                             return (
                                 <text 
                                     key={id}
                                     id={id}
-                                    x={data.byId[id].label.xPos- chartStyles.fontSize}
-                                    y={data.byId[id].label.yPos + chartStyles.fontSize}
-                                    fontSize={chartStyles.fontSize}
-                                    onDragStart={handleLabelDrag}
+                                    x={data.byId[id].label.xPos- customStyles.chart.fontSize * 1.2}
+                                    y={data.byId[id].label.yPos + customStyles.chart.fontSize * .8}
+                                    fontSize={customStyles.chart.fontSize}
+                                    fill={customStyles.chart.color}
                                 >
                                     {data.byId[id].text}
                                 </text>

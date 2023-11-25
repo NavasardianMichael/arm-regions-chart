@@ -1,9 +1,9 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, FocusEventHandler, useCallback, useState } from 'react';
 import { useTypedDispatch } from 'hooks/useTypedDispatch';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { selectRegionsData } from 'store/regions/selectors';
 import { T_RegionOptions, T_RegionsState } from 'store/regions/types';
-import { setRegionOptions, setRegionsData } from 'store/regions/slice';
+import { setRegionOptions, setRegionsData, setTexts } from 'store/regions/slice';
 import { TextFormat } from './TextFormat';
 import styles from './styles.module.css';
 import Table, { ColumnsType } from 'antd/es/table';

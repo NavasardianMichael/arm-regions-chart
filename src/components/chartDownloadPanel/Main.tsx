@@ -11,6 +11,7 @@ import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Select, MenuProps, Flex, Form } from 'antd';
 import { Option } from 'antd/es/mentions';
 import { Chart } from 'components/content/ui/chart/Main';
+import { useDispatch } from 'react-redux';
 
 type T_Props = {
     data: T_RegionsState,
@@ -19,6 +20,7 @@ type T_Props = {
 
 
 export const ChartDownloadPanel: FC<T_Props> = ({ data, chart }) => {
+    
     const [ assetType, setAssetType ] = useState<typeof ASSET_TYPES[keyof typeof ASSET_TYPES]>(ASSET_TYPES.png)
 
     const handleChangeAssetType = (v: typeof assetType) => {
@@ -33,7 +35,7 @@ export const ChartDownloadPanel: FC<T_Props> = ({ data, chart }) => {
     }  
 
     return (
-      <Form.Item label="Export type">            
+      <Form.Item label="Export type">
         <Flex gap='small'>
           <Select
             onChange={handleChangeAssetType}

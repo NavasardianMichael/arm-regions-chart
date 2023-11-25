@@ -1,29 +1,66 @@
-import { FC } from 'react'
-import { useTypedSelector } from 'hooks/useTypedSelector'
-import { selectRegionsData } from 'store/regions/selectors'
-import { selectChart } from 'store/chart/selectors'
-import { DataInput } from 'components/content/dataInput/chart/Main'
+import { Collapse, CollapseProps, Flex } from 'antd'
 import { ChartDownloadPanel } from 'components/chartDownloadPanel/Main'
-import styles from './styles.module.css'
-import { Flex } from 'antd'
+import { DataInput } from 'components/content/dataInput/chart/Main'
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import { FC, useState } from 'react'
+import { selectChart } from 'store/chart/selectors'
+import { selectRegionsData } from 'store/regions/selectors'
 import { LegendDataInput } from './dataInput/legend/Main'
-import { Chart } from './ui/chart/Main'
 import { ChartSettings } from './settings/chart/Main'
-import { Settings } from './settings/Main'
+import styles from './styles.module.css'
+import { Chart } from './ui/chart/Main'
+import { LegendSettings } from './settings/legend/Main'
+import { useDispatch } from 'react-redux'
+
+const TABS = {
+    chartDataInput: 'chartDataInput',
+    legendDataInput: 'legendDataInput',
+    chartStyles: 'chartStyles',
+    legendStyles: 'legendStyles',
+} as const
 
 export const Content: FC = () => {
     
     const data = useTypedSelector(selectRegionsData)
     const chart = useTypedSelector(selectChart)
+    const [activeKey, setActiveKey] = useState<typeof TABS[keyof typeof TABS]>(TABS.chartDataInput)
+
+    const items: CollapseProps['items'] = [
+        {
+          key: TABS.chartDataInput,
+          label: 'Chart Data',
+          children: <DataInput />
+        },
+        {
+          key: TABS.legendDataInput,
+          label: 'Legend Data',
+          children: <LegendDataInput />
+        },
+        {
+          key: TABS.chartStyles,
+          label: 'Chart Styles',
+          children: <ChartSettings />
+        },
+        {
+          key: TABS.legendStyles,
+          label: 'Legend Styles',
+          children: <LegendSettings />
+        },
+    ];
 
     return (
-        <Flex wrap='wrap' gap='middle' style={{padding: 'var(--size-sm)', flex: 1}}>
-            <Flex className={styles.section} gap='middle' vertical>
-                <DataInput />
-                <LegendDataInput />
-                <Settings />
-            </Flex>
-            <Flex className={styles.section} vertical gap='middle'>
+        <Flex gap='middle' align='start' style={{padding: 'var(--size-sm)', flex: 1}}>
+            <Collapse 
+                items={items} 
+                activeKey={activeKey} 
+                onChange={key => setActiveKey(key as typeof TABS[keyof typeof TABS])}
+                className={styles.section}
+            />
+            <Flex 
+                vertical 
+                gap='middle' 
+                className={styles.section}
+            >
                 <Chart data={data} chart={chart} />
                 <ChartDownloadPanel data={data} chart={chart} />
             </Flex>

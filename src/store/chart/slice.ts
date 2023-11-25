@@ -1,18 +1,28 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { T_ActionPayloads, T_ChartState } from './types'
 import { LEGEND_INITIAL_ROWS, LEGEND_INITIAL_ROW_IDS } from 'helpers/constants/chart'
+import { LANGS } from 'helpers/constants/localization'
 
 const initialState: T_ChartState = {
   styles: {
-    borderColor: 'gray',
-    showLegend: true,
-    showLabels: true,
-    fontSize: 24
+    chart: {
+      borderColor: '#fff',
+      showLabels: true,
+      fontSize: 16,
+      color: '#000'
+    },
+    legend: {
+      borderColor: '#fff',
+      show: true,
+      fontSize: 16,
+      color: '#000'
+    },
   },
   legend: {
     byId: LEGEND_INITIAL_ROWS,
     allIds: LEGEND_INITIAL_ROW_IDS
-  }
+  },
+  selectedLanguage: LANGS.am
 }
 
 export const chartSlice = createSlice({
@@ -60,9 +70,12 @@ export const chartSlice = createSlice({
         ...action.payload
       }
     },
+    setLanguage: (state, action: PayloadAction<T_ActionPayloads['setLanguage']>) => {
+      state.selectedLanguage = action.payload
+    }
   },
 })
 
-export const { setChartLegends, setChartLegendOptions, addChartLegend, removeChartLegend, setChartStyles, setLegendStyles } = chartSlice.actions
+export const { setChartLegends, setChartLegendOptions, addChartLegend, removeChartLegend, setChartStyles, setLegendStyles, setLanguage } = chartSlice.actions
 
 export default chartSlice.reducer
