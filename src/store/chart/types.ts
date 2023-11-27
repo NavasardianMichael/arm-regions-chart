@@ -1,7 +1,6 @@
 import { DeepPartial } from '@reduxjs/toolkit'
 import { LEGEND_OPTION_NAMES } from 'helpers/constants/chart'
 import { LANGS } from 'helpers/constants/localization'
-import { CSSProperties } from 'react'
 
 export type T_ChartState = {
   selectedLanguage: (typeof LANGS)[keyof typeof LANGS]
@@ -14,7 +13,6 @@ export type T_ChartState = {
       }
       border: {
         show: boolean
-        type: CSSProperties['borderStyle']
         color: string
         width: number
       }
@@ -26,9 +24,16 @@ export type T_ChartState = {
       }
     }
     legend: {
-      color: string
-      show: boolean
-      fontSize: number
+      labels: {
+        show: boolean
+        color: string
+        fontSize: number
+      }
+      border: {
+        show: boolean
+        color: string
+        width: number
+      }
     }
   }
   legend: {

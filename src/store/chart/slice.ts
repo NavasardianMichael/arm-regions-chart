@@ -13,14 +13,13 @@ const initialState: T_ChartState = {
       },
       border: {
         show: true,
-        type: 'solid',
         color: '#FFF',
         width: 1,
       },
       shadow: {
         show: false,
         offset: 4,
-        color: '#000',
+        color: '#BCB3B3',
         blurred: 4,
       },
     },

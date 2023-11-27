@@ -20,7 +20,7 @@ export const ChartShadowStyles: FC<T_Props> = () => {
       <Title level={5} style={{ marginTop: 0 }}>
         Shadow
       </Title>
-      <Form layout='horizontal'>
+      <Form>
         <Form.Item label={translations.chartStylesShowLabels}>
           <Switch onClick={() => dispatch(setChartShadowStyles({ show: !shadow.show }))} checked={shadow.show} />
         </Form.Item>
