@@ -1,41 +1,58 @@
-import { LANGS } from "helpers/constants/localization"
+import { DeepPartial } from '@reduxjs/toolkit'
+import { LEGEND_OPTION_NAMES } from 'helpers/constants/chart'
+import { LANGS } from 'helpers/constants/localization'
+import { CSSProperties } from 'react'
 
 export type T_ChartState = {
-    selectedLanguage: typeof LANGS[keyof typeof LANGS]
-    styles: {
-        chart: {
-            color: string
-            borderColor: string
-            showLabels: boolean
-            fontSize: number
-        }
-        legend: {
-            color: string
-            borderColor: string
-            show: boolean
-            fontSize: number
-        }
+  selectedLanguage: (typeof LANGS)[keyof typeof LANGS]
+  styles: {
+    chart: {
+      labels: {
+        show: boolean
+        color: string
+        fontSize: number
+      }
+      border: {
+        show: boolean
+        type: CSSProperties['borderStyle']
+        color: string
+        width: number
+      }
+      shadow: {
+        show: boolean
+        offset: number
+        color: string
+        blurred: number
+      }
     }
     legend: {
-        byId: Record<T_Legend['id'], T_Legend>
-        allIds: T_Legend['id'][]
+      color: string
+      show: boolean
+      fontSize: number
     }
+  }
+  legend: {
+    byId: Record<T_Legend['id'], T_Legend>
+    allIds: T_Legend['id'][]
+  }
 }
 
 export type T_Legend = {
-    id: string
-    name: string
-    rangeStart: number
-    rangeEnd: number
-    color: string
+  id: string
+  [LEGEND_OPTION_NAMES.name]: string
+  [LEGEND_OPTION_NAMES.rangeStart]: number
+  [LEGEND_OPTION_NAMES.rangeEnd]: number
+  [LEGEND_OPTION_NAMES.color]: string
 }
 
 export type T_ActionPayloads = {
-    setChartLegends: T_ChartState['legend']
-    setChartLegendOptions: Pick<T_Legend, 'id'> & Partial<Exclude<T_Legend, 'id'>>
-    addChartLegend: Pick<T_Legend, 'id'>
-    removeChartLegend: Pick<T_Legend, 'id'>
-    setChartStyles: Partial<T_ChartState['styles']['chart']>
-    setLegendStyles: Partial<T_ChartState['styles']['legend']>
-    setLanguage: T_ChartState['selectedLanguage']
+  setChartLegends: T_ChartState['legend']
+  setChartLegendOptions: Pick<T_Legend, 'id'> & Partial<Exclude<T_Legend, 'id'>>
+  addChartLegend: Pick<T_Legend, 'id'>
+  removeChartLegend: Pick<T_Legend, 'id'>
+  setChartLabelsStyles: Partial<T_ChartState['styles']['chart']['labels']>
+  setChartBorderStyles: Partial<T_ChartState['styles']['chart']['border']>
+  setChartShadowStyles: Partial<T_ChartState['styles']['chart']['shadow']>
+  setLegendStyles: DeepPartial<T_ChartState['styles']['legend']>
+  setLanguage: T_ChartState['selectedLanguage']
 }

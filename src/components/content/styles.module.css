@@ -1,3 +1,3 @@
 .section {
-    width: calc(50vw - var(--size-md))
+  width: calc(50vw - var(--size-md));
 }

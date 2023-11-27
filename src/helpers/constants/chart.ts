@@ -1,5 +1,5 @@
-import { downloadPDF, downloadPNG, downloadSVG } from "helpers/functions/chart"
-import { T_ChartState } from "store/chart/types"
+import { downloadPDF, downloadPNG, downloadSVG } from 'helpers/functions/chart'
+import { T_ChartState } from 'store/chart/types'
 
 export const LEGEND_INITIAL_ROW_IDS = ['initial-legend-row-id-1', 'initial-legend-row-id-2', 'initial-legend-row-id-3']
 
@@ -10,7 +10,7 @@ export const LEGEND_INITIAL_ROWS: T_ChartState['legend']['byId'] = {
     rangeStart: 0,
     rangeEnd: 100,
     color: '#e7eff6',
-},
+  },
   [LEGEND_INITIAL_ROW_IDS[1]]: {
     id: LEGEND_INITIAL_ROW_IDS[1],
     name: '100 - 200',
@@ -30,7 +30,7 @@ export const LEGEND_INITIAL_ROWS: T_ChartState['legend']['byId'] = {
 export const ASSET_TYPES = {
   svg: 'SVG',
   png: 'PNG',
-  pdf: 'PDF'
+  pdf: 'PDF',
 } as const
 
 export const HANDLERS_BY_ASSET_TYPE = {

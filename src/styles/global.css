@@ -1,11 +1,11 @@
 .normalized-table-wrapper {
-    & td {
-        padding: var(--size-xs) !important;
-        text-align: center;
-    }
+  & td {
+    padding: var(--size-xs) !important;
+    text-align: center;
+  }
 
-    & input {
-        border: none;
-        border-radius: 0;
-    }
+  & input {
+    border: none;
+    border-radius: 0;
+  }
 }

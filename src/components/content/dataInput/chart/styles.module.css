@@ -4,13 +4,12 @@
 } */
 
 .dataTable {
+  & input {
+    border: none;
+    border-radius: 0;
+  }
 
-    & input {
-        border: none;
-        border-radius: 0;
-    }
-
-    /* & .text,
+  /* & .text,
     & .value {
         border: none;
         outline: none;
@@ -22,7 +21,7 @@
 }
 
 .textInput {
-    /* box-sizing: border-box;
+  /* box-sizing: border-box;
     padding: var(--size-sm);
     font-size: var(--size-sm);
     resize: none !important; */

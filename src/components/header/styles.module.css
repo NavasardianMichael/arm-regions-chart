@@ -1,12 +1,12 @@
 .header {
-    display: flex;
-    align-items: center;
-    padding: var(--size-md);
-    border-bottom: 1px solid var(--lightgray);
+  display: flex;
+  align-items: center;
+  padding: var(--size-md);
+  border-bottom: 1px solid var(--lightgray);
 
-    & .title {
-        margin: 0;
-        color: var(--primary-color);
-        font-size: var(--size-md);
-    }
+  & .title {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: var(--size-md);
+  }
 }

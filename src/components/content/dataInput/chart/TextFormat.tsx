@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC } from 'react'
+import TextArea from 'antd/es/input/TextArea'
+import { useTranslations } from 'hooks/useTranslations'
 import styles from './styles.module.css'
-import TextArea from 'antd/es/input/TextArea';
-
 
 type T_Props = {
   value: string
@@ -9,15 +9,16 @@ type T_Props = {
 }
 
 export const TextFormat: FC<T_Props> = ({ value, onChange }) => {
+  const translations = useTranslations()
   return (
     <TextArea
-      aria-label="minimum height"
+      aria-label='minimum height'
       rows={10}
       className={styles.textInput}
-      placeholder='Insert tab delimited text here'
+      placeholder={translations.chartDataPlaceholder}
       value={value}
       onChange={onChange}
-      style={{resize: 'none', padding: 'var(--size-xs) var(--size-sm)'}}
+      style={{ resize: 'none', padding: 'var(--size-xs) var(--size-sm)' }}
     />
-  );
+  )
 }

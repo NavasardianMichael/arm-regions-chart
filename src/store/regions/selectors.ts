@@ -1,3 +1,3 @@
-import { RootState } from "index";
+import { RootState } from 'index'
 
 export const selectRegionsData = (state: RootState) => state.regions
