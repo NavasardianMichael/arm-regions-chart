@@ -58,6 +58,7 @@ export type T_ActionPayloads = {
   setChartLabelsStyles: Partial<T_ChartState['styles']['chart']['labels']>
   setChartBorderStyles: Partial<T_ChartState['styles']['chart']['border']>
   setChartShadowStyles: Partial<T_ChartState['styles']['chart']['shadow']>
-  setLegendStyles: DeepPartial<T_ChartState['styles']['legend']>
+  setLegendLabelsStyles: Partial<T_ChartState['styles']['legend']['labels']>
+  setLegendBorderStyles: Partial<T_ChartState['styles']['legend']['border']>
   setLanguage: T_ChartState['selectedLanguage']
 }

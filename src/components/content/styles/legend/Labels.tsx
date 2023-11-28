@@ -2,32 +2,32 @@ import { FC } from 'react'
 import { Col, Divider, Flex, Form, InputNumber, Slider, Switch } from 'antd'
 import ColorPicker from 'antd/es/color-picker'
 import Title from 'antd/es/typography/Title'
-import { selectChartStyles } from 'store/chart/selectors'
-import { setChartLabelsStyles } from 'store/chart/slice'
+import { selectLegendStyles } from 'store/chart/selectors'
 import { useTranslations } from 'hooks/useTranslations'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useTypedSelector } from 'hooks/useTypedSelector'
+import { setLegendLabelsStyles } from 'store/chart/slice'
 
 type T_Props = {}
 
-export const ChartLabelStyles: FC<T_Props> = () => {
+export const LegendLabelStyles: FC<T_Props> = () => {
   const dispatch = useTypedDispatch()
-  const { labels } = useTypedSelector(selectChartStyles)
+  const { labels } = useTypedSelector(selectLegendStyles)
   const translations = useTranslations()
 
   return (
     <>
       <Title level={5} style={{ marginTop: 0, marginBottom: 'var(--size-md)' }}>
-        {translations.chartStylesLabels}
+        {translations.legendStylesLabels}
       </Title>
-      <Form layout='horizontal'>
+      <Form layout="horizontal">
         <Form.Item label={translations.chartStylesShowLabels}>
-          <Switch onClick={() => dispatch(setChartLabelsStyles({ show: !labels.show }))} checked={labels.show} />
+          <Switch onClick={() => dispatch(setLegendLabelsStyles({ show: !labels.show }))} checked={labels.show} />
         </Form.Item>
         {labels.show && (
           <>
             <Form.Item label={translations.chartStylesTextColor}>
-              <ColorPicker value={labels.color} onChange={(_, hex) => dispatch(setChartLabelsStyles({ color: hex }))} />
+              <ColorPicker value={labels.color} onChange={(_, hex) => dispatch(setLegendLabelsStyles({ color: hex }))} />
             </Form.Item>
             <Form.Item label={translations.chartStylesFontSize}>
               <Flex gap="middle" style={{ width: 400 }}>
@@ -35,7 +35,7 @@ export const ChartLabelStyles: FC<T_Props> = () => {
                   <Slider
                     min={10}
                     max={30}
-                    onChange={(value) => dispatch(setChartLabelsStyles({ fontSize: value ?? 0 }))}
+                    onChange={(value) => dispatch(setLegendLabelsStyles({ fontSize: value ?? 0 }))}
                     value={typeof labels.fontSize === 'number' ? labels.fontSize : 0}
                   />
                 </Col>
@@ -44,7 +44,7 @@ export const ChartLabelStyles: FC<T_Props> = () => {
                     min={10}
                     max={30}
                     value={labels.fontSize}
-                    onChange={(value) => dispatch(setChartLabelsStyles({ fontSize: value ?? 0 }))}
+                    onChange={(value) => dispatch(setLegendLabelsStyles({ fontSize: value ?? 0 }))}
                   />
                 </Col>
               </Flex>

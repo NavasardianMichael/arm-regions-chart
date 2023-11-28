@@ -1,15 +1,15 @@
-import { FC, FocusEventHandler, useCallback, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { Button, Flex, Input, notification } from 'antd'
 import Table, { ColumnsType } from 'antd/es/table'
+import Title from 'antd/es/typography/Title'
 import { selectRegionsData } from 'store/regions/selectors'
-import { setRegionOptions, setRegionsData, setTexts } from 'store/regions/slice'
+import { setRegionOptions, setRegionsData } from 'store/regions/slice'
 import { T_RegionOptions, T_RegionsState } from 'store/regions/types'
+import { useTranslations } from 'hooks/useTranslations'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { TextFormat } from './TextFormat'
 import styles from './styles.module.css'
-import Title from 'antd/es/typography/Title'
-import { useTranslations } from 'hooks/useTranslations'
 
 export const DataInput: FC = () => {
   const dispatch = useTypedDispatch()
@@ -99,7 +99,11 @@ export const DataInput: FC = () => {
       title: translations.regionID,
       dataIndex: 'id',
       render: (value) => {
-        return  <Title style={{margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }} level={5}>#{value}</Title>
+        return (
+          <Title style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }} level={5}>
+            #{value}
+          </Title>
+        )
       },
     },
     {

@@ -23,11 +23,17 @@ const initialState: T_ChartState = {
         blurred: 4,
       },
     },
-
     legend: {
-      show: true,
-      fontSize: 16,
-      color: '#000',
+      labels: {
+        show: true,
+        color: '#000',
+        fontSize: 16,
+      },
+      border: {
+        show: false,
+        color: '#BCB3B3',
+        width: 4,
+      },
     },
   },
   legend: {
@@ -88,9 +94,15 @@ export const chartSlice = createSlice({
         ...action.payload,
       }
     },
-    setLegendStyles: (state, action: PayloadAction<T_ActionPayloads['setLegendStyles']>) => {
-      state.styles.legend = {
-        ...state.styles.legend,
+    setLegendLabelsStyles: (state, action: PayloadAction<T_ActionPayloads['setLegendLabelsStyles']>) => {
+      state.styles.legend.labels = {
+        ...state.styles.legend.labels,
+        ...action.payload,
+      }
+    },
+    setLegendBorderStyles: (state, action: PayloadAction<T_ActionPayloads['setLegendBorderStyles']>) => {
+      state.styles.legend.border = {
+        ...state.styles.legend.border,
         ...action.payload,
       }
     },
@@ -108,7 +120,8 @@ export const {
   setChartLabelsStyles,
   setChartBorderStyles,
   setChartShadowStyles,
-  setLegendStyles,
+  setLegendLabelsStyles,
+  setLegendBorderStyles,
   setLanguage,
 } = chartSlice.actions
 

@@ -6,9 +6,11 @@ type T_Props = {
 }
 
 export const Legend: FC<T_Props> = memo(({ chart: { legend: legendOptions, styles: chartStyles } }) => {
+  console.log(chartStyles.legend.labels.show);
+  
   return (
     <>
-      {chartStyles.legend.show &&
+      {chartStyles.legend.labels.show &&
         legendOptions.allIds.map((legendOptionId, index, arr) => {
           const { id, color, name } = legendOptions.byId[legendOptionId]
           const positionY = 802.4 - (arr.length - index) * 35
@@ -23,8 +25,8 @@ export const Legend: FC<T_Props> = memo(({ chart: { legend: legendOptions, style
                 y={positionY - 16}
                 alignmentBaseline="middle"
                 fill={color}
-                stroke='red'
-                strokeWidth={10}
+                stroke={chartStyles.legend.border.color}
+                strokeWidth={chartStyles.legend.border.show ? chartStyles.legend.border.width : 0}
               >
                 {name}
               </rect>
@@ -32,8 +34,8 @@ export const Legend: FC<T_Props> = memo(({ chart: { legend: legendOptions, style
                 y={positionY}
                 x={80}
                 alignmentBaseline="middle"
-                fontSize={chartStyles.legend.fontSize}
-                fill={chartStyles.legend.color}
+                fontSize={chartStyles.legend.labels.fontSize} 
+                fill={chartStyles.legend.labels.color}
               >
                 {name}
               </text>

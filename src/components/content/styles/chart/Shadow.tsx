@@ -17,19 +17,19 @@ export const ChartShadowStyles: FC<T_Props> = () => {
 
   return (
     <>
-      <Title level={5} style={{ marginTop: 0 }}>
-        Shadow
+      <Title level={5} style={{ marginTop: 0, marginBottom: 'var(--size-md)' }}>
+      {translations.chartStylesShadow}
       </Title>
       <Form>
-        <Form.Item label={translations.chartStylesShowLabels}>
+        <Form.Item label={translations.chartStylesShadowShow}>
           <Switch onClick={() => dispatch(setChartShadowStyles({ show: !shadow.show }))} checked={shadow.show} />
         </Form.Item>
         {shadow.show && (
           <>
-            <Form.Item label={translations.chartStylesTextColor}>
+            <Form.Item label={translations.chartStylesShadowColor}>
               <ColorPicker value={shadow.color} onChange={(_, hex) => dispatch(setChartShadowStyles({ color: hex }))} />
             </Form.Item>
-            <Form.Item label={translations.chartStylesFontSize}>
+            <Form.Item label={translations.chartStylesShadowOffset}>
               <Flex gap="middle" style={{ width: 400 }}>
                 <Col span={12}>
                   <Slider
@@ -50,7 +50,7 @@ export const ChartShadowStyles: FC<T_Props> = () => {
                 </Col>
               </Flex>
             </Form.Item>
-            <Form.Item label={translations.chartStylesFontSize}>
+            <Form.Item label={translations.chartStylesShadowBlurred}>
               <Flex gap="middle" style={{ width: 400 }}>
                 <Col span={12}>
                   <Slider
