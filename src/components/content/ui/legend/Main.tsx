@@ -6,8 +6,6 @@ type T_Props = {
 }
 
 export const Legend: FC<T_Props> = memo(({ chart: { legend: legendOptions, styles: chartStyles } }) => {
-  console.log(chartStyles.legend.labels.show);
-  
   return (
     <>
       {chartStyles.legend.labels.show &&

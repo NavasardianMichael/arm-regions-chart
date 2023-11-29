@@ -1,34 +1,10 @@
-/* .dataTable {
-    border: none;
-    outline: none;
-} */
-
-.dataTable {
-  & input {
-    border: none;
-    border-radius: 0;
+.error {
+  &::placeholder {
+    color: red;
+    opacity: 1; /* Firefox */
   }
-
-  /* & .text,
-    & .value {
-        border: none;
-        outline: none;
-        padding: var(--size-xs) var(--size-sm);
-        box-sizing: border-box;
-        font-size: var(--size-sm);
-        width: 100%;
-    } */
+  
+  &::-ms-input-placeholder { /* Edge 12 -18 */
+    color: red;
+  }
 }
-
-.textInput {
-  /* box-sizing: border-box;
-    padding: var(--size-sm);
-    font-size: var(--size-sm);
-    resize: none !important; */
-}
-
-/* .inputProcessButtons {
-    display: flex;
-    gap: var(--size-sm);
-    margin-top: var(--size-xs);
-} */

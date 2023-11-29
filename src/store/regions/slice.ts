@@ -6,7 +6,6 @@ import { T_ActionPayloads, T_RegionsState } from './types'
 const initialState: T_RegionsState = {
   byId: REGIONS_INITIAL_OPTIONS,
   allIds: REGIONS_IDS_LIST,
-  draggedId: null,
 }
 
 export const regionsSlice = createSlice({
@@ -29,12 +28,9 @@ export const regionsSlice = createSlice({
       state.allIds = action.payload.allIds
       state.byId = action.payload.byId
     },
-    setDraggedId: (state, action: PayloadAction<T_ActionPayloads['setDraggedId']>) => {
-      state.draggedId = action.payload
-    },
   },
 })
 
-export const { setRegionOptions, setRegionsData, setDraggedId, setTexts } = regionsSlice.actions
+export const { setRegionOptions, setRegionsData, setTexts } = regionsSlice.actions
 
 export default regionsSlice.reducer
