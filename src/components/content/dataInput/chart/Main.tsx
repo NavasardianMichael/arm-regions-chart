@@ -1,7 +1,10 @@
 import { FC, useCallback, useState } from 'react'
-import { Button, Flex, Input } from 'antd'
+import { WarningFilled } from '@ant-design/icons'
+import { Button, Flex, Input, Tooltip } from 'antd'
 import Table, { ColumnsType } from 'antd/es/table'
 import Title from 'antd/es/typography/Title'
+import { REGIONS_IDS_LIST, REGIONS_INITIAL_OPTIONS } from 'helpers/constants/regions'
+import { isNumber } from 'helpers/functions/commons'
 import { selectRegionsData } from 'store/regions/selectors'
 import { setRegionOptions, setRegionsData } from 'store/regions/slice'
 import { T_RegionOptions, T_RegionsState } from 'store/regions/types'
@@ -10,9 +13,6 @@ import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { TextFormat } from './TextFormat'
 import styles from './styles.module.css'
-import { REGIONS_IDS_LIST, REGIONS_INITIAL_OPTIONS } from 'helpers/constants/regions'
-import { ClockCircleOutlined } from '@ant-design/icons'
-import { Tooltip } from 'components/_shared/Tooltip/Main'
 
 export const DataInput: FC = () => {
   const dispatch = useTypedDispatch()
@@ -21,10 +21,13 @@ export const DataInput: FC = () => {
   const [unProcessedText, setUnprocessedText] = useState('')
   const [formatError, setFormatError] = useState('')
   const [fieldErrors, setFieldErrors] = useState<Record<keyof T_RegionsState['byId'], string>>(
-    REGIONS_IDS_LIST.reduce((acc, id) => {
-      acc[id] = ''
-      return acc
-    }, {} as Record<keyof T_RegionsState['byId'], string>)
+    REGIONS_IDS_LIST.reduce(
+      (acc, id) => {
+        acc[id] = ''
+        return acc
+      },
+      {} as Record<keyof T_RegionsState['byId'], string>
+    )
   )
   const translations = useTranslations()
 
@@ -50,49 +53,69 @@ export const DataInput: FC = () => {
         .split('\n')
         .filter((row) => !!row)
 
-    const state: any = {
-      byId: {},
-      allIds: [],
-    }
-    
-    const regionsState = rows.reduce((acc, row) => {
-      const [text, value] = row.split('\t')
-      const id = text.split(' ').join('').toLowerCase() as keyof T_RegionsState['byId']
-      if(!REGIONS_IDS_LIST.includes(id)) return acc
-      
-      
-      acc.byId[id] = {
-        ...REGIONS_INITIAL_OPTIONS[id],
-        id,
-        text,
-        value: +value,
+      const state: T_RegionsState = {
+        byId: {} as T_RegionsState['byId'],
+        allIds: REGIONS_IDS_LIST,
       }
-      console.log(111, acc.byId[id]);
-      
-      acc.allIds.push(id)
-      console.log({acc});
-      return acc
-    }, state) as T_RegionsState
-    if(!regionsState.allIds.length) {
-      setFormatError('The data you entered cannot be formatted, please ensure it matches the expected pattern')
-      setUnprocessedText('')
-      return
-    }
-    const arr: T_RegionsState['allIds'] = [...REGIONS_IDS_LIST, ...regionsState.allIds]
-      dispatch(setRegionsData({
-        byId: {
-          ...REGIONS_INITIAL_OPTIONS,
-          ...regionsState.byId
-        },
-        allIds: new Set(arr)
-      }))
+
+      const insertedData =  rows.reduce((acc, row) => {
+        const [text, value] = row.split('\t')
+        const id = text.split(' ').join('').toLowerCase() as keyof T_RegionsState['byId']
+        acc[id] = {
+          id,
+          text,
+          value: +value
+        }
+        return acc
+      }, {} as Record<keyof T_RegionsState['byId'], Pick<T_RegionOptions, 'id' | 'text' | 'value'>>)
+
+      const regionsState = REGIONS_IDS_LIST.reduce((state, id) => {
+        
+        const newRow: T_RegionOptions = (
+          insertedData[id] ?
+          {
+            ...REGIONS_INITIAL_OPTIONS[id],
+            ...insertedData,
+          } :
+          {
+            ...REGIONS_INITIAL_OPTIONS[id],
+            id,
+            text: insertedData[id].text,
+            value: isNumber(insertedData[id].value) ? insertedData[id].value : Infinity,
+          }
+        ) 
+
+        state[id] = newRow
+
+        return newRow
+      }, state) as T_RegionsState['byId']
+
+      // if(!regionsState.allIds.length) {
+      //   setFormatError('The data you entered cannot be formatted, please ensure it matches the expected pattern')
+      //   setUnprocessedText('')
+      //   return
+      // }
+
+      setFieldErrors((prev) => {
+        const newErrorFields = REGIONS_IDS_LIST.reduce(
+          (errorFieldIds, id) => {
+            if (!regionsState.byId[id]) errorFieldIds[id] = `The row with identificator "${id}" suffers a problem`
+            return errorFieldIds
+          },
+          prev as typeof fieldErrors
+        )
+
+        return newErrorFields
+      })
+
+      dispatch(setRegionsData(regionsState))
       setIsProcessedTable(true)
     } catch (e) {
       setFormatError('The data you entered cannot be formatted, please ensure it matches the expected pattern')
     }
   }
 
-  if (!isProcessedTable)
+  if (!isProcessedTable) {
     return (
       <Flex vertical gap="small">
         <TextFormat formatError={formatError} value={unProcessedText} onChange={handleChange} />
@@ -106,6 +129,7 @@ export const DataInput: FC = () => {
         </Flex>
       </Flex>
     )
+  }
 
   const columns: ColumnsType<T_RegionOptions> = [
     {
@@ -126,16 +150,20 @@ export const DataInput: FC = () => {
       dataIndex: 'text',
       render: (value, record) => {
         return (
-          <Input 
-            name={record.id} 
-            value={value} 
-            data-region-option-name="text" 
-            onChange={handleTextChange} 
-            status={fieldErrors[record.id] ? 'error' : undefined} 
+          <Input
+            name={record.id}
+            value={value}
+            data-region-option-name="text"
+            onChange={handleTextChange}
+            status={!value ? 'error' : undefined}
             prefix={
-              <Tooltip show={!!formatError} title='some error'>
-                <ClockCircleOutlined />
-              </Tooltip>
+              value ? 
+                null :
+                (
+                  <Tooltip placement="top" title={fieldErrors[record.id]}>
+                    <WarningFilled />
+                  </Tooltip>
+                )
             }
           />
         )
@@ -146,6 +174,8 @@ export const DataInput: FC = () => {
       title: translations.regionValue,
       dataIndex: 'value',
       render: (value, record) => {
+        console.log({ showError: fieldErrors[record.id], fieldErrors, id: record.id, value, isNumber: isNumber(value) })
+
         return (
           <Input
             type="number"
@@ -153,13 +183,14 @@ export const DataInput: FC = () => {
             value={value}
             data-region-option-name="value"
             onChange={handleTextChange}
+            status={isNumber(value) ? undefined : 'error'}
           />
         )
       },
     },
   ]
 
-  const dataSource: T_RegionOptions[] = data.allIds.map((regionId) => ({ key: regionId, ...data.byId[regionId] }))
+  const dataSource: T_RegionOptions[] = REGIONS_IDS_LIST.map((regionId) => ({ key: regionId, ...data.byId[regionId], id: regionId }))
 
   return (
     <div className="normalized-table-wrapper">

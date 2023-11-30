@@ -15,7 +15,6 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
   const { legend: legendOptions, styles: customStyles } = chart
 
   const getColorByLegendOption = (value: T_RegionOptions['value']) => {
-    console.log({value});
     
     let color = ''
     for (let i = 0; i < legendOptions.allIds.length; i++) {
@@ -64,21 +63,16 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
             </defs>
           }
           {REGIONS_IDS_LIST.map((id) => {
-            console.log(data, 
-              {id});
-            
             return (
-              <>
-                <path
-                  key={id}
-                  id={id}
-                  fill={getColorByLegendOption(data.byId[id].value)}
-                  d={REGIONS_TEMPLATE[id].pathDirection}
-                  stroke={customStyles.chart.border.color}
-                  strokeWidth={customStyles.chart.border.width}
-                  filter="url(#coloredShadow)"
-                ></path>
-              </>
+              <path
+                key={id}
+                id={id}
+                fill={getColorByLegendOption(data.byId[id]?.value)}
+                d={REGIONS_TEMPLATE[id].pathDirection}
+                stroke={customStyles.chart.border.color}
+                strokeWidth={customStyles.chart.border.width}
+                filter="url(#coloredShadow)"
+              ></path>
             )
           })}
           {customStyles.chart.labels.show &&
@@ -87,12 +81,12 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
                 <text
                   key={id}
                   id={id}
-                  x={data.byId[id].label.xPos - customStyles.chart.labels.fontSize * 1.2}
-                  y={data.byId[id].label.yPos + customStyles.chart.labels.fontSize * 0.8}
+                  x={data.byId[id]?.label?.xPos - customStyles.chart.labels.fontSize * 1.2 || 0}
+                  y={data.byId[id]?.label?.yPos + customStyles.chart.labels.fontSize * 0.8 || 0}
                   fontSize={customStyles.chart.labels.fontSize}
-                  fill={customStyles.chart.labels.color}
+                  fill={customStyles.chart.labels?.color}
                 >
-                  {data.byId[id].text}
+                  {data.byId[id]?.text}
                 </text>
               )
             })}

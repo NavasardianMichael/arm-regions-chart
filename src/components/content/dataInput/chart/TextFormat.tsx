@@ -17,7 +17,11 @@ export const TextFormat: FC<T_Props> = ({ formatError, value, onChange }) => {
       aria-label="minimum height"
       rows={10}
       className={combineClassNames(styles.textInput, !!formatError ? styles.error : undefined)}
-      placeholder={!!formatError ? 'Error!!!!' : translations.chartDataPlaceholder}
+      placeholder={
+        !!formatError ? 
+        'The data you entered cannot be formatted, please ensure it matches the expected pattern.' : 
+        translations.chartDataPlaceholder
+      }
       value={value}
       onChange={onChange}
       style={{ resize: 'none', padding: 'var(--size-xs) var(--size-sm)' }}

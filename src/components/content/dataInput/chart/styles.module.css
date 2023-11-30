@@ -1,10 +1,10 @@
 .error {
   &::placeholder {
-    color: red;
+    color: #ff4d4f;
     opacity: 1; /* Firefox */
   }
   
   &::-ms-input-placeholder { /* Edge 12 -18 */
-    color: red;
+    color: #ff4d4f;
   }
 }
