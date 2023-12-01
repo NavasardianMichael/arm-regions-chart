@@ -2,9 +2,7 @@ import { REGIONS_IDS } from 'helpers/constants/localization'
 import { REGIONS_IDS_LIST } from 'helpers/constants/regions'
 
 export type T_RegionsState = {
-  byId: {
-    [key in keyof typeof REGIONS_IDS]: T_RegionOptions
-  }
+  byId: Record<keyof typeof REGIONS_IDS, T_RegionOptions>
   allIds: typeof REGIONS_IDS_LIST
 }
 

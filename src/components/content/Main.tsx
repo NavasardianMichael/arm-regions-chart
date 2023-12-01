@@ -33,7 +33,7 @@ export const Content: FC = () => {
     },
     {
       key: TABS.legendDataInput,
-      label: translations.chartData,
+      label: translations.legendData,
       children: <LegendDataInput />,
     },
     {

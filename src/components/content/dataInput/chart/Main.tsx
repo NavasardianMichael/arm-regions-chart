@@ -47,20 +47,19 @@ export const DataInput: FC = () => {
   }, [])
 
   const handleProcessTextData: React.MouseEventHandler<HTMLButtonElement> = () => {
-    try {
+    // try {
       const rows = unProcessedText
         .trim()
         .split('\n')
         .filter((row) => !!row)
 
-      const state: T_RegionsState = {
-        byId: {} as T_RegionsState['byId'],
-        allIds: REGIONS_IDS_LIST,
-      }
+      let state = {} as T_RegionsState['byId']
+      
 
       const insertedData =  rows.reduce((acc, row) => {
         const [text, value] = row.split('\t')
         const id = text.split(' ').join('').toLowerCase() as keyof T_RegionsState['byId']
+        if(!id) return acc
         acc[id] = {
           id,
           text,
@@ -69,26 +68,24 @@ export const DataInput: FC = () => {
         return acc
       }, {} as Record<keyof T_RegionsState['byId'], Pick<T_RegionOptions, 'id' | 'text' | 'value'>>)
 
-      const regionsState = REGIONS_IDS_LIST.reduce((state, id) => {
-        
-        const newRow: T_RegionOptions = (
-          insertedData[id] ?
+      console.log({insertedData});
+      const regionsState = REGIONS_IDS_LIST.reduce((acc, id) => {
+
+
+        const newRow: T_RegionOptions = 
           {
             ...REGIONS_INITIAL_OPTIONS[id],
-            ...insertedData,
-          } :
-          {
-            ...REGIONS_INITIAL_OPTIONS[id],
-            id,
-            text: insertedData[id].text,
-            value: isNumber(insertedData[id].value) ? insertedData[id].value : Infinity,
+            ...insertedData[id],
+            text: insertedData[id]?.text ?? '',
+            value: insertedData[id]?.value ?? ''
           }
-        ) 
+        
 
-        state[id] = newRow
+        console.log({id, newRow});
+        acc[id] = newRow
+        return acc
 
-        return newRow
-      }, state) as T_RegionsState['byId']
+      }, state) 
 
       // if(!regionsState.allIds.length) {
       //   setFormatError('The data you entered cannot be formatted, please ensure it matches the expected pattern')
@@ -99,7 +96,7 @@ export const DataInput: FC = () => {
       setFieldErrors((prev) => {
         const newErrorFields = REGIONS_IDS_LIST.reduce(
           (errorFieldIds, id) => {
-            if (!regionsState.byId[id]) errorFieldIds[id] = `The row with identificator "${id}" suffers a problem`
+            if (!isNumber(regionsState[id].value)) errorFieldIds[id] = `The row with identificator "${id}" suffers a problem`
             return errorFieldIds
           },
           prev as typeof fieldErrors
@@ -108,11 +105,14 @@ export const DataInput: FC = () => {
         return newErrorFields
       })
 
-      dispatch(setRegionsData(regionsState))
+      dispatch(setRegionsData({
+        byId: regionsState,
+        allIds: REGIONS_IDS_LIST
+      }))
       setIsProcessedTable(true)
-    } catch (e) {
-      setFormatError('The data you entered cannot be formatted, please ensure it matches the expected pattern')
-    }
+    // } catch (e) {
+    //   setFormatError('The data you entered cannot be formatted, please ensure it matches the expected pattern')
+    // }
   }
 
   if (!isProcessedTable) {
@@ -174,7 +174,7 @@ export const DataInput: FC = () => {
       title: translations.regionValue,
       dataIndex: 'value',
       render: (value, record) => {
-        console.log({ showError: fieldErrors[record.id], fieldErrors, id: record.id, value, isNumber: isNumber(value) })
+        console.log({ value, id: record.id}, isNumber(value))
 
         return (
           <Input

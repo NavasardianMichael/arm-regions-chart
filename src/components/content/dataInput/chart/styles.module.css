@@ -8,3 +8,6 @@
     color: #ff4d4f;
   }
 }
+.errorBorder {
+  border: 1px solid #ff4d4f;
+}

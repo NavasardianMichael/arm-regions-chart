@@ -3,9 +3,4 @@
     padding: var(--size-xs) !important;
     text-align: center;
   }
-
-  & input {
-    border: none;
-    border-radius: 0;
-  }
 }
