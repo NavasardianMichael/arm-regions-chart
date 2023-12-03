@@ -1,3 +1,5 @@
 .section {
   width: calc(50vw - var(--size-md));
+  position: sticky;
+  top: var(--size-sm);
 }

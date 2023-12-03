@@ -7,7 +7,6 @@ export const REGIONS_IDS = {
   aragatsotn: 'aragatsotn',
   ararat: 'ararat',
   armavir: 'armavir',
-  yerevan: 'yerevan',
   gegharquniq: 'gegharquniq',
   kotayk: 'kotayk',
   lori: 'lori',
@@ -15,6 +14,7 @@ export const REGIONS_IDS = {
   syunik: 'syunik',
   tavush: 'tavush',
   vayotsdzor: 'vayotsdzor',
+  yerevan: 'yerevan',
 } as const
 
 export const REGIONS_LOCALIZE_OPTIONS = {
@@ -66,7 +66,9 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     legendStylesBorderWidth: 'Border Width',
     legendStylesShowLabels: 'Show Legend',
     legendStylesTextColor: 'Text Color',
+    legendStylesOthers: 'Others',
     legendStylesFontSize: 'Font Size',
+    legendStylesOthersOutOfRangeColor: 'Out of Range Color',
     exportType: 'Export type',
     download: 'Download',
   },
@@ -119,6 +121,8 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     legendStylesShowLabels: 'Ցույց տալ լեգենդը',
     legendStylesTextColor: 'Տեքստի գույն',
     legendStylesFontSize: 'Տառաչափ',
+    legendStylesOthers: 'Այլ',
+    legendStylesOthersOutOfRangeColor: 'Միջակայքերից դուրս արժեքի գույն',
     exportType: 'Արտահանվող ֆայլի տեսակ',
     download: 'Ներբերռնել',
   },

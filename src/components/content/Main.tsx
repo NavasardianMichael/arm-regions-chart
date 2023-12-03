@@ -13,6 +13,7 @@ import { Chart } from './ui/chart/Main'
 import styles from './styles.module.css'
 import { InfoCircleOutlined } from '@ant-design/icons'
 import Title from 'antd/es/typography/Title'
+import { SectionTitle } from './SectionTitle'
 
 const TABS = {
   chartDataInput: 'chartDataInput',
@@ -32,12 +33,7 @@ export const Content: FC = () => {
       key: TABS.chartDataInput,
       label: (
         <Flex justify="space-between" align="center">
-          <Title
-            style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
-            level={5}
-          >
-            {translations.chartData}
-          </Title>
+          <SectionTitle text={translations.chartData} />
           <Tooltip 
             placement="bottom" 
             title={translations.dataInputHint} 
@@ -52,44 +48,17 @@ export const Content: FC = () => {
     },
     {
       key: TABS.legendDataInput,
-      label: (
-        <Flex align="center">
-          <Title
-            style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
-            level={5}
-          >
-            {translations.legendData}
-          </Title>
-        </Flex>
-      ),
+      label: <SectionTitle text={translations.legendData} />,
       children: <LegendDataInput />,
     },
     {
       key: TABS.chartStyles,
-      label: (
-        <Flex align="center">
-          <Title
-            style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
-            level={5}
-          >
-            {translations.chartStyles}
-          </Title>
-        </Flex>
-      ),
+      label: <SectionTitle text={translations.chartStyles} />,
       children: <ChartStyles />,
     },
     {
       key: TABS.legendStyles,
-      label: (
-        <Flex align="center">
-          <Title
-            style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
-            level={5}
-          >
-            {translations.legendStyles}
-          </Title>
-        </Flex>
-      ),
+      label: <SectionTitle text={translations.legendStyles} />,
       children: <LegendStyles />,
     },
   ]

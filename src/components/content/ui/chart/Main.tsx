@@ -24,14 +24,11 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
       }
     }
 
-    const firstLegendOption = legendOptions.byId[legendOptions.allIds[0]]
-    const lastLegendOption = legendOptions.byId[legendOptions.allIds[legendOptions.allIds.length - 1]]
-
-    if (!color) {
-      if (value <= firstLegendOption.rangeEnd) color = firstLegendOption.color
-      if (value >= lastLegendOption.rangeStart) color = lastLegendOption.color
-    }
-    return color
+    // if (!color) {
+    //   if (value <= firstLegendOption.rangeEnd) color = firstLegendOption.color
+    //   if (value >= lastLegendOption.rangeStart) color = lastLegendOption.color
+    // }
+    return color || customStyles.legend.others.outOfRangeColor
   }
 
   return (

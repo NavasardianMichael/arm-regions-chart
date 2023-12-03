@@ -140,7 +140,7 @@ export const REGIONS_INITIAL_OPTIONS: T_RegionsState['byId'] = {
   },
   [REGIONS_IDS.shirak]: {
     id: REGIONS_IDS.shirak,
-    value: 900,
+    value: 230,
     text: REGIONS_LOCALIZE_OPTIONS.am[REGIONS_IDS.shirak],
     label: {
       xPos: 90 + 11,

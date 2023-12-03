@@ -1,27 +1,22 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, memo, useCallback, useEffect, useState } from 'react'
 import { Button, Flex, Input } from 'antd'
 import Table, { ColumnsType } from 'antd/es/table'
 import Title from 'antd/es/typography/Title'
+import { REGIONS_LOCALIZE_OPTIONS } from 'helpers/constants/localization'
 import { REGIONS_IDS_LIST, REGIONS_INITIAL_OPTIONS } from 'helpers/constants/regions'
 import { isNumber, isSimilar } from 'helpers/functions/commons'
+import { selectSelectedLanguage } from 'store/chart/selectors'
 import { selectRegionsData } from 'store/regions/selectors'
 import { setRegionOptions, setRegionsData } from 'store/regions/slice'
 import { T_RegionOptions, T_RegionsState } from 'store/regions/types'
+import { useInitialTextDataInput } from 'hooks/useInitialTextDataInput'
 import { useTranslations } from 'hooks/useTranslations'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { TextFormat } from './TextFormat'
 import styles from './styles.module.css'
-import { useInitialTextDataInput } from 'hooks/useInitialTextDataInput'
-import { selectSelectedLanguage } from 'store/chart/selectors'
-import { REGIONS_LOCALIZE_OPTIONS } from 'helpers/constants/localization'
 
-
-const generateInitialProcessedText = (value: string) => {
-
-}
-
-export const DataInput: FC = () => {
+export const DataInput: FC = memo(() => {
   const dispatch = useTypedDispatch()
   const data = useTypedSelector(selectRegionsData)
   const selectedLanguage = useTypedSelector(selectSelectedLanguage)
@@ -56,24 +51,26 @@ export const DataInput: FC = () => {
 
     const tabSpaceRegExp = /[\t ]+/
     const insertedData = rows.reduce((acc, row) => {
-      
       const extractedValuesFromRow = row.split(tabSpaceRegExp)
-      const text = (
-        extractedValuesFromRow.length > 2 ? 
-        extractedValuesFromRow.slice(0, extractedValuesFromRow.length - 1).join('') : 
-        extractedValuesFromRow[0]
-      )
+      const text =
+        extractedValuesFromRow.length > 2
+          ? extractedValuesFromRow.slice(0, extractedValuesFromRow.length - 1).join('')
+          : extractedValuesFromRow[0]
       const value = extractedValuesFromRow[extractedValuesFromRow.length - 1]
-      
+
       const almostId = text.split(' ').join('').toLowerCase() as keyof T_RegionsState['byId']
-      let foundId = REGIONS_IDS_LIST.find(id => almostId.includes(id) || isSimilar(almostId, id))
-      
-      if(!foundId) foundId = REGIONS_IDS_LIST.reduce((res, id) => {
-        const possibleMatcher = REGIONS_LOCALIZE_OPTIONS['am'][id].toLowerCase()
-        
-        if(!res && almostId.includes(possibleMatcher) || isSimilar(possibleMatcher, almostId)) res =  id
-        return res
-      }, ''  as keyof T_RegionsState['byId'])  as keyof T_RegionsState['byId']
+      let foundId = REGIONS_IDS_LIST.find((id) => almostId.includes(id) || isSimilar(almostId, id))
+
+      if (!foundId)
+        foundId = REGIONS_IDS_LIST.reduce(
+          (res, id) => {
+            const possibleMatcher = REGIONS_LOCALIZE_OPTIONS['am'][id].toLowerCase()
+
+            if ((!res && almostId.includes(possibleMatcher)) || isSimilar(possibleMatcher, almostId)) res = id
+            return res
+          },
+          '' as keyof T_RegionsState['byId']
+        ) as keyof T_RegionsState['byId']
 
       if (!foundId) return acc
 
@@ -145,14 +142,7 @@ export const DataInput: FC = () => {
       title: translations.regionName,
       dataIndex: 'text',
       render: (value, record) => {
-        return (
-          <Input
-            name={record.id}
-            value={value}
-            data-region-option-name="text"
-            onChange={handleTextChange}
-          />
-        )
+        return <Input name={record.id} value={value} data-region-option-name="text" onChange={handleTextChange} />
       },
     },
     {
@@ -185,4 +175,4 @@ export const DataInput: FC = () => {
       <Table columns={columns} dataSource={dataSource} pagination={false} bordered />
     </div>
   )
-}
+})

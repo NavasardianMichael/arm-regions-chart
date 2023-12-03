@@ -34,6 +34,9 @@ export type T_ChartState = {
         color: string
         width: number
       }
+      others: {
+        outOfRangeColor: string
+      }
     }
   }
   legend: {
@@ -60,5 +63,6 @@ export type T_ActionPayloads = {
   setChartShadowStyles: Partial<T_ChartState['styles']['chart']['shadow']>
   setLegendLabelsStyles: Partial<T_ChartState['styles']['legend']['labels']>
   setLegendBorderStyles: Partial<T_ChartState['styles']['legend']['border']>
+  setLegendOtherStyles: Partial<T_ChartState['styles']['legend']['others']>
   setLanguage: T_ChartState['selectedLanguage']
 }

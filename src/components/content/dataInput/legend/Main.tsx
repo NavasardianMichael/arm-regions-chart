@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, memo, useEffect } from 'react'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, ColorPicker, Flex, Input, Table } from 'antd'
 import { Color } from 'antd/es/color-picker'
@@ -15,21 +15,22 @@ import styles from './styles.module.css'
 
 type DataType = T_Legend
 
-export const LegendDataInput: FC = () => {
+export const LegendDataInput: FC = memo(() => {
   const dispatch = useTypedDispatch()
   const legendOptions = useTypedSelector(selectChartLegendOptions)
   const translations = useTranslations()
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, value } = e.currentTarget
+    const { name, value, type } = e.currentTarget
     const attrName = e.currentTarget.getAttribute('data-chart-option-name') as keyof T_Legend
 
     const action = {
       id: name,
-      [attrName]: value,
+      [attrName]: type === 'number' ? +value : value,
     }
     if (attrName === 'rangeStart' || attrName === 'rangeEnd') {
-      const { rangeStart, rangeEnd } = legendOptions.byId[name]
+      const rangeStart = attrName === 'rangeStart' ? +value : legendOptions.byId[name].rangeStart
+      const rangeEnd = attrName === 'rangeEnd' ? +value : legendOptions.byId[name].rangeEnd
       action.name = rangeStart + ' - ' + rangeEnd
     }
 
@@ -60,7 +61,7 @@ export const LegendDataInput: FC = () => {
       key: LEGEND_OPTION_NAMES.name,
       title: translations.legendName,
       dataIndex: LEGEND_OPTION_NAMES.name,
-      render: (value, record) => {
+      render: (value: T_Legend['name'], record) => {
         return (
           <Input
             name={record.id}
@@ -76,7 +77,7 @@ export const LegendDataInput: FC = () => {
       key: LEGEND_OPTION_NAMES.rangeStart,
       title: translations.legendRangeStart,
       dataIndex: LEGEND_OPTION_NAMES.rangeStart,
-      render: (value, record) => {
+      render: (value: T_Legend['rangeStart'], record) => {
         return (
           <Input
             type="number"
@@ -93,7 +94,7 @@ export const LegendDataInput: FC = () => {
       key: LEGEND_OPTION_NAMES.rangeEnd,
       title: translations.legendRangeEnd,
       dataIndex: LEGEND_OPTION_NAMES.rangeEnd,
-      render: (value, record) => {
+      render: (value: T_Legend['rangeEnd'], record) => {
         return (
           <Input
             type="number"
@@ -110,7 +111,7 @@ export const LegendDataInput: FC = () => {
       key: LEGEND_OPTION_NAMES.color,
       title: translations.legendColor,
       dataIndex: LEGEND_OPTION_NAMES.color,
-      render: (value, record) => {
+      render: (value: T_Legend['color'], record) => {
         return (
           <ColorPicker
             className={styles.rangeEnd}
@@ -125,7 +126,13 @@ export const LegendDataInput: FC = () => {
       title: '',
       key: 'action',
       render: (_, record) => (
-        <Button type="text" id={record.id} icon={<MinusOutlined />} danger onClick={handleRemoveClick} />
+        <Button 
+          type="text" 
+          danger 
+          id={record.id} 
+          icon={<MinusOutlined />} 
+          onClick={handleRemoveClick} 
+        />
       ),
     },
   ]
@@ -134,6 +141,7 @@ export const LegendDataInput: FC = () => {
     key: legendOptionId,
     ...legendOptions.byId[legendOptionId],
   }))
+  console.log({ dataSource })
 
   return (
     <Flex gap="small" vertical className="normalized-table-wrapper">
@@ -141,4 +149,4 @@ export const LegendDataInput: FC = () => {
       <Button icon={<PlusOutlined />} type="text" onClick={handlePlusClick} />
     </Flex>
   )
-}
+})

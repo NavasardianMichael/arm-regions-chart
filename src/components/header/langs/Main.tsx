@@ -26,25 +26,23 @@ export const Langs: FC = () => {
   }
 
   return (
-    <Select onChange={handleLangugeChange} value={selectedLanguage} style={{ width: 130 }}>
+    <Select onChange={handleLangugeChange} value={selectedLanguage} style={{ width: 80 }}>
       <Select.Option value={LANGS.am}>
         <Flex gap="small" align="center" style={{ textTransform: 'uppercase' }}>
           <img
             src={process.env.PUBLIC_URL + '/am.svg'}
-            style={{ padding: 'var(--size-xs) 0', height: 20, width: 40, objectFit: 'cover' }}
+            style={{ padding: 'var(--size-xs) 0', height: 20, width: 30, objectFit: 'cover' }}
             alt="Flag of Armenia"
           />
-          {LANGS.am}
         </Flex>
       </Select.Option>
       <Select.Option value={LANGS.en}>
         <Flex gap="middle" align="center" style={{ textTransform: 'uppercase' }}>
           <img
             src={process.env.PUBLIC_URL + '/en.svg'}
-            style={{ padding: 'var(--size-xs) 0', height: 20, width: 40, objectFit: 'cover' }}
+            style={{ padding: 'var(--size-xs) 0', height: 20, width: 30, objectFit: 'cover' }}
             alt="Flag of Great Britatin"
           />
-          {LANGS.en}
         </Flex>
       </Select.Option>
     </Select>

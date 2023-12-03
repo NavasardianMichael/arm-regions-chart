@@ -34,6 +34,9 @@ const initialState: T_ChartState = {
         color: '#BCB3B3',
         width: 4,
       },
+      others: {
+        outOfRangeColor: '#d9d9d9' 
+      }
     },
   },
   legend: {
@@ -106,6 +109,12 @@ export const chartSlice = createSlice({
         ...action.payload,
       }
     },
+    setLegendOtherStyles: (state, action: PayloadAction<T_ActionPayloads['setLegendOtherStyles']>) => {
+      state.styles.legend.others = {
+        ...state.styles.legend.others,
+        ...action.payload,
+      }
+    },
     setLanguage: (state, action: PayloadAction<T_ActionPayloads['setLanguage']>) => {
       state.selectedLanguage = action.payload
     },
@@ -122,6 +131,7 @@ export const {
   setChartShadowStyles,
   setLegendLabelsStyles,
   setLegendBorderStyles,
+  setLegendOtherStyles,
   setLanguage,
 } = chartSlice.actions
 
