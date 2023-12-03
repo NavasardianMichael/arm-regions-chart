@@ -20,7 +20,7 @@ export const ChartBorderStyles: FC<T_Props> = () => {
       <Title level={5} style={{ marginTop: 0, marginBottom: 'var(--size-md)' }}>
         {translations.chartStylesBorder}
       </Title>
-      <Form layout='horizontal'>
+      <Form layout="horizontal">
         <Form.Item label={translations.chartStylesBorderShow}>
           <Switch onClick={() => dispatch(setChartBorderStyles({ show: !border.show }))} checked={border.show} />
         </Form.Item>

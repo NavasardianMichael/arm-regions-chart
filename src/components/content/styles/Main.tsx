@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Collapse, CollapseProps } from 'antd'
-import { LegendStyles } from './legend/Main'
 import { ChartStyles } from './chart/Main'
+import { LegendStyles } from './legend/Main'
 
 const TABS = {
   chart: 'chart',

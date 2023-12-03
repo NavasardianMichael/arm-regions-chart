@@ -18,7 +18,7 @@ export const ChartShadowStyles: FC<T_Props> = () => {
   return (
     <>
       <Title level={5} style={{ marginTop: 0, marginBottom: 'var(--size-md)' }}>
-      {translations.chartStylesShadow}
+        {translations.chartStylesShadow}
       </Title>
       <Form>
         <Form.Item label={translations.chartStylesShadowShow}>
@@ -35,7 +35,6 @@ export const ChartShadowStyles: FC<T_Props> = () => {
                   <Slider
                     min={1}
                     max={10}
-
                     onChange={(value) => dispatch(setChartShadowStyles({ offset: value ?? 0 }))}
                     value={typeof shadow.offset === 'number' ? shadow.offset : 0}
                   />
@@ -56,7 +55,6 @@ export const ChartShadowStyles: FC<T_Props> = () => {
                   <Slider
                     min={1}
                     max={10}
-
                     onChange={(value) => dispatch(setChartShadowStyles({ blurred: value ?? 0 }))}
                     value={typeof shadow.blurred === 'number' ? shadow.blurred : 0}
                   />

@@ -3,10 +3,10 @@ import { Col, Divider, Flex, Form, InputNumber, Slider, Switch } from 'antd'
 import ColorPicker from 'antd/es/color-picker'
 import Title from 'antd/es/typography/Title'
 import { selectLegendStyles } from 'store/chart/selectors'
+import { setLegendLabelsStyles } from 'store/chart/slice'
 import { useTranslations } from 'hooks/useTranslations'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useTypedSelector } from 'hooks/useTypedSelector'
-import { setLegendLabelsStyles } from 'store/chart/slice'
 
 type T_Props = {}
 
@@ -27,7 +27,10 @@ export const LegendLabelStyles: FC<T_Props> = () => {
         {labels.show && (
           <>
             <Form.Item label={translations.chartStylesTextColor}>
-              <ColorPicker value={labels.color} onChange={(_, hex) => dispatch(setLegendLabelsStyles({ color: hex }))} />
+              <ColorPicker
+                value={labels.color}
+                onChange={(_, hex) => dispatch(setLegendLabelsStyles({ color: hex }))}
+              />
             </Form.Item>
             <Form.Item label={translations.chartStylesFontSize}>
               <Flex gap="middle" style={{ width: 400 }}>

@@ -15,7 +15,6 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
   const { legend: legendOptions, styles: customStyles } = chart
 
   const getColorByLegendOption = (value: T_RegionOptions['value']) => {
-    
     let color = ''
     for (let i = 0; i < legendOptions.allIds.length; i++) {
       const legend = legendOptions.byId[legendOptions.allIds[i]]
@@ -47,12 +46,16 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
           height="802.40002"
           viewBox="0 0 792.57129 802.40002"
         >
-          {
-            customStyles.chart.shadow.show &&
+          {customStyles.chart.shadow.show && (
             <defs>
               <filter id="coloredShadow" x="-20%" y="-20%" width="140%" height="140%">
                 <feGaussianBlur in="SourceAlpha" stdDeviation={customStyles.chart.shadow.blurred} result="blur" />
-                <feOffset in="blur" dx={customStyles.chart.shadow.offset} dy={customStyles.chart.shadow.offset} result="offsetBlur" />
+                <feOffset
+                  in="blur"
+                  dx={customStyles.chart.shadow.offset}
+                  dy={customStyles.chart.shadow.offset}
+                  result="offsetBlur"
+                />
                 <feFlood flood-color={customStyles.chart.shadow.color} result="color" />
                 <feComposite in="color" in2="offsetBlur" operator="in" result="coloredShadow" />
                 <feMerge>
@@ -61,7 +64,7 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
                 </feMerge>
               </filter>
             </defs>
-          }
+          )}
           {REGIONS_IDS_LIST.map((id) => {
             return (
               <path

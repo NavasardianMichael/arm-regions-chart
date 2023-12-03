@@ -27,7 +27,10 @@ export const LegendBorderStyles: FC<T_Props> = () => {
         {border.show && (
           <>
             <Form.Item label={translations.chartStylesTextColor}>
-              <ColorPicker value={border.color} onChange={(_, hex) => dispatch(setLegendBorderStyles({ color: hex }))} />
+              <ColorPicker
+                value={border.color}
+                onChange={(_, hex) => dispatch(setLegendBorderStyles({ color: hex }))}
+              />
             </Form.Item>
             <Form.Item label={translations.chartStylesFontSize}>
               <Flex gap="middle" style={{ width: 400 }}>

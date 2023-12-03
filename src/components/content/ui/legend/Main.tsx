@@ -32,7 +32,7 @@ export const Legend: FC<T_Props> = memo(({ chart: { legend: legendOptions, style
                 y={positionY}
                 x={80}
                 alignmentBaseline="middle"
-                fontSize={chartStyles.legend.labels.fontSize} 
+                fontSize={chartStyles.legend.labels.fontSize}
                 fill={chartStyles.legend.labels.color}
               >
                 {name}

@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { Flex } from 'antd'
 import Title from 'antd/es/typography/Title'
+import { useTranslations } from 'hooks/useTranslations'
 import { Langs } from './langs/Main'
 import styles from './styles.module.css'
-import { useTranslations } from 'hooks/useTranslations'
 
 export const Header: FC = () => {
   const translations = useTranslations()

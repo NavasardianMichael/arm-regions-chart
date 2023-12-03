@@ -1,10 +1,9 @@
-import { FC, useCallback, useState } from 'react'
-import { WarningFilled } from '@ant-design/icons'
-import { Button, Flex, Input, Tooltip } from 'antd'
+import { FC, useCallback, useEffect, useState } from 'react'
+import { Button, Flex, Input } from 'antd'
 import Table, { ColumnsType } from 'antd/es/table'
 import Title from 'antd/es/typography/Title'
 import { REGIONS_IDS_LIST, REGIONS_INITIAL_OPTIONS } from 'helpers/constants/regions'
-import { isNumber } from 'helpers/functions/commons'
+import { isNumber, isSimilar } from 'helpers/functions/commons'
 import { selectRegionsData } from 'store/regions/selectors'
 import { setRegionOptions, setRegionsData } from 'store/regions/slice'
 import { T_RegionOptions, T_RegionsState } from 'store/regions/types'
@@ -13,22 +12,22 @@ import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { TextFormat } from './TextFormat'
 import styles from './styles.module.css'
+import { useInitialTextDataInput } from 'hooks/useInitialTextDataInput'
+import { selectSelectedLanguage } from 'store/chart/selectors'
+import { REGIONS_LOCALIZE_OPTIONS } from 'helpers/constants/localization'
+
+
+const generateInitialProcessedText = (value: string) => {
+
+}
 
 export const DataInput: FC = () => {
   const dispatch = useTypedDispatch()
   const data = useTypedSelector(selectRegionsData)
+  const selectedLanguage = useTypedSelector(selectSelectedLanguage)
   const [isProcessedTable, setIsProcessedTable] = useState(false)
-  const [unProcessedText, setUnprocessedText] = useState('')
-  const [formatError, setFormatError] = useState('')
-  const [fieldErrors, setFieldErrors] = useState<Record<keyof T_RegionsState['byId'], string>>(
-    REGIONS_IDS_LIST.reduce(
-      (acc, id) => {
-        acc[id] = ''
-        return acc
-      },
-      {} as Record<keyof T_RegionsState['byId'], string>
-    )
-  )
+  const initialUnprocessedText = useInitialTextDataInput()
+  const [unProcessedText, setUnprocessedText] = useState(() => initialUnprocessedText)
   const translations = useTranslations()
 
   const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
@@ -48,77 +47,73 @@ export const DataInput: FC = () => {
 
   const handleProcessTextData: React.MouseEventHandler<HTMLButtonElement> = () => {
     // try {
-      const rows = unProcessedText
-        .trim()
-        .split('\n')
-        .filter((row) => !!row)
+    const rows = unProcessedText
+      .trim()
+      .split('\n')
+      .filter((row) => !!row)
 
-      let state = {} as T_RegionsState['byId']
+    let state = {} as T_RegionsState['byId']
+
+    const tabSpaceRegExp = /[\t ]+/
+    const insertedData = rows.reduce((acc, row) => {
       
-
-      const insertedData =  rows.reduce((acc, row) => {
-        const [text, value] = row.split('\t')
-        const id = text.split(' ').join('').toLowerCase() as keyof T_RegionsState['byId']
-        if(!id) return acc
-        acc[id] = {
-          id,
-          text,
-          value: +value
-        }
-        return acc
-      }, {} as Record<keyof T_RegionsState['byId'], Pick<T_RegionOptions, 'id' | 'text' | 'value'>>)
-
-      console.log({insertedData});
-      const regionsState = REGIONS_IDS_LIST.reduce((acc, id) => {
-
-
-        const newRow: T_RegionOptions = 
-          {
-            ...REGIONS_INITIAL_OPTIONS[id],
-            ...insertedData[id],
-            text: insertedData[id]?.text ?? '',
-            value: insertedData[id]?.value ?? ''
-          }
+      const extractedValuesFromRow = row.split(tabSpaceRegExp)
+      const text = (
+        extractedValuesFromRow.length > 2 ? 
+        extractedValuesFromRow.slice(0, extractedValuesFromRow.length - 1).join('') : 
+        extractedValuesFromRow[0]
+      )
+      const value = extractedValuesFromRow[extractedValuesFromRow.length - 1]
+      
+      const almostId = text.split(' ').join('').toLowerCase() as keyof T_RegionsState['byId']
+      let foundId = REGIONS_IDS_LIST.find(id => almostId.includes(id) || isSimilar(almostId, id))
+      
+      if(!foundId) foundId = REGIONS_IDS_LIST.reduce((res, id) => {
+        const possibleMatcher = REGIONS_LOCALIZE_OPTIONS['am'][id].toLowerCase()
         
+        if(!res && almostId.includes(possibleMatcher) || isSimilar(possibleMatcher, almostId)) res =  id
+        return res
+      }, ''  as keyof T_RegionsState['byId'])  as keyof T_RegionsState['byId']
 
-        console.log({id, newRow});
-        acc[id] = newRow
-        return acc
+      if (!foundId) return acc
 
-      }, state) 
+      acc[foundId] = {
+        id: foundId,
+        text,
+        value: +value,
+      }
+      return acc
+    }, {} as any)
 
-      // if(!regionsState.allIds.length) {
-      //   setFormatError('The data you entered cannot be formatted, please ensure it matches the expected pattern')
-      //   setUnprocessedText('')
-      //   return
-      // }
+    const regionsState = REGIONS_IDS_LIST.reduce((acc, id) => {
+      const foundRegion = insertedData[id]
+      const newRow: T_RegionOptions = {
+        ...REGIONS_INITIAL_OPTIONS[id],
+        text: foundRegion?.text ?? '',
+        value: foundRegion?.value ?? '',
+      }
 
-      setFieldErrors((prev) => {
-        const newErrorFields = REGIONS_IDS_LIST.reduce(
-          (errorFieldIds, id) => {
-            if (!isNumber(regionsState[id].value)) errorFieldIds[id] = `The row with identificator "${id}" suffers a problem`
-            return errorFieldIds
-          },
-          prev as typeof fieldErrors
-        )
+      acc[id] = newRow
+      return acc
+    }, state)
 
-        return newErrorFields
-      })
-
-      dispatch(setRegionsData({
+    dispatch(
+      setRegionsData({
         byId: regionsState,
-        allIds: REGIONS_IDS_LIST
-      }))
-      setIsProcessedTable(true)
-    // } catch (e) {
-    //   setFormatError('The data you entered cannot be formatted, please ensure it matches the expected pattern')
-    // }
+        allIds: REGIONS_IDS_LIST,
+      })
+    )
+    setIsProcessedTable(true)
   }
+
+  useEffect(() => {
+    setUnprocessedText(initialUnprocessedText)
+  }, [selectedLanguage])
 
   if (!isProcessedTable) {
     return (
       <Flex vertical gap="small">
-        <TextFormat formatError={formatError} value={unProcessedText} onChange={handleChange} />
+        <TextFormat value={unProcessedText} onChange={handleChange} />
         <Flex className={styles.inputProcessButtons} gap="small" style={{ fontSize: 'var(--size-sm)' }}>
           <Button type="primary" disabled={!unProcessedText} onClick={handleProcessTextData}>
             {translations.tabDelimitedTextProcessorButton}
@@ -136,7 +131,7 @@ export const DataInput: FC = () => {
       key: 'id',
       title: translations.regionID,
       dataIndex: 'id',
-      render: (value) => {
+      render: (value: keyof T_RegionsState['byId'], record) => {
         return (
           <Title style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }} level={5}>
             #{value}
@@ -146,6 +141,7 @@ export const DataInput: FC = () => {
     },
     {
       key: 'name',
+
       title: translations.regionName,
       dataIndex: 'text',
       render: (value, record) => {
@@ -155,16 +151,6 @@ export const DataInput: FC = () => {
             value={value}
             data-region-option-name="text"
             onChange={handleTextChange}
-            status={!value ? 'error' : undefined}
-            prefix={
-              value ? 
-                null :
-                (
-                  <Tooltip placement="top" title={fieldErrors[record.id]}>
-                    <WarningFilled />
-                  </Tooltip>
-                )
-            }
           />
         )
       },
@@ -174,8 +160,6 @@ export const DataInput: FC = () => {
       title: translations.regionValue,
       dataIndex: 'value',
       render: (value, record) => {
-        console.log({ value, id: record.id}, isNumber(value))
-
         return (
           <Input
             type="number"
@@ -183,14 +167,18 @@ export const DataInput: FC = () => {
             value={value}
             data-region-option-name="value"
             onChange={handleTextChange}
-            status={isNumber(value) ? undefined : 'error'}
+            status={isNumber(+value) && value !== '' ? undefined : 'error'}
           />
         )
       },
     },
   ]
 
-  const dataSource: T_RegionOptions[] = REGIONS_IDS_LIST.map((regionId) => ({ key: regionId, ...data.byId[regionId], id: regionId }))
+  const dataSource: T_RegionOptions[] = REGIONS_IDS_LIST.map((regionId) => ({
+    key: regionId,
+    ...data.byId[regionId],
+    id: regionId,
+  }))
 
   return (
     <div className="normalized-table-wrapper">

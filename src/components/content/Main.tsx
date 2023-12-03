@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Collapse, CollapseProps, Flex } from 'antd'
+import { Collapse, CollapseProps, Flex, Tooltip } from 'antd'
 import { ChartStyles } from './styles/chart/Main'
 import { LegendStyles } from './styles/legend/Main'
 import { selectChart } from 'store/chart/selectors'
@@ -11,6 +11,8 @@ import { DataInput } from 'components/content/dataInput/chart/Main'
 import { LegendDataInput } from './dataInput/legend/Main'
 import { Chart } from './ui/chart/Main'
 import styles from './styles.module.css'
+import { InfoCircleOutlined } from '@ant-design/icons'
+import Title from 'antd/es/typography/Title'
 
 const TABS = {
   chartDataInput: 'chartDataInput',
@@ -28,22 +30,66 @@ export const Content: FC = () => {
   const items: CollapseProps['items'] = [
     {
       key: TABS.chartDataInput,
-      label: translations.chartData,
+      label: (
+        <Flex justify="space-between" align="center">
+          <Title
+            style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
+            level={5}
+          >
+            {translations.chartData}
+          </Title>
+          <Tooltip 
+            placement="bottom" 
+            title={translations.dataInputHint} 
+            color='#108ee9'
+          >
+            < InfoCircleOutlined  style={{ color: '#1677ff', fontSize: 18 }} />
+          </Tooltip>
+
+        </Flex>
+      ),
       children: <DataInput />,
     },
     {
       key: TABS.legendDataInput,
-      label: translations.legendData,
+      label: (
+        <Flex align="center">
+          <Title
+            style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
+            level={5}
+          >
+            {translations.legendData}
+          </Title>
+        </Flex>
+      ),
       children: <LegendDataInput />,
     },
     {
       key: TABS.chartStyles,
-      label: translations.chartStyles,
+      label: (
+        <Flex align="center">
+          <Title
+            style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
+            level={5}
+          >
+            {translations.chartStyles}
+          </Title>
+        </Flex>
+      ),
       children: <ChartStyles />,
     },
     {
       key: TABS.legendStyles,
-      label: translations.legendStyles,
+      label: (
+        <Flex align="center">
+          <Title
+            style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
+            level={5}
+          >
+            {translations.legendStyles}
+          </Title>
+        </Flex>
+      ),
       children: <LegendStyles />,
     },
   ]

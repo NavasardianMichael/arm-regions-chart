@@ -8,10 +8,10 @@ import { makeid } from 'helpers/functions/commons'
 import { selectChartLegendOptions } from 'store/chart/selectors'
 import { addChartLegend, removeChartLegend, setChartLegendOptions } from 'store/chart/slice'
 import { T_Legend } from 'store/chart/types'
+import { useTranslations } from 'hooks/useTranslations'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import styles from './styles.module.css'
-import { useTranslations } from 'hooks/useTranslations'
 
 type DataType = T_Legend
 

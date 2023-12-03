@@ -9,8 +9,7 @@ type Props = {
 }
 
 export const Tooltip: FC<PropsWithChildren<Props>> = ({ show = false, title, children, placement = 'top' }) => {
-
-  if (!show) return <>{ children }</>
+  if (!show) return <>{children}</>
 
   return (
     <AntdTooltip placement={placement} title={title}>

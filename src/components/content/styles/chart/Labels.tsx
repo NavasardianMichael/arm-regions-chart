@@ -20,7 +20,7 @@ export const ChartLabelStyles: FC<T_Props> = () => {
       <Title level={5} style={{ marginTop: 0, marginBottom: 'var(--size-md)' }}>
         {translations.chartStylesLabels}
       </Title>
-      <Form layout='horizontal'>
+      <Form layout="horizontal">
         <Form.Item label={translations.chartStylesShowLabels}>
           <Switch onClick={() => dispatch(setChartLabelsStyles({ show: !labels.show }))} checked={labels.show} />
         </Form.Item>
