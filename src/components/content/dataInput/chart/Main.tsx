@@ -144,6 +144,7 @@ export const DataInput: FC = memo(() => {
           return (
             <Input
               type="number"
+              id={record.id}
               name={record.id}
               value={value}
               data-region-option-name="value"

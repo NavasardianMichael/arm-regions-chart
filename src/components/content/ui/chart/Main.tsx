@@ -72,6 +72,7 @@ export const Chart: FC<T_Props> = ({ data, chart }) => {
                 stroke={customStyles.chart.border.color}
                 strokeWidth={customStyles.chart.border.width}
                 filter="url(#coloredShadow)"
+                onClick={() => document.getElementById(id)?.focus()}
               ></path>
             )
           })}
