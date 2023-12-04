@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/arm-regions-chart/static/css/main.396bc37e.css",
-    "main.js": "/arm-regions-chart/static/js/main.a1d84247.js",
+    "main.css": "/arm-regions-chart/static/css/main.d21fd557.css",
+    "main.js": "/arm-regions-chart/static/js/main.ec5c8729.js",
     "static/js/703.5e3cf4eb.chunk.js": "/arm-regions-chart/static/js/703.5e3cf4eb.chunk.js",
-    "static/js/261.549ea4a8.chunk.js": "/arm-regions-chart/static/js/261.549ea4a8.chunk.js",
+    "static/js/598.01d9405f.chunk.js": "/arm-regions-chart/static/js/598.01d9405f.chunk.js",
     "index.html": "/arm-regions-chart/index.html",
-    "main.396bc37e.css.map": "/arm-regions-chart/static/css/main.396bc37e.css.map",
-    "main.a1d84247.js.map": "/arm-regions-chart/static/js/main.a1d84247.js.map",
+    "main.d21fd557.css.map": "/arm-regions-chart/static/css/main.d21fd557.css.map",
+    "main.ec5c8729.js.map": "/arm-regions-chart/static/js/main.ec5c8729.js.map",
     "703.5e3cf4eb.chunk.js.map": "/arm-regions-chart/static/js/703.5e3cf4eb.chunk.js.map",
-    "261.549ea4a8.chunk.js.map": "/arm-regions-chart/static/js/261.549ea4a8.chunk.js.map"
+    "598.01d9405f.chunk.js.map": "/arm-regions-chart/static/js/598.01d9405f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.396bc37e.css",
-    "static/js/main.a1d84247.js"
+    "static/css/main.d21fd557.css",
+    "static/js/main.ec5c8729.js"
   ]
 }
