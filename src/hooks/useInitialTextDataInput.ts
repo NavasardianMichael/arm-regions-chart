@@ -9,7 +9,9 @@ export const useInitialTextDataInput = () => {
 
   const processedText = useMemo(() => {
     return REGIONS_IDS_LIST.reduce((result, id, i, arr) => {
-      return (result += `${REGIONS_LOCALIZE_OPTIONS[selectedLanguage][id]}\t${REGIONS_INITIAL_OPTIONS[id].value}${i === arr.length-1 ? '' : '\n'}`)
+      return (result += `${REGIONS_LOCALIZE_OPTIONS[selectedLanguage][id]}\t${REGIONS_INITIAL_OPTIONS[id].value}${
+        i === arr.length - 1 ? '' : '\n'
+      }`)
     }, '')
   }, [selectedLanguage])
 

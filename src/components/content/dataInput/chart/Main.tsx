@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useEffect, useState } from 'react'
+import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Flex, Input } from 'antd'
 import Table, { ColumnsType } from 'antd/es/table'
 import Title from 'antd/es/typography/Title'
@@ -25,16 +25,19 @@ export const DataInput: FC = memo(() => {
   const [unProcessedText, setUnprocessedText] = useState(() => initialUnprocessedText)
   const translations = useTranslations()
 
-  const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
-    const { name, value } = e.target
-    const attrName = e.currentTarget.getAttribute('data-region-option-name') as keyof T_RegionOptions
-    dispatch(
-      setRegionOptions({
-        id: name as T_RegionOptions['id'],
-        [attrName]: value,
-      })
-    )
-  }, [])
+  const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      const { name, value } = e.target
+      const attrName = e.currentTarget.getAttribute('data-region-option-name') as keyof T_RegionOptions
+      dispatch(
+        setRegionOptions({
+          id: name as T_RegionOptions['id'],
+          [attrName]: value,
+        })
+      )
+    },
+    [dispatch]
+  )
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = useCallback((e) => {
     setUnprocessedText(e.target.value)
@@ -107,6 +110,61 @@ export const DataInput: FC = memo(() => {
     setUnprocessedText(initialUnprocessedText)
   }, [selectedLanguage])
 
+  const columns: ColumnsType<T_RegionOptions> = useMemo(
+    () => [
+      {
+        key: 'id',
+        title: translations.regionID,
+        dataIndex: 'id',
+        render: (value: keyof T_RegionsState['byId']) => {
+          return (
+            <Title
+              style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }}
+              level={5}
+            >
+              #{value}
+            </Title>
+          )
+        },
+      },
+      {
+        key: 'name',
+
+        title: translations.regionName,
+        dataIndex: 'text',
+        render: (value, record) => {
+          return <Input name={record.id} value={value} data-region-option-name="text" onChange={handleTextChange} />
+        },
+      },
+      {
+        key: 'value',
+        title: translations.regionValue,
+        dataIndex: 'value',
+        render: (value, record) => {
+          return (
+            <Input
+              type="number"
+              name={record.id}
+              value={value}
+              data-region-option-name="value"
+              onChange={handleTextChange}
+              status={isNumber(+value) && value !== '' ? undefined : 'error'}
+            />
+          )
+        },
+      },
+    ],
+    [translations, handleTextChange]
+  )
+
+  const dataSource: T_RegionOptions[] = useMemo(() => {
+    return REGIONS_IDS_LIST.map((regionId) => ({
+      key: regionId,
+      ...data.byId[regionId],
+      id: regionId,
+    }))
+  }, [data.byId])
+
   if (!isProcessedTable) {
     return (
       <Flex vertical gap="small">
@@ -122,53 +180,6 @@ export const DataInput: FC = memo(() => {
       </Flex>
     )
   }
-
-  const columns: ColumnsType<T_RegionOptions> = [
-    {
-      key: 'id',
-      title: translations.regionID,
-      dataIndex: 'id',
-      render: (value: keyof T_RegionsState['byId'], record) => {
-        return (
-          <Title style={{ margin: '0 0 0 8px', textAlign: 'left', textTransform: 'uppercase', fontSize: 14 }} level={5}>
-            #{value}
-          </Title>
-        )
-      },
-    },
-    {
-      key: 'name',
-
-      title: translations.regionName,
-      dataIndex: 'text',
-      render: (value, record) => {
-        return <Input name={record.id} value={value} data-region-option-name="text" onChange={handleTextChange} />
-      },
-    },
-    {
-      key: 'value',
-      title: translations.regionValue,
-      dataIndex: 'value',
-      render: (value, record) => {
-        return (
-          <Input
-            type="number"
-            name={record.id}
-            value={value}
-            data-region-option-name="value"
-            onChange={handleTextChange}
-            status={isNumber(+value) && value !== '' ? undefined : 'error'}
-          />
-        )
-      },
-    },
-  ]
-
-  const dataSource: T_RegionOptions[] = REGIONS_IDS_LIST.map((regionId) => ({
-    key: regionId,
-    ...data.byId[regionId],
-    id: regionId,
-  }))
 
   return (
     <div className="normalized-table-wrapper">

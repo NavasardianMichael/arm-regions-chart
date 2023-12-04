@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { LEGEND_INITIAL_ROWS, LEGEND_INITIAL_ROW_IDS } from 'helpers/constants/chart'
 import { LANGS } from 'helpers/constants/localization'
+import { generateRandomColor, generateRandomNumberInRange } from 'helpers/functions/chart'
 import { T_ActionPayloads, T_ChartState } from './types'
 
 const initialState: T_ChartState = {
@@ -35,8 +36,8 @@ const initialState: T_ChartState = {
         width: 4,
       },
       others: {
-        outOfRangeColor: '#d9d9d9' 
-      }
+        outOfRangeColor: '#d9d9d9',
+      },
     },
   },
   legend: {
@@ -118,6 +119,43 @@ export const chartSlice = createSlice({
     setLanguage: (state, action: PayloadAction<T_ActionPayloads['setLanguage']>) => {
       state.selectedLanguage = action.payload
     },
+    applyRandomStyles: (state) => {
+      state.styles = {
+        chart: {
+          labels: {
+            show: true,
+            color: generateRandomColor(),
+            fontSize: generateRandomNumberInRange(10, 30),
+          },
+          border: {
+            show: true,
+            color: generateRandomColor(),
+            width: generateRandomNumberInRange(1, 10),
+          },
+          shadow: {
+            show: true,
+            offset: generateRandomNumberInRange(1, 10),
+            color: generateRandomColor(),
+            blurred: generateRandomNumberInRange(1, 10),
+          },
+        },
+        legend: {
+          labels: {
+            show: true,
+            color: '#000',
+            fontSize: generateRandomNumberInRange(10, 30),
+          },
+          border: {
+            show: true,
+            color: generateRandomColor(),
+            width: generateRandomNumberInRange(1, 10),
+          },
+          others: {
+            outOfRangeColor: generateRandomColor(),
+          },
+        },
+      }
+    },
   },
 })
 
@@ -133,6 +171,7 @@ export const {
   setLegendBorderStyles,
   setLegendOtherStyles,
   setLanguage,
+  applyRandomStyles,
 } = chartSlice.actions
 
 export default chartSlice.reducer

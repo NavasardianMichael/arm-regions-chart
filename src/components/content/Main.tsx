@@ -1,5 +1,7 @@
 import { FC, useState } from 'react'
+import { InfoCircleOutlined } from '@ant-design/icons'
 import { Collapse, CollapseProps, Flex, Tooltip } from 'antd'
+import Title from 'antd/es/typography/Title'
 import { ChartStyles } from './styles/chart/Main'
 import { LegendStyles } from './styles/legend/Main'
 import { selectChart } from 'store/chart/selectors'
@@ -8,12 +10,10 @@ import { useTranslations } from 'hooks/useTranslations'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { ChartDownloadPanel } from 'components/chartDownloadPanel/Main'
 import { DataInput } from 'components/content/dataInput/chart/Main'
+import { SectionTitle } from './SectionTitle'
 import { LegendDataInput } from './dataInput/legend/Main'
 import { Chart } from './ui/chart/Main'
 import styles from './styles.module.css'
-import { InfoCircleOutlined } from '@ant-design/icons'
-import Title from 'antd/es/typography/Title'
-import { SectionTitle } from './SectionTitle'
 
 const TABS = {
   chartDataInput: 'chartDataInput',
@@ -34,14 +34,9 @@ export const Content: FC = () => {
       label: (
         <Flex justify="space-between" align="center">
           <SectionTitle text={translations.chartData} />
-          <Tooltip 
-            placement="bottom" 
-            title={translations.dataInputHint} 
-            color='#108ee9'
-          >
-            < InfoCircleOutlined  style={{ color: '#1677ff', fontSize: 18 }} />
+          <Tooltip placement="bottom" title={translations.dataInputHint} color="#108ee9">
+            <InfoCircleOutlined style={{ color: '#1677ff', fontSize: 18 }} />
           </Tooltip>
-
         </Flex>
       ),
       children: <DataInput />,

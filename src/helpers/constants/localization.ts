@@ -71,6 +71,7 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     legendStylesOthersOutOfRangeColor: 'Out of Range Color',
     exportType: 'Export type',
     download: 'Download',
+    generateRandomStyles: 'Apply Random Styles',
   },
   [LANGS.am]: {
     [REGIONS_IDS.aragatsotn]: 'Արագածոտն',
@@ -125,5 +126,6 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     legendStylesOthersOutOfRangeColor: 'Միջակայքերից դուրս արժեքի գույն',
     exportType: 'Արտահանվող ֆայլի տեսակ',
     download: 'Ներբերռնել',
+    generateRandomStyles: 'Ոճավորել պատահական փաթեթով',
   },
 } as const

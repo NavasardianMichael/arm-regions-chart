@@ -42,3 +42,15 @@ export const downloadPDF = (svgStr: string) => {
   }
   html2pdf().set(opt).from(svgStr).save()
 }
+
+export const generateRandomColor = () => {
+  const x = Math.round(0xffffff * Math.random()).toString(16)
+  const y = 6 - x.length
+  const z = '000000'
+  const z1 = z.substring(0, y)
+  return '#' + z1 + x
+}
+
+export const generateRandomNumberInRange = (min: number, max: number) => {
+  return Math.floor(min + Math.random() * (max - min))
+}

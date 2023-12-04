@@ -65,4 +65,5 @@ export type T_ActionPayloads = {
   setLegendBorderStyles: Partial<T_ChartState['styles']['legend']['border']>
   setLegendOtherStyles: Partial<T_ChartState['styles']['legend']['others']>
   setLanguage: T_ChartState['selectedLanguage']
+  applyRandomStyles: null
 }
