@@ -71,6 +71,7 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     legendStylesOthersOutOfRangeColor: 'Out of Range Color',
     exportType: 'Export type',
     download: 'Download',
+    downloadQuality: 'Quality (%)',
     generateRandomStyles: 'Apply Random Styles Pack',
   },
   [LANGS.am]: {
@@ -126,6 +127,7 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     legendStylesOthersOutOfRangeColor: 'Միջակայքերից դուրս արժեքի գույն',
     exportType: 'Արտահանվող ֆայլի տեսակ',
     download: 'Ներբեռնել',
+    downloadQuality: 'Որակ (%)',
     generateRandomStyles: 'Ոճավորել պատահական փաթեթով',
   },
 } as const

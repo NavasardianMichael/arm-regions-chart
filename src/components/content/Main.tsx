@@ -67,7 +67,9 @@ export const Content: FC = () => {
         className={styles.section}
       />
       <Flex vertical gap="middle" className={styles.section}>
-        <Chart data={data} chart={chart} />
+        <Flex vertical style={{border: '1px solid var(--lightgray)', borderRadius: 6}}>
+          <Chart data={data} chart={chart} />
+        </Flex>
         <ChartDownloadPanel data={data} chart={chart} />
       </Flex>
     </Flex>
