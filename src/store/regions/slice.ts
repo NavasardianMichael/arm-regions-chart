@@ -12,7 +12,7 @@ export const regionsSlice = createSlice({
   name: 'region',
   initialState,
   reducers: {
-    setRegionOptions: (state, action: PayloadAction<T_ActionPayloads['changeRegionOptions']>) => {
+    setRegionOptions: (state, action: PayloadAction<T_ActionPayloads['setRegionOptions']>) => {
       const { id } = action.payload
       state.byId[id] = {
         ...state.byId[id],
@@ -28,6 +28,7 @@ export const regionsSlice = createSlice({
       state.allIds = action.payload.allIds
       state.byId = action.payload.byId
     },
+
   },
 })
 

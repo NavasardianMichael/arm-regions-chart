@@ -17,7 +17,7 @@ export type T_RegionOptions = {
 }
 
 export type T_ActionPayloads = {
-  changeRegionOptions: Pick<T_RegionOptions, 'id'> & Partial<Exclude<T_RegionOptions, 'id'>>
   setRegionsData: T_RegionsState
+  setRegionOptions: Pick<T_RegionOptions, 'id'> & Partial<Exclude<T_RegionOptions, 'id'>>
   setTexts: Record<T_RegionOptions['id'], string>
 }

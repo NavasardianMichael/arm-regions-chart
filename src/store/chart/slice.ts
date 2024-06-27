@@ -120,6 +120,9 @@ export const chartSlice = createSlice({
       state.selectedLanguage = action.payload
     },
     applyRandomStyles: (state) => {
+      state.legend.allIds.forEach(legendId => {
+        state.legend.byId[legendId].color = generateRandomColor() 
+      })
       state.styles = {
         chart: {
           labels: {
