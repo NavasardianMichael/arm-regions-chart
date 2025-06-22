@@ -9,35 +9,41 @@ export const downloadSVG = (svgStr: string, quality: number) => {
   downloadLink.href = url
   downloadLink.download = EXPORTED_FILE_NAME + '.svg'
   downloadLink.click()
+
+  const event = new Event('asset-downloaded')
+  document.dispatchEvent(event)
 }
 
 export const downloadPNG = (svgStr: string, quality: number) => {
   const scale = quality / 5
 
-  const svgString = new XMLSerializer().serializeToString(document.getElementById('map') as Node);
-  const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+  const svgString = new XMLSerializer().serializeToString(document.getElementById('map') as Node)
+  const canvas = document.getElementById('canvas') as HTMLCanvasElement
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
   // Set canvas size larger for higher resolution
-  canvas.width = 792.57129 * scale;
-  canvas.height = 802.40002 * scale;
+  canvas.width = 792.57129 * scale
+  canvas.height = 802.40002 * scale
 
-  const DOMURL = window.URL || window.webkitURL || window;
-  const img = new Image();
-  const svg = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-  const url = DOMURL.createObjectURL(svg);
+  const DOMURL = window.URL || window.webkitURL || window
+  const img = new Image()
+  const svg = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' })
+  const url = DOMURL.createObjectURL(svg)
 
-  img.src = url;
+  img.src = url
   img.onload = function () {
     // Scale the context to increase the image resolution
-    ctx.scale(scale, scale);
-    ctx.drawImage(img, 0, 0);
-    const png = canvas.toDataURL('image/png');
-    DOMURL.revokeObjectURL(png);
-    const downloadLink = document.createElement('a');
-    downloadLink.href = png;
-    downloadLink.download = EXPORTED_FILE_NAME;
-    downloadLink.click();
+    ctx.scale(scale, scale)
+    ctx.drawImage(img, 0, 0)
+    const png = canvas.toDataURL('image/png')
+    DOMURL.revokeObjectURL(png)
+    const downloadLink = document.createElement('a')
+    downloadLink.href = png
+    downloadLink.download = EXPORTED_FILE_NAME
+    downloadLink.click()
+
+    const event = new Event('asset-downloaded')
+    document.dispatchEvent(event)
   }
 }
 
@@ -49,7 +55,14 @@ export const downloadPDF = (svgStr: string, quality: number) => {
     html2canvas: { scale: quality / 20 },
     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
   }
-  html2pdf().set(opt).from(svgStr).save()
+  html2pdf()
+    .set(opt)
+    .from(svgStr)
+    .save()
+    .then(() => {
+      const event = new Event('asset-downloaded')
+      document.dispatchEvent(event)
+    })
 }
 
 export const generateRandomColor = () => {

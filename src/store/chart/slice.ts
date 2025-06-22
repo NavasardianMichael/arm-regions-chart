@@ -1,45 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { LEGEND_INITIAL_ROWS, LEGEND_INITIAL_ROW_IDS } from 'helpers/constants/chart'
 import { LANGS } from 'helpers/constants/localization'
+import { DEFAULT_STYLES } from 'helpers/constants/styles'
 import { generateRandomColor, generateRandomNumberInRange } from 'helpers/functions/chart'
 import { T_ActionPayloads, T_ChartState } from './types'
 
 const initialState: T_ChartState = {
-  styles: {
-    chart: {
-      labels: {
-        show: true,
-        color: '#000',
-        fontSize: 16,
-      },
-      border: {
-        show: true,
-        color: '#FFF',
-        width: 1,
-      },
-      shadow: {
-        show: false,
-        offset: 4,
-        color: '#BCB3B3',
-        blurred: 4,
-      },
-    },
-    legend: {
-      labels: {
-        show: true,
-        color: '#000',
-        fontSize: 16,
-      },
-      border: {
-        show: false,
-        color: '#BCB3B3',
-        width: 4,
-      },
-      others: {
-        outOfRangeColor: '#d9d9d9',
-      },
-    },
-  },
+  styles: DEFAULT_STYLES,
   legend: {
     byId: LEGEND_INITIAL_ROWS,
     allIds: LEGEND_INITIAL_ROW_IDS,
@@ -119,9 +86,15 @@ export const chartSlice = createSlice({
     setLanguage: (state, action: PayloadAction<T_ActionPayloads['setLanguage']>) => {
       state.selectedLanguage = action.payload
     },
+    resetStyles: (state) => {
+      state.styles = JSON.parse(JSON.stringify(DEFAULT_STYLES))
+      state.legend.allIds.forEach((legendId) => {
+        state.legend.byId[legendId].color = initialState.legend.byId[legendId].color
+      })
+    },
     applyRandomStyles: (state) => {
-      state.legend.allIds.forEach(legendId => {
-        state.legend.byId[legendId].color = generateRandomColor() 
+      state.legend.allIds.forEach((legendId) => {
+        state.legend.byId[legendId].color = generateRandomColor()
       })
       state.styles = {
         chart: {
@@ -174,6 +147,7 @@ export const {
   setLegendBorderStyles,
   setLegendOtherStyles,
   setLanguage,
+  resetStyles,
   applyRandomStyles,
 } = chartSlice.actions
 

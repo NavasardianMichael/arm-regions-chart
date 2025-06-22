@@ -8,8 +8,8 @@ import styles from './styles.module.css'
 export const Header: FC = () => {
   const translations = useTranslations()
   return (
-    <Flex justify="space-between" align="center" className={styles.header}>
-      <Flex gap="large" align="center">
+    <Flex justify="space-between" wrap='wrap' gap="large" align="center" className={styles.header}>
+      <Flex wrap='wrap' gap="large" align="center">
         <img style={{ width: 80 }} src={process.env.PUBLIC_URL + '/logo192.png'} alt="logo" />
         <Title className={styles.title}>{translations.appTitle}</Title>
       </Flex>

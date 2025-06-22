@@ -72,6 +72,7 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     exportType: 'Export type',
     download: 'Download',
     downloadQuality: 'Quality (%)',
+    resetStyles: 'Reset Styles',
     generateRandomStyles: 'Apply Random Styles Pack',
   },
   [LANGS.am]: {
@@ -86,7 +87,7 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     [REGIONS_IDS.syunik]: 'Սյունիք',
     [REGIONS_IDS.tavush]: 'Տավուշ',
     [REGIONS_IDS.vayotsdzor]: 'Վայոց ձոր',
-    appTitle: 'Հայաստանի Հանրապետության վարչատարածքային բաժանման քարտեզ',
+    appTitle: 'ՀՀ վարչատարածքային բաժանման քարտեզ',
     chartData: 'Հիմնական տվյալներ',
     chartDataPlaceholder: 'Այստեղ կարող եք տվյալները տեղադրել տեքստային ձևաչափով',
     tabDelimitedTextProcessorButton: 'Մշակել',
@@ -128,6 +129,7 @@ export const REGIONS_LOCALIZE_OPTIONS = {
     exportType: 'Արտահանվող ֆայլի տեսակ',
     download: 'Ներբեռնել',
     downloadQuality: 'Որակ (%)',
+    resetStyles: 'Վերադառնալ սկզբնական տեսքին',
     generateRandomStyles: 'Ոճավորել պատահական փաթեթով',
   },
 } as const

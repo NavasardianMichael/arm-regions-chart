@@ -1,7 +1,6 @@
 import { FC, useState } from 'react'
 import { InfoCircleOutlined } from '@ant-design/icons'
 import { Collapse, CollapseProps, Flex, Tooltip } from 'antd'
-import Title from 'antd/es/typography/Title'
 import { ChartStyles } from './styles/chart/Main'
 import { LegendStyles } from './styles/legend/Main'
 import { selectChart } from 'store/chart/selectors'
@@ -14,6 +13,7 @@ import { SectionTitle } from './SectionTitle'
 import { LegendDataInput } from './dataInput/legend/Main'
 import { Chart } from './ui/chart/Main'
 import styles from './styles.module.css'
+import { combineClassNames } from 'helpers/functions/commons'
 
 const TABS = {
   chartDataInput: 'chartDataInput',
@@ -59,15 +59,15 @@ export const Content: FC = () => {
   ]
 
   return (
-    <Flex gap="middle" align="start" style={{ padding: 'var(--size-sm)', flex: 1 }}>
+    <Flex gap="middle" align="start" className={styles.container}>
       <Collapse
         items={items}
         activeKey={activeKey}
         onChange={(key) => setActiveKey(key as (typeof TABS)[keyof typeof TABS])}
         className={styles.section}
       />
-      <Flex vertical gap="middle" className={styles.section}>
-        <Flex vertical style={{border: '1px solid var(--lightgray)', borderRadius: 6}}>
+      <Flex vertical gap="middle" className={combineClassNames(styles.section, styles.chartWrapper)}>
+        <Flex vertical style={{ border: '1px solid var(--lightgray)', borderRadius: 6 }}>
           <Chart data={data} chart={chart} />
         </Flex>
         <ChartDownloadPanel data={data} chart={chart} />

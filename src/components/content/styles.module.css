@@ -1,5 +1,22 @@
-.section {
-  width: calc(50vw - var(--size-md));
-  position: sticky;
-  top: var(--size-sm);
+.container {
+  padding: var(--size-sm);
+  flex: 1;
+
+  @media screen and (max-width: 1024px) {
+    flex-wrap: wrap;
+  }
+
+  .section {
+    width: calc(50vw - var(--size-md));
+    top: var(--size-sm);
+    flex-grow: 1;
+
+    &.chartWrapper {
+      position: sticky;
+      width: 100%;
+      @media screen and (min-width: 1025px) {
+        min-width: 500px;
+      }
+    }
+  }
 }

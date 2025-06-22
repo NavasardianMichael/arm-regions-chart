@@ -13,7 +13,6 @@ type T_Props = {}
 export const LegendOtherStyles: FC<T_Props> = () => {
   const dispatch = useTypedDispatch()
   const {
-    labels,
     others: { outOfRangeColor },
   } = useTypedSelector(selectLegendStyles)
   const translations = useTranslations()

@@ -13,7 +13,7 @@ export const Langs: FC = () => {
   const dispatch = useDispatch()
   const selectedLanguage = useTypedSelector(selectSelectedLanguage)
 
-  const handleLangugeChange = (newSelectedLanguage: typeof selectedLanguage) => {
+  const handleLanguageChange = (newSelectedLanguage: typeof selectedLanguage) => {
     dispatch(setLanguage(newSelectedLanguage))
     const translatedTexts: T_ActionPayloads['setTexts'] = REGIONS_IDS_LIST.reduce(
       (acc, id) => {
@@ -26,9 +26,10 @@ export const Langs: FC = () => {
   }
 
   return (
-    <Select onChange={handleLangugeChange} value={selectedLanguage} style={{ width: 80 }}>
+    <Select onChange={handleLanguageChange} value={selectedLanguage} style={{ width: 100 }}>
       <Select.Option value={LANGS.am}>
-        <Flex gap="small" align="center" style={{ textTransform: 'uppercase' }}>
+        <Flex gap="small" align="center" justify='space-between' style={{ textTransform: 'uppercase' }}>
+          <div>hy</div>
           <img
             src={process.env.PUBLIC_URL + '/am.svg'}
             style={{ padding: 'var(--size-xs) 0', height: 20, width: 30, objectFit: 'cover' }}
@@ -37,11 +38,12 @@ export const Langs: FC = () => {
         </Flex>
       </Select.Option>
       <Select.Option value={LANGS.en}>
-        <Flex gap="middle" align="center" style={{ textTransform: 'uppercase' }}>
+        <Flex gap="middle" align="center" justify='space-between' style={{ textTransform: 'uppercase' }}>
+          <div>en</div>
           <img
             src={process.env.PUBLIC_URL + '/en.svg'}
             style={{ padding: 'var(--size-xs) 0', height: 20, width: 30, objectFit: 'cover' }}
-            alt="Flag of Great Britatin"
+            alt="Flag of Great Britain"
           />
         </Flex>
       </Select.Option>
