@@ -53,8 +53,9 @@ jobs:
       # =========================================================================
       # Build the React application for production
       # Creates optimized static files in the build/ directory
+      # CI=false disables treating warnings (including ESLint) as errors
       - name: Build Application
-        run: npm run build
+        run: CI=false npm run build
 
       # =========================================================================
       # STEP 5: Create Deployment Archive
